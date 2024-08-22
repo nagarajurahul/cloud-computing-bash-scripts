@@ -22,8 +22,11 @@ Looking to contribute, innovate new ideas and help the society through IT.
 
 ## First Computing Device
 
-![alt text](<images/image5.png>)
-In the image here, may be not.
+In the image here, may be not.  
+
+<div style="text-align: center;">
+  <img src="images/image5.png" alt="alt text" style="width: 50%;" />
+</div>
 
 ## My interests
 
