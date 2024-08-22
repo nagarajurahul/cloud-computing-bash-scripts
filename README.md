@@ -1,24 +1,24 @@
 # rnagaraju
 
-Who am I?
+## Who am I?
 
-I am Rahul Nagaraju, currently a graduate student in Illinois Institute of Technology.
+I am **Rahul Nagaraju**, currently a graduate student in *Illinois Institute of Technology*.
 
-Where are you from?
+## Where are you from?
 
-Bangalore, India.
+Bangalore, India. Probably known as *IT Center of India*. I grew up to look it as *Garden City* and enjoy the parks, and off course the *weather*.
 
-IT interests
+## IT interests
 
 My uncle introduced me to Google Search at age 7 (probably in 2006), for an assignment on Giraffes. Intrigued by it's capability, I played around tech devices thereafter.
 Earned a B.Tech Degree in Electronics and Computers. Joined IBM for it's innovative Cloud Project and enjoyed cutting edge technologies like Docker, Kubernetes, Jenkins and other automation and Cloud tools. 
 Wanted to get more exposure to technology and meet new people, hence Master's in ITM at Illinois Tech.
 Looking to contribute, innovate new ideas and help the society through IT.
 
-First Computing Device
+## First Computing Device
 
 In the image here, may be not.
 
-My interests
+## My interests
 
 Love Hiking, Motorbiking, and Star Gazing. 
