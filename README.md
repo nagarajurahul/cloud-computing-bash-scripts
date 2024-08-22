@@ -8,7 +8,7 @@ I am **Rahul Nagaraju**, currently a graduate student in *Illinois Institute of 
 
 ## Where are you from?
 
-Bangalore, India. Probably known as *IT Center of India*. I grew up to look it as a beautiful *Garden City* and enjoy the parks, and off course it's *awesome weather*.
+Bangalore, India. Probably known as *IT Center of India*. I grew up to cherish it as a beautiful *Garden City* and enjoy the parks. And off course it's *awesome weather*.
 
 ## IT interests
 
@@ -20,11 +20,11 @@ Wanted to get more exposure to technology and meet new people, hence Master's in
 
 Expertise in Software Engineering, Data Engineering, Cloud Engineering including System Design.  
 
-Looking to contribute, innovate new ideas and help the society through IT.
+Looking to innovate new ideas and contribute to the society through IT.
 
 ## First Computing Device
 
-In the image here, may be not.  
+A handheld mobile device, in the image here, or may be not.  
 
 <div style="text-align: center;">
   <img src="images/image5.png" alt="alt text" style="width: 50%;" />
