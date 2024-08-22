@@ -34,10 +34,21 @@ A handheld mobile device, in the image here, or may be not.
 
 Love Hiking, Motorbiking, and Star Gazing. 
 
+<div style="text-align: center;">
+  <img src="images/image9.png" alt="alt text" style="float: left; width: 45%; margin-right: 10px;"/>
+  <img src="images/image8.png" alt="alt text" style="float: left; width: 45%;"/>
+</div>
+
+<div style="text-align: center;">
+  <img src="images/image7.png" alt="alt text" style="float: left; width: 45%; margin-right: 10px;"/>
+  <img src="images/image6.png" alt="alt text" style="float: left; width: 45%;"/>
+</div>
+
+<!-- 
 ![alt text](images/image9.png)
 
 ![alt text](images/image6.png)
 
 ![alt text](images/image7.png)
 
-![alt text](images/image8.png)
+![alt text](images/image8.png) -->
