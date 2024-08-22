@@ -1,5 +1,7 @@
 # rnagaraju
 
+![alt text](images/image1.png)
+
 ## Who am I?
 
 I am **Rahul Nagaraju**, currently a graduate student in *Illinois Institute of Technology*.
@@ -31,3 +33,7 @@ In the image here, may be not.
 ## My interests
 
 Love Hiking, Motorbiking, and Star Gazing. 
+
+![alt text](images/image6.png)
+
+![alt text](images/image7.png)
