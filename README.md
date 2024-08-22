@@ -11,9 +11,13 @@ Bangalore, India. Probably known as *IT Center of India*. I grew up to look it a
 ## IT interests
 
 My uncle introduced me to Google Search at age 7 (probably in 2006), for an assignment on Giraffes. Intrigued by it's capability, I played around tech devices thereafter.  
+
 Earned a B.Tech Degree in Electronics and Computers. Joined IBM for it's innovative Cloud Project and enjoyed cutting edge technologies like Golang, Docker, Kubernetes, Jenkins and other automation and Cloud tools.   
+
 Wanted to get more exposure to technology and meet new people, hence Master's in ITM at Illinois Tech.  
+
 Expertise in Software Engineering, Data Engineering, Cloud Engineering including System Design.  
+
 Looking to contribute, innovate new ideas and help the society through IT.
 
 ## First Computing Device
