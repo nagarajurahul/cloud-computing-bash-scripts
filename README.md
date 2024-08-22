@@ -34,6 +34,10 @@ A handheld mobile device, in the image here, or may be not.
 
 Love Hiking, Motorbiking, and Star Gazing. 
 
+![alt text](images/image9.png)
+
 ![alt text](images/image6.png)
 
 ![alt text](images/image7.png)
+
+![alt text](images/image8.png)
