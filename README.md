@@ -18,3 +18,7 @@ Looking to contribute, innovate new ideas and help the society through IT.
 First Computing Device
 
 In the image here, may be not.
+
+My interests
+
+Love Hiking, Motorbiking, and Star Gazing. 
