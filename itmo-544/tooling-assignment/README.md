@@ -204,6 +204,8 @@ Using a package manager, install the latest version of [Packer](https://packer.i
 
 Take a screenshot of the output of the command: ```packer --version```
 
+![alt text](images/packer.png)
+
 ### Final deliverable to Blackboard
 
 Submit to Blackboard the URL to your GitHub private repo, so I can clone and see all these elements. You will submit URL's to the work in the Private GitHub repo to Blackboard, but the work will stay in GitHub.
