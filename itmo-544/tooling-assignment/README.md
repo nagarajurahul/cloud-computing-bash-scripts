@@ -194,6 +194,8 @@ Using your package manager, install the latest version of [Vagrant](https://vagr
 
 Take a screenshot of the output of the command: ```vagrant --version```
 
+![alt text](images/vagrant.png)
+
 ### Install Packer.io
 
 Packer is another automation tool from HashiCorp.  Whereas Vagrant was for running virtual machines, Packer's job is to build virtual machine images from a template language.  This tool allows fast infrastructure deployment, multi-provider portability, improved stability, and greater testability.
