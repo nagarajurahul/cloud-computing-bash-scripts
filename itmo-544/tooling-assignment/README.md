@@ -182,6 +182,8 @@ There are 4 options:
   
 Whichever solution you choose - take a screenshot showing the installed version.
 
+![alt text](images/parallels.png)
+
 **Note:** that you can use Parallels on an Intel MacOS as well -- you would need to make sure you have the Pro edition installed and the SDK installed as well.
 
 ### Install Vagrant
