@@ -42,6 +42,8 @@ Homebrew is the MacOS 3rd party package manager located at: [https://brew.sh/](h
 
 If you have a Mac - install brew and provide a screenshot of the output of the command: `brew --version`
 
+![alt text](images/brew.png)
+
 ### Windows 10 21H1+ or 11
 
 The name of the third party Windows Package manager is Chocolatey. The download is located at [Chocolatey.org](https://chocolatey.org/ "Chocolatey.org download page").
@@ -99,6 +101,9 @@ For MacOS, newer versions use the Z shell.  This is due to Apple not using GPLv3
 
 Open a terminal and type the commands: `zsh --version` and `ssh -V` and take a screenshot of the output
 
+![alt text](images/zsh.png)
+![alt text](images/ssh.png)
+
 ### Installation of a Modern Terminal
 
 A Terminal is a way to run and manage multiple shell together, not unlike a web-browser, in a single managed window.  You will spend much time on in a shell during your career, the Terminal is a huge helper.
@@ -110,6 +115,8 @@ Open the Windows Terminal and select from the drop down arrow, the ABOUT tab, an
 On MacOS, there is a terminal called [iterm2](https://iterm2.com/ "MacOS shell terminal")
 
 Open the iterm2 Terminal and from the File > About section take a screenshot of the version output
+
+![alt text](images/iTerm.png)
 
 ### Install IDE editor with native version control support
 
@@ -126,11 +133,15 @@ We will be installing an text editor or and IDE for all of our coding and config
 
 Take a screenshot from the ABOUT tab in your IDE to show the installed version
 
+![alt text](images/VSC.png)
+
 ### Install Git Client for Version Control
 
 Version Control is vital to modern software development and we will be using our Package Manger to install the Git Client for our respective operating systems. **Note**, this is different from the GitHub Desktop tool, which we will not be using this semester.
 
 Take a screenshot of the output of the command: ```git --version```
+
+![alt text](images/git.png)
 
 #### Configure Git Client
 
@@ -147,6 +158,8 @@ My information would look like this:
 git config --global user.name "Jeremy Hajek"
 git config --global user.email "hajek@iit.edu"
 ```
+
+![alt text](images/git-config.png)
 
 ### Install VirtualBox on Intel Macs or Windows
 
@@ -190,29 +203,3 @@ Take a screenshot of the output of the command: ```packer --version```
 ### Final deliverable to Blackboard
 
 Submit to Blackboard the URL to your GitHub private repo, so I can clone and see all these elements. You will submit URL's to the work in the Private GitHub repo to Blackboard, but the work will stay in GitHub.
-
-
-
-## Package Manager - Bash
-
-![alt text](images/brew.png)
-
-
-## Installation of a Modern Shell - zsh and ssh
-
-![alt text](images/zsh.png)
-![alt text](images/ssh.png)
-
-## Installation of a Modern Terminal - iTerm2
-
-![alt text](images/iTerm.png)
-
-## Install IDE editor with native version control support - VSCode
-
-![alt text](images/VSC.png)
-
-
-## Install Git Client for Version Control
-
-![alt text](images/git.png)
-![alt text](images/git-config.png)
