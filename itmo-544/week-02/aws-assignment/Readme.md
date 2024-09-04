@@ -17,6 +17,12 @@ Complete the tasks listed below and add the required screenshots to prove that y
 Take a screenshot showing that you have enabled 2FA for your root AWS account.
 
 
+#### Create Non-root User
+
+Take a screenshot after completing the creation of a non-root user.
+
+`Place screenshot here`
+
 
 #### Non-root Account
 
@@ -26,17 +32,15 @@ Log out of the root user and log in as the non-root user. Take a screenshot of y
 
 ![alt text](non-root-account.png)
 
-#### Create Non-root User
-
-Take a screenshot after completing the creation of a non-root user.
-
-`Place screenshot here`
-
 #### Non-root 2FA
 
 Take a screenshot of MFA enabled for the non-root user.
 
 `Place screenshot here`
+
+![alt text](non-root-account-mfa-1.png)
+
+![alt text](non-root-account-mfa-2.png)
 
 #### Non-root User Create Access Keys
 
