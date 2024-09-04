@@ -16,11 +16,15 @@ Complete the tasks listed below and add the required screenshots to prove that y
 
 Take a screenshot showing that you have enabled 2FA for your root AWS account.
 
+
+
 #### Non-root Account
 
 Log out of the root user and log in as the non-root user. Take a screenshot of your IAM based user-account on the default Console Home. Make sure to show your default region and the non-root user account ID.
 
 `Place screenshot here`
+
+![alt text](non-root-account.png)
 
 #### Create Non-root User
 
