@@ -32,6 +32,9 @@ Take a screenshot after completing the creation of a non-root user.
 
 ![alt text](images/user.png)
 
+## All user
+![alt text](images/all-users.png)
+
 #### Non-root Account
 
 Log out of the root user and log in as the non-root user. Take a screenshot of your IAM based user-account on the default Console Home. Make sure to show your default region and the non-root user account ID.
