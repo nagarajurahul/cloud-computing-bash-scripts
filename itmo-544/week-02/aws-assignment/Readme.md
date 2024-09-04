@@ -24,6 +24,12 @@ Take a screenshot after completing the creation of a non-root user.
 
 `Place screenshot here`
 
+## Creation of dummy user with admin access
+
+![alt text](images/dummy-user-admin.png)
+
+## New user created with admin access
+
 ![alt text](images/user.png)
 
 #### Non-root Account
