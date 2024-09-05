@@ -41,6 +41,8 @@ Take a screenshot of MFA enabled for the non-root user.
 
 `Place screenshot here`
 
+![alt text](images/non-root-account-mfa.png)
+
 #### Non-root User Create Access Keys
 
 Take a screenshot of the created Access Keys and Secrets keys screen (with the heading Retrieve Access Keys)
