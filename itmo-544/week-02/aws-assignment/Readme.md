@@ -24,16 +24,6 @@ Take a screenshot after completing the creation of a non-root user.
 
 `Place screenshot here`
 
-## Creation of dummy user with admin access
-
-![alt text](images/dummy-user-admin.png)
-
-## New user created with admin access
-
-![alt text](images/user.png)
-
-## All user
-![alt text](images/all-users.png)
 
 #### Non-root Account
 
@@ -41,7 +31,6 @@ Log out of the root user and log in as the non-root user. Take a screenshot of y
 
 `Place screenshot here`
 
-![alt text](images/non-root-account.png)
 
 #### Non-root 2FA
 
