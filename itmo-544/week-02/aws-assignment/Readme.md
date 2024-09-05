@@ -49,6 +49,8 @@ Take a screenshot of the created Access Keys and Secrets keys screen (with the h
 
 `Place screenshot here`
 
+![alt text](images/access-keys.png)
+
 ### Deliverable
 
 Create a folder named: `aws-assignment` under the directory you made for this class in your **local** repo. Add the `readme.md` template from Canvas to that directory on your local system and add the required screenshots.  Push to your private GitHub repo and submit the URL to the Document to Canvas.
