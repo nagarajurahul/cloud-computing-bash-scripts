@@ -25,22 +25,21 @@ Take a screenshot after completing the creation of a non-root user.
 `Place screenshot here`
 
 
+![alt text](images/create-non-root-account.png)
+
 #### Non-root Account
 
 Log out of the root user and log in as the non-root user. Take a screenshot of your IAM based user-account on the default Console Home. Make sure to show your default region and the non-root user account ID.
 
 `Place screenshot here`
 
+![alt text](images/non-root-account.png)
 
 #### Non-root 2FA
 
 Take a screenshot of MFA enabled for the non-root user.
 
 `Place screenshot here`
-
-![alt text](images/non-root-account-mfa-1.png)
-
-![alt text](images/non-root-account-mfa-2.png)
 
 #### Non-root User Create Access Keys
 
