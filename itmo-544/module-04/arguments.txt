@@ -1,7 +1,7 @@
 ami-085f9c64a9b75eed5
 t2-micro
 EC2_tutorial
-itmo-544-sg
+sg-08a57762385e42a66
 1
 install-env.sh 
 us-east-2a
