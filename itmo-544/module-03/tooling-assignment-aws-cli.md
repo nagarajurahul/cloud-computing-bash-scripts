@@ -14,6 +14,7 @@ Take two screenshots and add them to this document.
 
 Place a screenshot of the output of the command: `aws --version`
 
+![alt text](images/aws-version.png)
 ### Screenshot Two
 
 Place a screenshot of the output of the command: `aws ec2 describe-regions`
