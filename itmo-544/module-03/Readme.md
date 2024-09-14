@@ -25,11 +25,15 @@ Using the AWS Web Console:
 
 Add screenshot here of AWS Console Launched instance
 
-![alt text](images/aws_console_launched_instance.png)
+![alt text](images/aws-console-launch-instance.png)
 
 #### Part 2 ScreenShot Two
 
 Add screenshot here of SSH into the instance and installing Nginx
+
+![alt text](images/ssh.png)
+
+![alt text](images/install-nginx.png)
 
 #### Part 2 ScreenShot Three
 
