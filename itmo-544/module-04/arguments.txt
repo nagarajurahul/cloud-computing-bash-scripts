@@ -1,5 +1,5 @@
 ami-085f9c64a9b75eed5
-t2-micro
+t2.micro
 EC2_tutorial
 sg-0fecb0965f9896d6c
 1
