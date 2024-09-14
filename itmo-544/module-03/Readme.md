@@ -41,6 +41,11 @@ Add screenshot here of the the EC2 instance IP address displaying the Nginx, "He
 
 ![alt text](images/nginx-hi.png)
 
+#### Part 2 Terminated Four
+
+
+![alt text](images/terminate.png)
+
 ### Deliverable
 
 Create a folder named: `module-03` under the itmo-444 (or 544) folder in the private repo provided to you. Use this markdown template and provide the required screenshots below the items. Submit just the URL to the markdown document.
