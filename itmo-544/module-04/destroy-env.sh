@@ -31,4 +31,4 @@ echo ${INSTANCES}
 # Now Terminate all EC2 instances
 # https://docs.aws.amazon.com/cli/latest/reference/ec2/terminate-instances.html
 
-# aws ec2 terminate-instances --instance-ids $INSTANCES
+aws ec2 terminate-instances --instance-ids $INSTANCES
