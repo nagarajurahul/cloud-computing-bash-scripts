@@ -6,6 +6,8 @@
 # First Query to get the ELB name using the --query and --filters
 # https://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-listeners.html
 
+echo "Finding and storing the EL ARNS for default region"
+
 ELBARN=$(aws elbv2 describe-load-balancers --output=text --query='LoadBalancers[*].LoadBalancerARN')
 
 # Delete loadbalancer
