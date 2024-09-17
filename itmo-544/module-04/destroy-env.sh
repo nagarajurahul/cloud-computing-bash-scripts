@@ -8,7 +8,7 @@
 
 echo "Finding and storing the EL ARNS for default region"
 
-ELBARNS=$(aws elbv2 describe-load-balancers --output=jspn --query='LoadBalancers[*].LoadBalancerARN')
+ELBARNS=$(aws elbv2 describe-load-balancers --output=json --query='LoadBalancers[*].LoadBalancerARN')
 
 # Delete loadbalancer
 # https://docs.aws.amazon.com/cli/latest/reference/elbv2/delete-load-balancer.html
