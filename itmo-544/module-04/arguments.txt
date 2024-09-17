@@ -7,3 +7,17 @@ install-env.sh
 us-east-2a
 rn-elb
 rn-tg
+
+# ${1} image-id
+# ${2} instance-type
+# ${3} key-name
+# ${4} security-group-ids
+# ${5} count
+# ${6} user-data file name
+# ${7} availability-zone
+# ${8} elb name
+# ${9} target group name
+# ${10} us-east-2a
+# ${11} us-east-2b
+# ${12} us-east-2c
+# ${13} tag value
