@@ -8,14 +8,14 @@
 
 echo "Finding and storing the EL ARNS for default region"
 
-ELBARN=$(aws elbv2 describe-load-balancers --output=text --query='LoadBalancers[*].LoadBalancerARN')
+ELBARN=$(aws elbv2 describe-load-balancers --output=jspn --query='LoadBalancers[*].LoadBalancerARN')
 
 # Delete loadbalancer
 # https://docs.aws.amazon.com/cli/latest/reference/elbv2/delete-load-balancer.html
 
 # Can we delete multiple load-balancers using this command?
 
-# aws elbv2 delete-load-balancer --load-balancer-arn $ELBARN
+aws elbv2 delete-load-balancer --load-balancer-arn $ELBARN
 
 echo "Finding and storing the instance IDs for default region"
 
