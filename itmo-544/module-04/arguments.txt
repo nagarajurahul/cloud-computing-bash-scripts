@@ -10,7 +10,7 @@ rn-tg
 us-east-2a
 us-east-2b
 us-east-2c
-
+itmo-544
 # ${1} image-id
 # ${2} instance-type
 # ${3} key-name
