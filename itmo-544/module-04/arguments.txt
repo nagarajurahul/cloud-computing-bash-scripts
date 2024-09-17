@@ -7,6 +7,9 @@ install-env.sh
 us-east-2a
 rn-elb
 rn-tg
+us-east-2a
+us-east-2b
+us-east-2c
 
 # ${1} image-id
 # ${2} instance-type
