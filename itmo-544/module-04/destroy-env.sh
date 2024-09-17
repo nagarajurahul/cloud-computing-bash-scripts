@@ -16,7 +16,7 @@ ELBARNS=$(aws elbv2 describe-load-balancers --output=jspn --query='LoadBalancers
 # Can we delete multiple load-balancers using this command?
 
 
-for ELBARN in $(ELBARNS);
+for ELBARN in $ELBARNS;
 do
     aws elbv2 delete-load-balancer --load-balancer-arn $ELBARN
 done
