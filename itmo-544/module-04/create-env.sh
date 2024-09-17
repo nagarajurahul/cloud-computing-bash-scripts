@@ -29,6 +29,6 @@ echo $SUBNET2C
 aws elbv2 create-load-balancer \
     --name ${8} \
     --subnets $SUBNET2A $SUBNET2B $SUBNET2C \
-    --tags 'Key=course,Value=${13}'
+    --tags Key=course,Value=${13}
 
 #     --scheme internal \  -> to make it internal LB
