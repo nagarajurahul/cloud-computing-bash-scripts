@@ -20,7 +20,8 @@ echo $ELBARNS
 
 for ELBARN in $ELBARNS;
 do
-    aws elbv2 delete-load-balancer --load-balancer-arn $ELBARN
+    echo ELBARN
+    # aws elbv2 delete-load-balancer --load-balancer-arn $ELBARN
 done
 
 
