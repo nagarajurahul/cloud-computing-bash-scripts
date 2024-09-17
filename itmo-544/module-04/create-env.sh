@@ -11,7 +11,7 @@ aws ec2 run-instances \
     --security-group-ids ${4} \
     --count ${5} \
     --user-data file://${6} \
-    --tag-specifications 'ResourceType=instance,Tags=[{Key=course,Value=itmo-544}]' \
+    --tag-specifications 'ResourceType=instance,Tags=[{Key=course,Value=itmo-544}, {Key=name,Value=cli-instance-launch1}]' \
     --placement "AvailabilityZone=${7}" \
 
 # Finding subnets
@@ -26,9 +26,9 @@ echo $SUBNET2A
 echo $SUBNET2B
 echo $SUBNET2C
 
-aws elbv2 create-load-balancer \
-    --name ${8} \
-    --subnets $SUBNET2A $SUBNET2B $SUBNET2C \
-    --tags Key='name',Value=${13} 
+# aws elbv2 create-load-balancer \
+#     --name ${8} \
+#     --subnets $SUBNET2A $SUBNET2B $SUBNET2C \
+#     --tags Key='name',Value=${13} 
 
 #     --scheme internal \  -> to make it internal LB
