@@ -44,7 +44,7 @@ echo "**************************************************************************
 aws elbv2 delete-load-balancer --load-balancer-arn $ELBARNS
 
 echo "Waiting for load-balancer to be deleted..."
-aws elbv2 wait load-balancers-deleted --load-balancer-arns $ELBARN
+aws elbv2 wait load-balancers-deleted --load-balancer-arns $ELBARNS
 echo "Load balancers deleted!"
 
 # Can we delete multiple load-balancers using this command?
