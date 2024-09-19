@@ -17,6 +17,8 @@ aws ec2 run-instances \
 EC2IDS=$(aws ec2 describe-instances \
     --output=text \
     --query='Reservations[*].Instances[*].InstanceId' --filter Name=instance-state-name,Values=pending,running)
+echo "Instance IDs"
+echo $EC2IDS
 
 #https://docs.aws.amazon.com/cli/latest/reference/ec2/wait/
 #https://docs.aws.amazon.com/cli/latest/reference/ec2/wait/instance-running.html
