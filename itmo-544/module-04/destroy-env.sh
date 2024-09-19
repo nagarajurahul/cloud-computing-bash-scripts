@@ -18,6 +18,10 @@ echo "**************************************************************************
 
 aws elbv2 delete-load-balancer --load-balancer-arn $ELBARNS
 
+echo "Waiting for load-balancer to be deleted..."
+aws elbv2 wait load-balancers-deleted --load-balancer-arns $ELBARN
+echo "Load balancers deleted!"
+
 # Can we delete multiple load-balancers using this command?
 
 # for ELBARN in $ELBARNS;
@@ -46,3 +50,7 @@ echo "**************************************************************************
 # https://docs.aws.amazon.com/cli/latest/reference/ec2/terminate-instances.html
 
 aws ec2 terminate-instances --instance-ids $INSTANCES
+
+echo "Waiting for instances to be terminated..." 
+aws ec2 wait instance-terminated --instance-ids $INSTANCES
+echo "Instances are terminated!"
