@@ -11,7 +11,7 @@ echo "Finding and storing the instance IDs for default region"
 INSTANCES=$(aws ec2 describe-instances \
     --output=text \
     --query='Reservations[*].Instances[*].InstanceId' \
-    --filter Name=instance-state-name,values=pending,running)
+    --filter Name=instance-state-name,Values=pending,running)
 
 echo "*********************************************************************************************"
 echo ${INSTANCES}
