@@ -60,5 +60,5 @@ echo "**************************************************************************
 # https://docs.aws.amazon.com/cli/latest/reference/elbv2/wait/
 # https://awscli.amazonaws.com/v2/documentation/api/latest/reference/elbv2/wait/load-balancer-available.html
 echo "Waiting for ELB to become available..."
-aws elbv2 wait load-balancer-available --load-balancer-arns $ELBARN
+aws elbv2 wait load-balancer-available --load-balancer-arns $ELBARNS
 echo "ELB is available..."
