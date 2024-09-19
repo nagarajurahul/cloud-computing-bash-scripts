@@ -2,6 +2,31 @@
 
 # Dynamically detect your infrastrcuture and destroy it/terminate it
 
+
+echo "Finding and storing the instance IDs for default region"
+
+# First Describe EC2 instances
+# https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html
+
+INSTANCES=$(aws ec2 describe-instances \
+    --output=text \
+    --query='Reservations[*].Instances[*].InstanceId' \
+    --filter Name=instance-state-name,values=pending,running)
+
+echo "*********************************************************************************************"
+echo ${INSTANCES}
+echo "*********************************************************************************************"
+
+# Now Terminate all EC2 instances
+# https://docs.aws.amazon.com/cli/latest/reference/ec2/terminate-instances.html
+
+aws ec2 terminate-instances --instance-ids $INSTANCES
+
+echo "Waiting for instances to be terminated..." 
+aws ec2 wait instance-terminated --instance-ids $INSTANCES
+echo "Instances are terminated!"
+
+
 # First Query to get the ELB name using the --query and --filters
 # https://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-listeners.html
 
@@ -29,28 +54,3 @@ echo "Load balancers deleted!"
 #     echo $ELBARN
 #     aws elbv2 delete-load-balancer --load-balancer-arn $ELBARN
 # done
-
-
-
-echo "Finding and storing the instance IDs for default region"
-
-# First Describe EC2 instances
-# https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html
-
-INSTANCES=$(aws ec2 describe-instances \
-    --output=text \
-    --query='Reservations[*].Instances[*].InstanceId' \
-    --filter Name=instance-state-name,values=pending,running)
-
-echo "*********************************************************************************************"
-echo ${INSTANCES}
-echo "*********************************************************************************************"
-
-# Now Terminate all EC2 instances
-# https://docs.aws.amazon.com/cli/latest/reference/ec2/terminate-instances.html
-
-aws ec2 terminate-instances --instance-ids $INSTANCES
-
-echo "Waiting for instances to be terminated..." 
-aws ec2 wait instance-terminated --instance-ids $INSTANCES
-echo "Instances are terminated!"
