@@ -39,3 +39,5 @@ id_rsa.pub
 .Vagrantfile*
 Vagrantfile~
 config.default.yml
+
+/itmo-544/module-04/arguments.txt
