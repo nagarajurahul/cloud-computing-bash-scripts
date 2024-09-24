@@ -148,7 +148,7 @@ echo "Listeners are up!"
 
 echo "*********************************************************************************************"
 
-DNSNAME = $(aws elbv2 describe-load-balancers --output=text --query='LoadBalancers[*].DNSName')
+DNSNAME=$(aws elbv2 describe-load-balancers --output=text --query='LoadBalancers[*].DNSName')
 
 echo "Kindly curl using the below link"
 echo $DNSNAME
