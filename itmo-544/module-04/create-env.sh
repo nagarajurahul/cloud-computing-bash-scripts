@@ -8,14 +8,17 @@ SUBNET2A=$(aws ec2 describe-subnets --output=text --query='Subnets[*].SubnetId' 
 SUBNET2B=$(aws ec2 describe-subnets --output=text --query='Subnets[*].SubnetId' --filter "Name=availability-zone,Values=${11}")
 SUBNET2C=$(aws ec2 describe-subnets --output=text --query='Subnets[*].SubnetId' --filter "Name=availability-zone,Values=${12}")
 
+echo "*********************************************************************************************"
 echo $SUBNET2A
 echo $SUBNET2B
 echo $SUBNET2C
+echo "*********************************************************************************************"
 
 aws elbv2 create-load-balancer \
     --name ${8} \
     --subnets $SUBNET2A $SUBNET2B $SUBNET2C \
     --tags Key=course,Value=${13}
+    --output table
 
 #     --scheme internal \  -> to make it internal LB
 
@@ -54,8 +57,11 @@ aws ec2 run-instances \
 EC2IDS=$(aws ec2 describe-instances \
     --output=text \
     --query='Reservations[*].Instances[*].InstanceId' --filter Name=instance-state-name,Values=pending,running)
+
+echo "*********************************************************************************************"
 echo "Instance IDs"
 echo $EC2IDS
+echo "*********************************************************************************************"
 
 #https://docs.aws.amazon.com/cli/latest/reference/ec2/wait/
 #https://docs.aws.amazon.com/cli/latest/reference/ec2/wait/instance-running.html
