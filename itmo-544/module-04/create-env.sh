@@ -107,10 +107,17 @@ echo "**************************************************************************
 declare -a IDSARRAY
 IDSARRAY=( $EC2IDS )
 
+echo "*********************************************************************************************"
+
 for ID in ${IDSARRAY[@]};
 do
+  
+  echo "Registering Target with Id: $ID"
   aws elbv2 register-targets \
     --target-group-arn $TGARN --targets Id=$ID,Port=80
   aws elbv2 wait target-in-service  --target-group-arn $TGARN --targets Id=$ID,Port=80
   echo "Target $ID is in service"
+  
 done
+
+echo "*********************************************************************************************"

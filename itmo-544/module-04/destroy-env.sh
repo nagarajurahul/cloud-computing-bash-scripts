@@ -35,6 +35,8 @@ echo "**************************************************************************
 declare -a IDSARRAY
 IDSARRAY=( $EC2IDS )
 
+echo "*********************************************************************************************"
+
 for ID in ${IDSARRAY[@]};
 do
   echo "Deregistering Target with Id: $ID"
@@ -44,6 +46,7 @@ do
   echo "Target $ID deregistred"
 done
 
+echo "*********************************************************************************************"
 
 # Deleting target group, and wait for it to deregister
 
