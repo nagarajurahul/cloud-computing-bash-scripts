@@ -21,6 +21,7 @@ aws elbv2 create-load-balancer \
     --name ${8} \
     --subnets $SUBNET2A $SUBNET2B $SUBNET2C \
     --tags Key=course,Value=${13} \
+    --security-groups ${15}\
     --output table
 
 #     --scheme internal \  -> to make it internal LB
@@ -135,4 +136,10 @@ echo "Creating listeners now..."
 # Creating listener
 # https://awscli.amazonaws.com/v2/documentation/api/latest/reference/elbv2/create-listener.html
 
-aws elbv2 create-listener --load-balancer-arn $ELBARN --protocol HTTP --port 80 --default-actions Type=forward,TargetGroupArn=$TGARN
+aws elbv2 create-listener \
+    --load-balancer-arn $ELBARN \
+    --protocol HTTP \
+    --port 80 \
+    --default-actions Type=forward,TargetGroupArn=$TGARN
+
+echo "*********************************************************************************************"
