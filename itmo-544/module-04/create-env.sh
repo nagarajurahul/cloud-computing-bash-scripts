@@ -69,3 +69,24 @@ echo "**************************************************************************
 echo "Waiting for instances..."
 aws ec2 wait instance-running --instance-ids $EC2IDS
 echo "Instances are up!"
+
+
+# Find the VPC
+# https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-vpcs.html
+
+MYVPCID=$(aws ec2 describe-vpcs --output=text --query='Vpcs[*].VpcId' --filters "Name=vpc-id,Values=${14}")
+
+# Create the target group
+# https://docs.aws.amazon.com/cli/latest/reference/elbv2/create-target-group.html
+
+aws elbv2 create-target-group \
+    --name ${9} \
+    --protocol HTTP \
+    --port 80 \
+    --target-type instance \
+    --vpc-id $MYVPCID
+
+# https://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-target-groups.html
+
+TGARN=$(aws elbv2 describe-target-groups --output=text --query='TargetGroups[*].TargetGroupArn' --names ${9})
+echo "TGARN"
