@@ -17,14 +17,14 @@ echo "**************************************************************************
 aws elbv2 create-load-balancer \
     --name ${8} \
     --subnets $SUBNET2A $SUBNET2B $SUBNET2C \
-    --tags Key=course,Value=${13}
+    --tags Key=course,Value=${13} \
     --output table
 
 #     --scheme internal \  -> to make it internal LB
 
 # https://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-listeners.html
 
-echo "Finding and storing the EL ARNS for default region"
+echo "Finding and storing the ELB ARNS for default region"
 
 ELBARNS=$(aws elbv2 describe-load-balancers --output=text --query='LoadBalancers[*].LoadBalancerArn')
 
