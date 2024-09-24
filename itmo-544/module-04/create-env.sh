@@ -40,6 +40,7 @@ echo "**************************************************************************
 # https://docs.aws.amazon.com/cli/latest/reference/elbv2/wait/
 # https://awscli.amazonaws.com/v2/documentation/api/latest/reference/elbv2/wait/load-balancer-available.html
 
+echo "*********************************************************************************************"
 echo "Waiting for ELB to become available..."
 aws elbv2 wait load-balancer-available --load-balancer-arns $ELBARNS
 echo "ELB is available..."
@@ -74,6 +75,7 @@ echo "**************************************************************************
 #https://docs.aws.amazon.com/cli/latest/reference/ec2/wait/
 #https://docs.aws.amazon.com/cli/latest/reference/ec2/wait/instance-running.html
 
+echo "*********************************************************************************************"
 echo "Waiting for instances..."
 aws ec2 wait instance-running --instance-ids $EC2IDS
 echo "Instances are up!"
