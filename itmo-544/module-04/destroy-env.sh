@@ -80,7 +80,7 @@ echo "**************************************************************************
 echo "Deleting listener now..."
 # https://awscli.amazonaws.com/v2/documentation/api/latest/reference/elbv2/delete-listener.html
 
-aws elbv2 delete-listener $LISTARN
+aws elbv2 delete-listener --listener-arn $LISTARN
 
 echo "Listeners deleted!"
 echo "*********************************************************************************************"
