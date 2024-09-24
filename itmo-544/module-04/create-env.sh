@@ -128,7 +128,7 @@ do
   aws elbv2 register-targets \
     --target-group-arn $TGARN --targets Id=$ID,Port=80
 #   aws elbv2 wait target-in-service  --target-group-arn $TGARN --targets Id=$ID,Port=80
-  echo "Target $ID is in service"
+  echo "Target $ID is in service!!!"
   
 done
 
@@ -143,5 +143,20 @@ aws elbv2 create-listener \
     --protocol HTTP \
     --port 80 \
     --default-actions Type=forward,TargetGroupArn=$TGARN
+
+echo "Listeners are up!"
+
+echo "*********************************************************************************************"
+
+DNSNAME = $(aws elbv2 describe-load-balancers --output=text --query='LoadBalancers[*].DNSName')
+
+echo "Kindly curl using the below link"
+echo $DNSNAME
+
+echo "*********************************************************************************************"
+echo "Making curl request now..."
+echo "Response is as belows "
+
+curl $DNSNAME
 
 echo "*********************************************************************************************"
