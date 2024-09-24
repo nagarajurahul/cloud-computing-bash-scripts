@@ -90,8 +90,13 @@ aws elbv2 create-target-group \
 # Describe the target groups and get target ARNs
 # https://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-target-groups.html
 
+echo "Finding and storing target group ARN"
+
 TGARN=$(aws elbv2 describe-target-groups --output=text --query='TargetGroups[*].TargetGroupArn' --names ${9})
-echo "TGARN"
+
+echo "*********************************************************************************************"
+echo $TGARN
+echo "*********************************************************************************************"
 
 # Register targets and wait for them to be in service
 # https://awscli.amazonaws.com/v2/documentation/api/latest/reference/elbv2/register-targets.html
