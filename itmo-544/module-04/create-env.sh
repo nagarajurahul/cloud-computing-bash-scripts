@@ -2,7 +2,7 @@
 
 # Finding subnets
 
-echo "Finding and storing the subnet IDs for defined in arguments.txt Availability Zone 1 and 2..."
+echo "Finding and storing the subnet IDs for availability zones defined in arguments"
 
 SUBNET2A=$(aws ec2 describe-subnets --output=text --query='Subnets[*].SubnetId' --filter "Name=availability-zone,Values=${10}")
 SUBNET2B=$(aws ec2 describe-subnets --output=text --query='Subnets[*].SubnetId' --filter "Name=availability-zone,Values=${11}")
@@ -13,6 +13,9 @@ echo $SUBNET2A
 echo $SUBNET2B
 echo $SUBNET2C
 echo "*********************************************************************************************"
+
+echo "*********************************************************************************************"
+echo "Creating load-balancer now..."
 
 aws elbv2 create-load-balancer \
     --name ${8} \
@@ -32,13 +35,16 @@ echo "**************************************************************************
 echo $ELBARNS
 echo "*********************************************************************************************"
 
-# add elv2 wait running reference
+
 # https://docs.aws.amazon.com/cli/latest/reference/elbv2/wait/
 # https://awscli.amazonaws.com/v2/documentation/api/latest/reference/elbv2/wait/load-balancer-available.html
+
 echo "Waiting for ELB to become available..."
 aws elbv2 wait load-balancer-available --load-balancer-arns $ELBARNS
 echo "ELB is available..."
 
+echo "*********************************************************************************************"
+echo "Creating EC2 instances now..."
 
 # https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/run-instances.html
 
@@ -59,7 +65,7 @@ EC2IDS=$(aws ec2 describe-instances \
     --output=text \
     --query='Reservations[*].Instances[*].InstanceId' --filter Name=instance-state-name,Values=pending,running)
 
-echo "Finding and storaing the Instance IDs"
+echo "Finding and storing the Instance IDs"
 echo "*********************************************************************************************"
 echo $EC2IDS
 echo "*********************************************************************************************"
@@ -71,6 +77,9 @@ echo "Waiting for instances..."
 aws ec2 wait instance-running --instance-ids $EC2IDS
 echo "Instances are up!"
 
+
+echo "*********************************************************************************************"
+echo "Creating target groups now..."
 
 # Find the VPC
 # https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-vpcs.html
@@ -115,9 +124,15 @@ do
   echo "Registering Target with Id: $ID"
   aws elbv2 register-targets \
     --target-group-arn $TGARN --targets Id=$ID,Port=80
-  aws elbv2 wait target-in-service  --target-group-arn $TGARN --targets Id=$ID,Port=80
+#   aws elbv2 wait target-in-service  --target-group-arn $TGARN --targets Id=$ID,Port=80
   echo "Target $ID is in service"
   
 done
 
 echo "*********************************************************************************************"
+echo "Creating listeners now..."
+
+# Creating listener
+# https://awscli.amazonaws.com/v2/documentation/api/latest/reference/elbv2/create-listener.html
+
+aws elbv2 create-listener --load-balancer-arn $ELBARN --protocol HTTP --port 80 --default-actions Type=forward,TargetGroupArn=$TGARN
