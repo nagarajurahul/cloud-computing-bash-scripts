@@ -36,6 +36,7 @@ declare -a IDSARRAY
 IDSARRAY=( $EC2IDS )
 
 echo "*********************************************************************************************"
+echo "Deregistering Targets now..."
 
 for ID in ${IDSARRAY[@]};
 do
@@ -53,12 +54,18 @@ echo "**************************************************************************
 # https://awscli.amazonaws.com/v2/documentation/api/latest/reference/elbv2/delete-target-group.html
 # https://awscli.amazonaws.com/v2/documentation/api/latest/reference/elbv2/wait/target-deregistered.html
 
+echo "Deleting Target Group now..."
+
 aws elbv2 delete-target-group --target-group-arn $TGARN
 aws elbv2 wait target-deregistered --target-group-arn $TGARN
+
+echo "*********************************************************************************************"
 
 
 # Now Terminate all EC2 instances
 # https://docs.aws.amazon.com/cli/latest/reference/ec2/terminate-instances.html
+
+echo "Terminating instances now..."
 
 aws ec2 terminate-instances --instance-ids $INSTANCES
 
@@ -66,6 +73,7 @@ echo "Waiting for instances to be terminated..."
 aws ec2 wait instance-terminated --instance-ids $INSTANCES
 echo "Instances are terminated!"
 
+echo "*********************************************************************************************"
 
 # First Query to get the ELB name using the --query and --filters
 # https://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-listeners.html
@@ -80,6 +88,8 @@ echo "**************************************************************************
 
 # Delete loadbalancer
 # https://docs.aws.amazon.com/cli/latest/reference/elbv2/delete-load-balancer.html
+
+echo "Deleting load-balancers now..."
 
 aws elbv2 delete-load-balancer --load-balancer-arn $ELBARNS
 
