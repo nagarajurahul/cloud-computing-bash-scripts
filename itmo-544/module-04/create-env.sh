@@ -53,13 +53,14 @@ aws ec2 run-instances \
     --user-data file://${6} \
     --tag-specifications 'ResourceType=instance,Tags=[{Key=course,Value=itmo-544}, {Key=name,Value=cli-instance-launch1}]' \
     --placement "AvailabilityZone=${7}" \
+    --output table
 
 EC2IDS=$(aws ec2 describe-instances \
     --output=text \
     --query='Reservations[*].Instances[*].InstanceId' --filter Name=instance-state-name,Values=pending,running)
 
+echo "Finding and storaing the Instance IDs"
 echo "*********************************************************************************************"
-echo "Instance IDs"
 echo $EC2IDS
 echo "*********************************************************************************************"
 
