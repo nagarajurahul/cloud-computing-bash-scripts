@@ -86,7 +86,25 @@ aws elbv2 create-target-group \
     --target-type instance \
     --vpc-id $MYVPCID
 
+# Describe the target groups and get target ARNs
 # https://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-target-groups.html
 
 TGARN=$(aws elbv2 describe-target-groups --output=text --query='TargetGroups[*].TargetGroupArn' --names ${9})
 echo "TGARN"
+
+# Register targets and wait for them to be in service
+# https://awscli.amazonaws.com/v2/documentation/api/latest/reference/elbv2/register-targets.html
+# https://awscli.amazonaws.com/v2/documentation/api/latest/reference/elbv2/wait/target-in-service.html
+
+# Create a bash Array so we can loop through it and take care of the Id
+
+declare -a IDSARRAY
+IDSARRAY=( $EC2IDS )
+
+for ID in ${IDSARRAY[@]};
+do
+  aws elbv2 register-targets \
+    --target-group-arn $TGARN --targets Id=$ID
+  aws elbv2 wait target-in-service  --target-group-arn $TGARN --targets=$ID,Port=80
+  echo "Target $ID is in service"
+done
