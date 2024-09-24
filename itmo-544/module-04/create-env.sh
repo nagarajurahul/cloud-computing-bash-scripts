@@ -28,12 +28,12 @@ aws elbv2 create-load-balancer \
 
 # https://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-listeners.html
 
-echo "Finding and storing the ELB ARNS for default region"
+echo "Finding and storing the ELB ARN for default region"
 
-ELBARNS=$(aws elbv2 describe-load-balancers --output=text --query='LoadBalancers[*].LoadBalancerArn')
+ELBARN=$(aws elbv2 describe-load-balancers --output=text --query='LoadBalancers[*].LoadBalancerArn')
 
 echo "*********************************************************************************************"
-echo $ELBARNS
+echo $ELBARN
 echo "*********************************************************************************************"
 
 
@@ -42,7 +42,7 @@ echo "**************************************************************************
 
 echo "*********************************************************************************************"
 echo "Waiting for ELB to become available..."
-aws elbv2 wait load-balancer-available --load-balancer-arns $ELBARNS
+aws elbv2 wait load-balancer-available --load-balancer-arns $ELBARN
 echo "ELB is available..."
 
 echo "*********************************************************************************************"

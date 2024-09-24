@@ -60,10 +60,10 @@ echo "**************************************************************************
 
 echo "Finding and storing the ELB ARNS for default region"
 
-ELBARNS=$(aws elbv2 describe-load-balancers --output=text --query='LoadBalancers[*].LoadBalancerArn')
+ELBARN=$(aws elbv2 describe-load-balancers --output=text --query='LoadBalancers[*].LoadBalancerArn')
 
 echo "*********************************************************************************************"
-echo $ELBARNS
+echo $ELBARN
 echo "*********************************************************************************************"
 
 # First Query to get the ELB name using the --query and --filters
@@ -113,10 +113,10 @@ echo "**************************************************************************
 
 echo "Deleting load-balancers now..."
 
-aws elbv2 delete-load-balancer --load-balancer-arn $ELBARNS
+aws elbv2 delete-load-balancer --load-balancer-arn $ELBARN
 
 echo "Waiting for load-balancer to be deleted..."
-aws elbv2 wait load-balancers-deleted --load-balancer-arns $ELBARNS
+aws elbv2 wait load-balancers-deleted --load-balancer-arns $ELBARN
 echo "Load balancers deleted!"
 
 # Can we delete multiple load-balancers using this command?
