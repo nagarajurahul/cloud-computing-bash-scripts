@@ -74,7 +74,7 @@ echo "Instances are up!"
 # Find the VPC
 # https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-vpcs.html
 
-MYVPCID=$(aws ec2 describe-vpcs --output=text --query='Vpcs[*].VpcId' --filters "Name=vpc-id,Values=${14}")
+MYVPCID=$(aws ec2 describe-vpcs --output=text --query='Vpcs[*].VpcId')
 
 # Create the target group
 # https://docs.aws.amazon.com/cli/latest/reference/elbv2/create-target-group.html
