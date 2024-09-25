@@ -89,7 +89,7 @@ echo "Creating target groups now..."
 
 MYVPCID=$(aws ec2 describe-vpcs --output=text --query='Vpcs[*].VpcId')
 
-# Create the target group
+# Create the target group - this is application load balancer type
 # https://docs.aws.amazon.com/cli/latest/reference/elbv2/create-target-group.html
 
 aws elbv2 create-target-group \
