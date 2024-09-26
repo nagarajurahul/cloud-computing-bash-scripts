@@ -110,6 +110,20 @@ echo "**************************************************************************
 echo $TGARN
 echo "*********************************************************************************************"
 
+echo "*********************************************************************************************"
+echo "Creating listeners now..."
+
+# Creating listener
+# https://awscli.amazonaws.com/v2/documentation/api/latest/reference/elbv2/create-listener.html
+
+aws elbv2 create-listener \
+    --load-balancer-arn $ELBARN \
+    --protocol HTTP \
+    --port 80 \
+    --default-actions Type=forward,TargetGroupArn=$TGARN
+
+echo "Listeners are up!"
+
 # Register targets and wait for them to be in service
 # https://awscli.amazonaws.com/v2/documentation/api/latest/reference/elbv2/register-targets.html
 # https://awscli.amazonaws.com/v2/documentation/api/latest/reference/elbv2/wait/target-in-service.html
@@ -127,24 +141,10 @@ do
   echo "Registering Target with Id: $ID"
   aws elbv2 register-targets \
     --target-group-arn $TGARN --targets Id=$ID,Port=80
-#   aws elbv2 wait target-in-service  --target-group-arn $TGARN --targets Id=$ID,Port=80
+  aws elbv2 wait target-in-service  --target-group-arn $TGARN --targets Id=$ID,Port=80
   echo "Target $ID is in service!!!"
   
 done
-
-echo "*********************************************************************************************"
-echo "Creating listeners now..."
-
-# Creating listener
-# https://awscli.amazonaws.com/v2/documentation/api/latest/reference/elbv2/create-listener.html
-
-aws elbv2 create-listener \
-    --load-balancer-arn $ELBARN \
-    --protocol HTTP \
-    --port 80 \
-    --default-actions Type=forward,TargetGroupArn=$TGARN
-
-echo "Listeners are up!"
 
 echo "*********************************************************************************************"
 
