@@ -2,6 +2,33 @@
 
 # Dynamically detect your infrastructure and destroy it/terminate it
 
+echo "Finding and storing the ELB ARNS for default region"
+
+ELBARN=$(aws elbv2 describe-load-balancers --output=text --query='LoadBalancers[*].LoadBalancerArn')
+
+echo "*********************************************************************************************"
+echo $ELBARN
+echo "*********************************************************************************************"
+
+# First Query to get the ELB name using the --query and --filters
+# https://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-listeners.html
+
+echo "Finding and storing the Listener ARN for default region"
+
+LISTARN=$(aws elbv2 describe-listeners --load-balancer-arn $ELBARN --output=text --query='Listeners[*].ListenerArn' )
+
+echo "*********************************************************************************************"
+echo $LISTARN
+echo "*********************************************************************************************"
+
+echo "Deleting listener now..."
+# https://awscli.amazonaws.com/v2/documentation/api/latest/reference/elbv2/delete-listener.html
+
+aws elbv2 delete-listener --listener-arn $LISTARN
+
+echo "Listeners deleted!"
+echo "*********************************************************************************************"
+
 
 echo "Finding and storing the instance IDs for default region"
 
@@ -59,32 +86,6 @@ echo "**************************************************************************
 # First Query to get the ELB name using the --query and --filters
 # https://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-listeners.html
 
-echo "Finding and storing the ELB ARNS for default region"
-
-ELBARN=$(aws elbv2 describe-load-balancers --output=text --query='LoadBalancers[*].LoadBalancerArn')
-
-echo "*********************************************************************************************"
-echo $ELBARN
-echo "*********************************************************************************************"
-
-# First Query to get the ELB name using the --query and --filters
-# https://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-listeners.html
-
-echo "Finding and storing the Listener ARN for default region"
-
-LISTARN=$(aws elbv2 describe-listeners --load-balancer-arn $ELBARN --output=text --query='Listeners[*].ListenerArn' )
-
-echo "*********************************************************************************************"
-echo $LISTARN
-echo "*********************************************************************************************"
-
-echo "Deleting listener now..."
-# https://awscli.amazonaws.com/v2/documentation/api/latest/reference/elbv2/delete-listener.html
-
-aws elbv2 delete-listener --listener-arn $LISTARN
-
-echo "Listeners deleted!"
-echo "*********************************************************************************************"
 
 echo "Deleting Target Group now..."
 
