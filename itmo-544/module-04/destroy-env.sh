@@ -73,7 +73,7 @@ do
   aws elbv2 deregister-targets \
     --target-group-arn $TGARN --targets Id=$ID
   # This usually takes time
-  # aws elbv2 wait target-deregistered  --target-group-arn $TGARN --targets Id=$ID
+  aws elbv2 wait target-deregistered  --target-group-arn $TGARN --targets Id=$ID
   echo "Target $ID deregistered"
 done
 
