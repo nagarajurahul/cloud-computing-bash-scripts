@@ -2,6 +2,7 @@
 
 # Finding subnets
 
+echo "*********************************************************************************************"
 echo "Finding and storing the subnet IDs for availability zones defined in arguments"
 
 SUBNET2A=$(aws ec2 describe-subnets --output=text --query='Subnets[*].SubnetId' --filter "Name=availability-zone,Values=${10}")
@@ -13,6 +14,19 @@ echo $SUBNET2A
 echo $SUBNET2B
 echo $SUBNET2C
 echo "*********************************************************************************************"
+
+
+
+# Create launch template
+# https://docs.aws.amazon.com/cli/latest/reference/ec2/create-launch-template.html
+
+echo "*********************************************************************************************"
+echo "Creating launch-template now..."
+
+aws ec2 create-launch-template \
+    --launch-template-name ${15} \
+    --version-description version1 \
+    --launch-template-data file://config.json
 
 echo "*********************************************************************************************"
 echo "Creating load-balancer now..."
@@ -46,22 +60,19 @@ aws elbv2 wait load-balancer-available --load-balancer-arns $ELBARN
 echo "ELB is available..."
 
 echo "*********************************************************************************************"
-echo "Creating EC2 instances now..."
+echo "Creating AutoScaling Group now..."
 
-# https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/run-instances.html
-
-# Creating instances and running them
-
-aws ec2 run-instances \
-    --image-id ${1} \
-    --instance-type ${2} \
-    --key-name ${3} \
-    --security-group-ids ${4} \
-    --count ${5} \
-    --user-data file://${6} \
-    --tag-specifications 'ResourceType=instance,Tags=[{Key=course,Value=itmo-544}, {Key=name,Value=cli-instance-launch1}]' \
-    --placement "AvailabilityZone=${7}" \
-    --output table
+# Create auto-scalng groups
+# https://docs.aws.amazon.com/cli/latest/reference/autoscaling/create-auto-scaling-group.html
+aws autoscaling create-auto-scaling-group \
+    --auto-scaling-group-name ${14} \
+    --launch-template LaunchTemplateName=${15} \
+    --target-group-arns $TGARN \
+    --health-check-type ELB \
+    --health-check-grace-period 120 \
+    --min-size ${16} \
+    --max-size ${17} \
+    --desired-capacity ${18}
 
 EC2IDS=$(aws ec2 describe-instances \
     --output=text \
