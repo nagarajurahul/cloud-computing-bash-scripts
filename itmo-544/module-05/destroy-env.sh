@@ -2,7 +2,10 @@
 
 # Dynamically detect your infrastructure and destroy it/terminate it
 
+aws autoscaling delete-auto-scaling-group \
+    --auto-scaling-group-name ${15}
 
+echo "*********************************************************************************************"
 echo "Finding and storing the instance IDs for default region"
 
 # First Describe EC2 instances

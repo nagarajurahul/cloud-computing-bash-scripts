@@ -37,4 +37,4 @@ sg-07cab113574421638
 # ${17} asg max
 # ${18} asg desired
 # ${19} VPCID
-# ${20} security-group-ids for 80 HTTP - still thinking
+# ${20} security-group-ids for 80 HTTP - no pass through if I dont give
