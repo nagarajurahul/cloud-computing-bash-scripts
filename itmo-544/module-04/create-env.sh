@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Finding subnets
+# https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-subnets.html
 
 echo "Finding and storing the subnet IDs for availability zones defined in arguments"
 
@@ -14,8 +15,13 @@ echo $SUBNET2B
 echo $SUBNET2C
 echo "*********************************************************************************************"
 
+
+# https://docs.aws.amazon.com/cli/latest/reference/elbv2/create-load-balancer.html
+
 echo "*********************************************************************************************"
 echo "Creating load-balancer now..."
+
+# Need to remove sg here
 
 aws elbv2 create-load-balancer \
     --name ${8} \
@@ -28,6 +34,7 @@ aws elbv2 create-load-balancer \
 
 # https://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-listeners.html
 
+echo "*********************************************************************************************"
 echo "Finding and storing the ELB ARN for default region"
 
 ELBARN=$(aws elbv2 describe-load-balancers --output=text --query='LoadBalancers[*].LoadBalancerArn')
@@ -44,6 +51,7 @@ echo "**************************************************************************
 echo "Waiting for ELB to become available..."
 aws elbv2 wait load-balancer-available --load-balancer-arns $ELBARN
 echo "ELB is available..."
+
 
 echo "*********************************************************************************************"
 echo "Creating EC2 instances now..."
@@ -110,6 +118,7 @@ echo "**************************************************************************
 echo $TGARN
 echo "*********************************************************************************************"
 
+
 echo "*********************************************************************************************"
 echo "Creating listeners now..."
 
@@ -123,6 +132,7 @@ aws elbv2 create-listener \
     --default-actions Type=forward,TargetGroupArn=$TGARN
 
 echo "Listeners are up!"
+
 
 # Register targets and wait for them to be in service
 # https://awscli.amazonaws.com/v2/documentation/api/latest/reference/elbv2/register-targets.html
@@ -147,6 +157,7 @@ do
 done
 
 echo "*********************************************************************************************"
+
 
 DNSNAME=$(aws elbv2 describe-load-balancers --output=text --query='LoadBalancers[*].DNSName')
 DNSNAME="http://$DNSNAME"
