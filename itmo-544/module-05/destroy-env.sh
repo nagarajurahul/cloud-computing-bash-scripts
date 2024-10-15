@@ -5,7 +5,8 @@
 echo "Deleting auto scaling groups now"
 
 aws autoscaling delete-auto-scaling-group \
-    --auto-scaling-group-name ${14}
+    --auto-scaling-group-name ${14} \
+    --force-delete
 
 
 # Finding taget group ARN
