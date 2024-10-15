@@ -27,9 +27,10 @@ aws elbv2 create-load-balancer \
     --name ${8} \
     --subnets $SUBNET2A $SUBNET2B $SUBNET2C \
     --tags Key=course,Value=${13} \
+    --security-groups ${20} \
     --output table
 
-#    --security-groups ${20}\
+#    --security-groups ${20} \
 #     --scheme internal \  -> to make it internal LB
 
 # https://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-listeners.html
