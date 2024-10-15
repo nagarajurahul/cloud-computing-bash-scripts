@@ -68,20 +68,6 @@ echo "Target groups deleted!"
 echo "*********************************************************************************************"
 
 
-# Now Terminate all EC2 instances
-# https://docs.aws.amazon.com/cli/latest/reference/ec2/terminate-instances.html
-
-echo "Terminating instances now..."
-
-aws ec2 terminate-instances --instance-ids $EC2IDS
-
-echo "Waiting for instances to be terminated..." 
-aws ec2 wait instance-terminated --instance-ids $EC2IDS
-echo "Instances are terminated!"
-
-echo "*********************************************************************************************"
-
-
 # Delete loadbalancer
 # https://docs.aws.amazon.com/cli/latest/reference/elbv2/delete-load-balancer.html
 
