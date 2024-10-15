@@ -2,19 +2,10 @@
 
 # Dynamically detect your infrastructure and destroy it/terminate it
 
-echo "Finding and storing the instance IDs for default region"
+echo "Deleting auto scaling groups now"
 
-# First Describe EC2 instances
-# https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html
-
-EC2IDS=$(aws ec2 describe-instances \
-    --output=text \
-    --query='Reservations[*].Instances[*].InstanceId' \
-    --filter Name=instance-state-name,Values=pending,running)
-
-echo "*********************************************************************************************"
-echo ${EC2IDS}
-echo "*********************************************************************************************"
+aws autoscaling delete-auto-scaling-group \
+    --auto-scaling-group-name ${14}
 
 
 # Finding taget group ARN
@@ -28,29 +19,6 @@ echo "**************************************************************************
 echo "TGARN: $TGARN"
 echo "*********************************************************************************************"
 
-
-# Deregistering attached EC2 IDS before terminating instances
-
-# https://awscli.amazonaws.com/v2/documentation/api/latest/reference/elbv2/deregister-targets.html
-# https://awscli.amazonaws.com/v2/documentation/api/latest/reference/elbv2/wait/target-deregistered.html
-
-declare -a IDSARRAY
-IDSARRAY=( $EC2IDS )
-
-echo "*********************************************************************************************"
-echo "Deregistering Targets now..."
-
-for ID in ${IDSARRAY[@]};
-do
-  echo "Deregistering Target with Id: $ID"
-  aws elbv2 deregister-targets \
-    --target-group-arn $TGARN --targets Id=$ID
-  # This usually takes time
-  aws elbv2 wait target-deregistered  --target-group-arn $TGARN --targets Id=$ID,Port=80
-  echo "Target $ID deregistered"
-done
-
-echo "*********************************************************************************************"
 
 
 echo "Finding and storing the ELB ARNS for default region"
