@@ -67,40 +67,6 @@ echo "ELB is available..."
 
 
 echo "*********************************************************************************************"
-echo "Creating AutoScaling Group now..."
-
-# Create auto-scalng groups
-# https://docs.aws.amazon.com/cli/latest/reference/autoscaling/create-auto-scaling-group.html
-aws autoscaling create-auto-scaling-group \
-    --auto-scaling-group-name ${14} \
-    --launch-template LaunchTemplateName=${15} \
-    --target-group-arns $TGARN \
-    --health-check-type ELB \
-    --health-check-grace-period 120 \
-    --min-size ${16} \
-    --max-size ${17} \
-    --desired-capacity ${18}
-
-
-EC2IDS=$(aws ec2 describe-instances \
-    --output=text \
-    --query='Reservations[*].Instances[*].InstanceId' --filter Name=instance-state-name,Values=pending,running)
-
-echo "Finding and storing the Instance IDs"
-echo "*********************************************************************************************"
-echo $EC2IDS
-echo "*********************************************************************************************"
-
-#https://docs.aws.amazon.com/cli/latest/reference/ec2/wait/
-#https://docs.aws.amazon.com/cli/latest/reference/ec2/wait/instance-running.html
-
-echo "*********************************************************************************************"
-echo "Waiting for instances..."
-aws ec2 wait instance-running --instance-ids $EC2IDS
-echo "Instances are up!"
-
-
-echo "*********************************************************************************************"
 echo "Creating target groups now..."
 
 # Find the VPC
@@ -145,31 +111,40 @@ aws elbv2 create-listener \
 echo "Listeners are up!"
 
 
-# Register targets and wait for them to be in service
-# https://awscli.amazonaws.com/v2/documentation/api/latest/reference/elbv2/register-targets.html
-# https://awscli.amazonaws.com/v2/documentation/api/latest/reference/elbv2/wait/target-in-service.html
+echo "*********************************************************************************************"
+echo "Creating AutoScaling Group now..."
 
-# Create a bash Array so we can loop through it and take care of the Id
+# Create auto-scalng groups
+# https://docs.aws.amazon.com/cli/latest/reference/autoscaling/create-auto-scaling-group.html
+aws autoscaling create-auto-scaling-group \
+    --auto-scaling-group-name ${14} \
+    --launch-template LaunchTemplateName=${15} \
+    --target-group-arns $TGARN \
+    --health-check-type ELB \
+    --health-check-grace-period 120 \
+    --min-size ${16} \
+    --max-size ${17} \
+    --desired-capacity ${18}
 
-declare -a IDSARRAY
-IDSARRAY=( $EC2IDS )
 
+EC2IDS=$(aws ec2 describe-instances \
+    --output=text \
+    --query='Reservations[*].Instances[*].InstanceId' --filter Name=instance-state-name,Values=pending,running)
+
+echo "Finding and storing the Instance IDs"
+echo "*********************************************************************************************"
+echo $EC2IDS
 echo "*********************************************************************************************"
 
-for ID in ${IDSARRAY[@]};
-do
-  
-  echo "Registering Target with Id: $ID"
-  aws elbv2 register-targets \
-    --target-group-arn $TGARN --targets Id=$ID,Port=80
-  aws elbv2 wait target-in-service  --target-group-arn $TGARN --targets Id=$ID,Port=80
-  echo "Target $ID is in service!!!"
-  
-done
+#https://docs.aws.amazon.com/cli/latest/reference/ec2/wait/
+#https://docs.aws.amazon.com/cli/latest/reference/ec2/wait/instance-running.html
 
 echo "*********************************************************************************************"
+echo "Waiting for instances..."
+aws ec2 wait instance-running --instance-ids $EC2IDS
+echo "Instances are up!"
 
-
+echo "*********************************************************************************************"
 DNSNAME=$(aws elbv2 describe-load-balancers --output=text --query='LoadBalancers[*].DNSName')
 DNSNAME="http://$DNSNAME"
 
