@@ -27,7 +27,7 @@ aws elbv2 create-load-balancer \
     --name ${8} \
     --subnets $SUBNET2A $SUBNET2B $SUBNET2C \
     --tags Key=course,Value=${13} \
-    --security-groups ${20} \
+    --security-groups ${4} \
     --output table
 
 #    --security-groups ${20} \
