@@ -21,27 +21,27 @@ echo "**************************************************************************
 echo "*********************************************************************************************"
 echo "Creating load-balancer now..."
 
-# Need to remove sg here
+# Need to change sg here
 
 aws elbv2 create-load-balancer \
     --name ${8} \
     --subnets $SUBNET2A $SUBNET2B $SUBNET2C \
-    --tags Key=course,Value=${13} \
+    --tags Key='name',Value=${13} \
     --security-groups ${4} \
     --output table
 
 #    --security-groups ${20} \
 #     --scheme internal \  -> to make it internal LB
 
-# https://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-listeners.html
-
 echo "*********************************************************************************************"
 echo "Finding and storing the ELB ARN for default region"
+
+# https://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-load-balancers.html
 
 ELBARN=$(aws elbv2 describe-load-balancers --output=text --query='LoadBalancers[*].LoadBalancerArn')
 
 echo "*********************************************************************************************"
-echo $ELBARN
+echo  "Printing ELBARN: $ELBARN"
 echo "*********************************************************************************************"
 
 
@@ -71,6 +71,8 @@ aws ec2 run-instances \
     --tag-specifications 'ResourceType=instance,Tags=[{Key=course,Value=itmo-544}, {Key=name,Value=cli-instance-launch1}]' \
     --placement "AvailabilityZone=${7}" \
     --output table
+
+# https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html
 
 EC2IDS=$(aws ec2 describe-instances \
     --output=text \
@@ -116,12 +118,12 @@ echo "Finding and storing target group ARN"
 TGARN=$(aws elbv2 describe-target-groups --output=text --query='TargetGroups[*].TargetGroupArn' --names ${9})
 
 echo "*********************************************************************************************"
-echo $TGARN
+echo "Target group ARN: $TGARN"
 echo "*********************************************************************************************"
 
 
 echo "*********************************************************************************************"
-echo "Creating listeners now..."
+echo "Creating elbv2 listeners now..."
 
 # Creating listener
 # https://awscli.amazonaws.com/v2/documentation/api/latest/reference/elbv2/create-listener.html
