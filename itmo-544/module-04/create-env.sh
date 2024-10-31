@@ -1,5 +1,27 @@
 #!/bin/bash
 
+##############################################################################
+# ${1} image-id
+# ${2} instance-type
+# ${3} key-name
+# ${4} security-group-ids
+# ${5} count
+# ${6} user-data file name
+# ${7} availability-zone
+# ${8} elb name
+# ${9} target group name
+# ${10} us-east-2a
+# ${11} us-east-2b
+# ${12} us-east-2c
+# ${13} tag value
+# ${14} asg name
+# ${15} launch-template name
+# ${16} asg min
+# ${17} asg max
+# ${18} asg desired
+# ${19} VPCID
+##############################################################################
+
 # Finding subnets
 # https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-subnets.html
 
@@ -93,13 +115,13 @@ aws ec2 wait instance-running --instance-ids $EC2IDS
 echo "Instances are up!"
 
 
-echo "*********************************************************************************************"
-echo "Creating target groups now..."
-
 # Find the VPC
 # https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-vpcs.html
 
 MYVPCID=$(aws ec2 describe-vpcs --output=text --query='Vpcs[*].VpcId')
+
+echo "*********************************************************************************************"
+echo "Creating target groups now..."
 
 # Create the target group - this is application load balancer type
 # https://docs.aws.amazon.com/cli/latest/reference/elbv2/create-target-group.html
