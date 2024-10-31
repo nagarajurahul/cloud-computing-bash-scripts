@@ -39,7 +39,7 @@ echo "Creating load-balancer now..."
 aws elbv2 create-load-balancer \
     --name ${8} \
     --subnets $SUBNET2A $SUBNET2B $SUBNET2C \
-    --tags Key=course,Value=${13} \
+    --tags Key=name,Value=${13} \
     --security-groups ${4} \
     --output table
 
@@ -54,7 +54,7 @@ echo "Finding and storing the ELB ARN for default region"
 ELBARN=$(aws elbv2 describe-load-balancers --output=text --query='LoadBalancers[*].LoadBalancerArn')
 
 echo "*********************************************************************************************"
-echo $ELBARN
+echo "Printing ELBARN: $ELBARN"
 echo "*********************************************************************************************"
 
 
@@ -93,7 +93,7 @@ echo "Finding and storing target group ARN"
 TGARN=$(aws elbv2 describe-target-groups --output=text --query='TargetGroups[*].TargetGroupArn' --names ${9})
 
 echo "*********************************************************************************************"
-echo $TGARN
+echo "Target group ARN: $TGARN"
 echo "*********************************************************************************************"
 
 
