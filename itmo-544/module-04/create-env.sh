@@ -30,7 +30,7 @@ aws elbv2 create-load-balancer \
     --security-groups ${4} \
     --output table
 
-#    --security-groups ${20} \
+#    --security-groups ${20} \ -> to make seperate SG for ELB
 #     --scheme internal \  -> to make it internal LB
 
 echo "*********************************************************************************************"
@@ -69,8 +69,9 @@ aws ec2 run-instances \
     --count ${5} \
     --user-data file://${6} \
     --tag-specifications 'ResourceType=instance,Tags=[{Key=course,Value=itmo-544}, {Key=name,Value=cli-instance-launch1}]' \
-    --placement "AvailabilityZone=${7}" \
-    --output table
+    --placement "AvailabilityZone=${7}"
+    
+    # --output table
 
 # https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html
 
