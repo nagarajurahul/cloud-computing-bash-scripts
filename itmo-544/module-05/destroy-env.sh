@@ -124,22 +124,23 @@ echo "$ASGNAME autoscaling group was deleted!"
 
 
 # Find the launch configuration template
+# https://docs.aws.amazon.com/cli/latest/reference/autoscaling/describe-launch-configurations.html
 
 echo "Retrieving launch configuration name..."
 
-LTNAME=$(aws autoscaling describe-launch-configurations --output=text --query='LaunchConfigurations[*].LaunchConfigurationName')
+LTNAME=$(aws ec2 describe-launch-templates --output=text --query='LaunchTemplates[*].LaunchTemplateName')
 
 echo "*********************************************************************************************"
-echo "Launch configuration name: $LTNAME"
+echo "Launch template name: $LTNAME"
 echo "*********************************************************************************************"
 
 # Delete the launch configuration template file
 
 # https://docs.aws.amazon.com/cli/latest/reference/autoscaling/delete-launch-configuration.html
 
-echo "Deleting $LTNAME launch configuration..."
+echo "Deleting $LTNAME launch template..."
 
-aws autoscaling delete-launch-configuration \
-    --launch-configuration-name $LTNAME
+aws ec2 delete-launch-template \
+    --launch-template-name $LTNAME
 
 echo "$LTNAME launch configuration was deleted!"
