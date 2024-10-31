@@ -2,11 +2,46 @@
 
 # Dynamically detect your infrastructure and destroy it/terminate it
 
-echo "Deleting auto scaling groups now"
+# Find auto scaling group
+# https://docs.aws.amazon.com/cli/latest/reference/autoscaling/describe-auto-scaling-groups.html
 
-aws autoscaling delete-auto-scaling-group \
-    --auto-scaling-group-name ${14} \
-    --force-delete
+echo "Finding autoscaling group name..."
+
+ASGNAME=$(aws autoscaling describe-auto-scaling-groups --output=text --query='AutoScalingGroups[*].AutoScalingGroupName')
+
+echo "*********************************************************************************************"
+echo "Autoscaling group name: $ASGNAME"
+echo "*********************************************************************************************"
+
+# Update the auto scaling group to remove the min and max values to zero
+# https://docs.aws.amazon.com/cli/latest/reference/autoscaling/update-auto-scaling-group.html
+
+echo "Updating $ASGNAME autoscaling group to set minimum and desired capacity to 0..."
+
+aws autoscaling update-auto-scaling-group \
+    --auto-scaling-group-name $ASGNAME \
+    --health-check-type ELB \
+    --min-size 0 \
+    --desired-capacity 0
+
+echo "$ASGNAME autoscaling group was updated!"
+
+# Retrieve instance IDs of EC2
+# Describe EC2 instances
+# https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html
+
+EC2IDS=$(aws ec2 describe-instances \
+    --output=text \
+    --query='Reservations[*].Instances[*].InstanceId' --filter Name=instance-state-name,Values=pending,running )
+
+echo "*********************************************************************************************"
+
+echo "Waiting for instances to be terminated..." 
+aws ec2 wait instance-terminated --instance-ids $EC2IDS
+echo "Instances are terminated!"
+
+echo "*********************************************************************************************"
+
 
 
 # Finding taget group ARN
@@ -63,7 +98,7 @@ echo "Deleting Target Group now..."
 
 aws elbv2 delete-target-group --target-group-arn $TGARN
 # Error here because it's already deleted!
-# aws elbv2 wait target-deregistered --target-group-arn $TGARN
+aws elbv2 wait target-deregistered --target-group-arn $TGARN
 
 echo "Target groups deleted!"
 echo "*********************************************************************************************"
@@ -80,6 +115,11 @@ echo "Waiting for load-balancer to be deleted..."
 aws elbv2 wait load-balancers-deleted --load-balancer-arns $ELBARN
 echo "Load balancers deleted!"
 
+echo "*********************************************************************************************"
+echo "Deleting $ASGNAME auto scaling group now"
+
+aws autoscaling delete-auto-scaling-group \
+    --auto-scaling-group-name $ASGNAME
 
 # Can we delete multiple load-balancers using this command?
 
