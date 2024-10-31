@@ -62,7 +62,7 @@ echo "Finding and storing the ELB ARNS for default region"
 ELBARN=$(aws elbv2 describe-load-balancers --output=text --query='LoadBalancers[*].LoadBalancerArn')
 
 echo "*********************************************************************************************"
-echo $ELBARN
+echo "ELBARN: $ELBARN"
 echo "*********************************************************************************************"
 
 # First Query to get the ELB name using the --query and --filters
@@ -73,7 +73,7 @@ echo "Finding and storing the Listener ARN for default region"
 LISTARN=$(aws elbv2 describe-listeners --load-balancer-arn $ELBARN --output=text --query='Listeners[*].ListenerArn' )
 
 echo "*********************************************************************************************"
-echo $LISTARN
+echo "LISTARN: $LISTARN"
 echo "*********************************************************************************************"
 
 
@@ -120,11 +120,26 @@ echo "Deleting $ASGNAME auto scaling group now"
 
 aws autoscaling delete-auto-scaling-group \
     --auto-scaling-group-name $ASGNAME
+echo "$ASGNAME autoscaling group was deleted!"
 
-# Can we delete multiple load-balancers using this command?
 
-# for ELBARN in $ELBARNS;
-# do
-#     echo $ELBARN
-#     aws elbv2 delete-load-balancer --load-balancer-arn $ELBARN
-# done
+# Find the launch configuration template
+
+echo "Retrieving launch configuration name..."
+
+LTNAME=$(aws autoscaling describe-launch-configurations --output=text --query='LaunchConfigurations[*].LaunchConfigurationName')
+
+echo "*********************************************************************************************"
+echo "Launch configuration name: $LTNAME"
+echo "*********************************************************************************************"
+
+# Delete the launch configuration template file
+
+# https://docs.aws.amazon.com/cli/latest/reference/autoscaling/delete-launch-configuration.html
+
+echo "Deleting $LTNAME launch configuration..."
+
+aws autoscaling delete-launch-configuration \
+    --launch-configuration-name $LTNAME
+
+echo "$LTNAME launch configuration was deleted!"
