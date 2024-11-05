@@ -115,7 +115,7 @@ echo "Listeners are up!"
 echo "*********************************************************************************************"
 echo "Creating AutoScaling Group now..."
 
-# Create auto-scalng groups
+# Create auto-scaling groups
 # https://docs.aws.amazon.com/cli/latest/reference/autoscaling/create-auto-scaling-group.html
 aws autoscaling create-auto-scaling-group \
     --auto-scaling-group-name ${14} \

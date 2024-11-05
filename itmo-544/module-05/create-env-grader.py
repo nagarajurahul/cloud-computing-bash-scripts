@@ -4,6 +4,8 @@ import requests
 import time
 
 ec2 = boto3.client('ec2')
+elbv2 = boto3.client('elbv2')
+
 
 grandtotal = 0
 totalPoints = 5
@@ -63,7 +65,7 @@ print(type(asgname))
 
 print("The number of Auto Scaling Groups are: " + str(len(response['AutoScalingGroups'])))
 
-if len(response['AutoScalingGroups']) >=1 :
+if len(response['AutoScalingGroups']) >= 1:
     print("Correct answer you have:" + str(len(response['AutoScalingGroups'])) + " Auto Scaling Groups...")
     grandtotal += 1
     currentPoints()
@@ -77,9 +79,7 @@ else:
 # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/autoscaling/client/describe_load_balancers.html
 print('*' * 79)
 print("Checking Load Balancers...")
-response = autoscaling.describe_load_balancers(
-    AutoScalingGroupName=asgname,
-)
+response = elbv2.describe_load_balancers()
 print(response)
 
 print("The number of Load Balancers are: " + str(len(response['LoadBalancers'])))
@@ -99,14 +99,14 @@ else:
 print('*' * 79)
 print("Checking EC2 instances now...")
 response = ec2.describe_instances(
-    # Filters=[
-    #     {
-    #         'Name': 'tag:name',
-    #         'Values': [
-    #             'module-05',
-    #         ],
-    #     },
-    # ],
+    Filters=[
+        {
+            'Name': 'tag:name',
+            'Values': [
+                'module-05',
+            ],
+        },
+    ],
 )
 print(response)
 # print(response['Reservations'][0]['Instances'])
