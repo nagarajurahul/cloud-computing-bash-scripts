@@ -67,7 +67,7 @@ response = ec2.describe_instances(
     ],
 )
 print(response)
-print(response['Reservations'][0]['Instances'])
+# print(response['Reservations'][0]['Instances'])
 
 
 ##############################################################################
