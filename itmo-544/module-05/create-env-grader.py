@@ -7,7 +7,7 @@ ec2 = boto3.client('ec2')
 print("Checking Launch Templates")
 response = ec2.describe_launch_templates()
 print(response)
-print(response.LaunchTemplates)
+print(response.'LaunchTemplates')
 
 autoscaling = boto3.client('autoscaling')
 
