@@ -22,3 +22,20 @@ print(response.AutoScalingGroups[0].AutoScalingGroupName)
 print("Checking Load Balancers")
 response = autoscaling.describe_load_balancers()
 print(response)
+
+
+# Describe EC2 instances
+# https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2/client/describe_instances.html
+print("Checking EC2 instances now")
+response = ec2.describe_instances(
+    Filters=[
+        {
+            'Name': 'tag:name',
+            'Values': [
+                'module-05',
+            ],
+        },
+    ],
+)
+print(response)
+print(response.Reservations[0].Instances)
