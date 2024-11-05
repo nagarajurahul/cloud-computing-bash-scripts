@@ -102,7 +102,25 @@ response = ec2.describe_instances(
 )
 print(response)
 # print(response['Reservations'][0]['Instances'])
+reservations=response['Reservations']
+ec2_instances = []
 
+for reservation in reservations:
+    for instance in reservation['Instances']:
+        ec2_instances.append(instance)
+
+print(ec2_instances)
+
+
+print("The number of Instances are: " + str(len(ec2_instances)))
+
+if len(ec2_instances) >= 3:
+    print("Correct answer you have:" + str(len(ec2_instances)) + " Instances...")
+    grandtotal += 1
+    currentPoints()
+else:
+    print("You have  an incorrect number of Instances: " + str(len(ec2_instances)) + ", perhaps check if you have correctly configured your Instances...")
+    currentPoints()
 
 ##############################################################################
 # Test 5: Check PublicDNS and HTTP return status to check if webserver was 
