@@ -117,6 +117,10 @@ else:
 
 
 # Describe Target Groups
+# https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/elbv2/client/describe_target_groups.html#ElasticLoadBalancingv2.Client.describe_target_groups
+print('*' * 79)
+print("Checking Target Groups now...")
+
 response = elbv2.describe_target_groups()
 print(response)
 
