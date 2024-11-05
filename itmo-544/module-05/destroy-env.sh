@@ -24,6 +24,7 @@ aws autoscaling update-auto-scaling-group \
     --min-size 0 \
     --desired-capacity 0
 
+sleep 5
 echo "$ASGNAME autoscaling group was updated!"
 
 # Retrieve instance IDs of EC2
