@@ -15,7 +15,7 @@ autoscaling = boto3.client('autoscaling')
 print("Checking Auto Scaling Groups")
 response = autoscaling.describe_auto_scaling_groups()
 print(response)
-print(response.AutoScalingGroups.[0].AutoScalingGroupName)
+print(response.AutoScalingGroups[0].AutoScalingGroupName)
 
 # Describe Load Balancer
 # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/autoscaling/client/describe_load_balancers.html
