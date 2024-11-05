@@ -52,6 +52,17 @@ JSON="{
             \"DeleteOnTermination\": true
         }
     ],
+    \"TagSpecifications\": [
+        {
+            \"ResourceType\": \"instance\",
+            \"Tags\": [
+                {
+                    \"Key\": \"Name\",
+                    \"Value\": \"${13}\"
+                }
+            ]
+        }
+    ],
     \"ImageId\": \"${1}\",
     
     \"InstanceType\": \"${2}\",

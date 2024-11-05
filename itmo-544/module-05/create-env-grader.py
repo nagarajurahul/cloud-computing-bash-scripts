@@ -8,23 +8,24 @@ ec2 = boto3.client('ec2')
 grandtotal = 0
 totalPoints = 5
 
+
 response = ec2.describe_regions()
 
 # Function to print out current points progress
 def currentPoints():
   print("Current Points: " + str(grandtotal) + " out of " + str(totalPoints) + ".")
 
-print(response)
+# print(response)
 
-print("The number of regions are: " + str(len(response['Regions'])))
+# print("The number of regions are: " + str(len(response['Regions'])))
 
-if len(response['Regions']) > 5:
-    print("Correct answer you have:" + str(len(response['Regions'])) + " regions...")
-    grandtotal += 1
-    currentPoints()
-else:
-    print("You have  an incorrect number of regions: " + str(len(response['Regions'])) + ", perhaps check your code where you declared number of regions...")
-    currentPoints()
+# if len(response['Regions']) > 5:
+#     print("Correct answer you have:" + str(len(response['Regions'])) + " regions...")
+#     grandtotal += 1
+#     currentPoints()
+# else:
+#     print("You have  an incorrect number of regions: " + str(len(response['Regions'])) + ", perhaps check your code where you declared number of regions...")
+#     currentPoints()
 
 
 
@@ -48,6 +49,8 @@ else:
 
 autoscaling = boto3.client('autoscaling')
 
+
+
 # Describe Auto Scaling Groups
 # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/autoscaling/client/describe_auto_scaling_groups.html
 print('*' * 79)
@@ -67,6 +70,8 @@ else:
     print("You have  an incorrect number of Auto Scaling Groups: " + str(len(response['AutoScalingGroups'])) + ", perhaps check if you have created Auto Scaling Groups...")
     currentPoints()
 
+
+
 # Describe Load Balancer
 # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/autoscaling/client/describe_load_balancers.html
 print('*' * 79)
@@ -85,6 +90,8 @@ if len(response['LoadBalancers']) >= 1:
 else:
     print("You have  an incorrect number of Load Balancers: " + str(len(response['LoadBalancers'])) + ", perhaps check ycheck if you have created Load Balancers...")
     currentPoints()
+
+
 
 # Describe EC2 instances
 # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2/client/describe_instances.html
@@ -121,6 +128,8 @@ if len(ec2_instances) >= 3:
 else:
     print("You have  an incorrect number of Instances: " + str(len(ec2_instances)) + ", perhaps check if you have correctly configured your Instances...")
     currentPoints()
+
+
 
 ##############################################################################
 # Test 5: Check PublicDNS and HTTP return status to check if webserver was 
