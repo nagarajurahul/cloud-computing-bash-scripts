@@ -85,7 +85,7 @@ print("Checking EC2 instances now...")
 response = ec2.describe_instances(
     Filters=[
         {
-            'Name': 'tag:name',
+            'Name': 'tag:Name',
             'Values': [
                 'module-05',
             ],

@@ -127,6 +127,7 @@ aws autoscaling create-auto-scaling-group \
     --max-size ${17} \
     --desired-capacity ${18}
 
+sleep 5
 
 EC2IDS=$(aws ec2 describe-instances \
     --output=text \
@@ -154,6 +155,7 @@ echo $DNSNAME
 
 echo "*********************************************************************************************"
 echo "Making curl request now..."
+sleep 5
 echo "Response is as belows "
 
 curl $DNSNAME
