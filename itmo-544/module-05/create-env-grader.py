@@ -5,6 +5,7 @@ import time
 
 ec2 = boto3.client('ec2')
 elbv2 = boto3.client('elbv2')
+autoscaling = boto3.client('autoscaling')
 
 
 grandtotal = 0
@@ -49,8 +50,6 @@ else:
     print("You have  an incorrect number of Launch Templates: " + str(len(response['LaunchTemplates'])) + ", perhaps check if you have created the Launch Templates...")
     currentPoints()
 
-autoscaling = boto3.client('autoscaling')
-
 
 
 # Describe Auto Scaling Groups
@@ -59,13 +58,15 @@ print('*' * 79)
 print("Checking Auto Scaling Groups...")
 response = autoscaling.describe_auto_scaling_groups()
 print(response)
-asgname=(response['AutoScalingGroups'][0]['AutoScalingGroupName'])
-print(asgname)
-print(type(asgname))
 
 print("The number of Auto Scaling Groups are: " + str(len(response['AutoScalingGroups'])))
 
 if len(response['AutoScalingGroups']) >= 1:
+
+    asgname=(response['AutoScalingGroups'][0]['AutoScalingGroupName'])
+    print(asgname)
+    print(type(asgname))
+
     print("Correct answer you have:" + str(len(response['AutoScalingGroups'])) + " Auto Scaling Groups...")
     grandtotal += 1
     currentPoints()
@@ -107,9 +108,16 @@ response = ec2.describe_instances(
                 'module-05',
             ],
         },
+        {
+            'Name': 'instance-state-name',
+            'Values': [
+               'running'
+            ]
+        }
     ],
 )
 print(response)
+
 # print(response['Reservations'][0]['Instances'])
 reservations=response['Reservations']
 ec2_instances = []

@@ -5,6 +5,7 @@ import time
 
 ec2 = boto3.client('ec2')
 elbv2 = boto3.client('elbv2')
+autoscaling = boto3.client('autoscaling')
 
 
 grandtotal = 0
@@ -36,8 +37,6 @@ if len(response['LaunchTemplates']) == 0:
 else:
     print("You have  an incorrect number of Launch Templates: " + str(len(response['LaunchTemplates'])) + ", perhaps check if you have deleted the Launch Templates...")
     currentPoints()
-
-autoscaling = boto3.client('autoscaling')
 
 
 
@@ -91,10 +90,15 @@ response = ec2.describe_instances(
                 'module-05',
             ],
         },
+        {
+            'Name': 'instance-state-name',
+            'Values': [
+               'running'
+            ]
+        }
     ],
 )
 print(response)
-# print(response['Reservations'][0]['Instances'])
 reservations=response['Reservations']
 ec2_instances = []
 
