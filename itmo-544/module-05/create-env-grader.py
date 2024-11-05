@@ -7,3 +7,8 @@ ec2 = boto3.client('ec2')
 
 response = ec2.describe_launch_templates(
 )
+
+autoscaling = boto3.client('autoscaling')
+
+
+response = autoscaling.describe_load_balancers()
