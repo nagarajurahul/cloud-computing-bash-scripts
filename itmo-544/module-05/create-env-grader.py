@@ -23,7 +23,7 @@ if len(response['Regions']) > 5:
     grandtotal += 1
     currentPoints()
 else:
-    print("You have  an incorrect number of regions: " + str(len(response['Regions'])) + "perhaps check your code where you declared number of regions...")
+    print("You have  an incorrect number of regions: " + str(len(response['Regions'])) + ", perhaps check your code where you declared number of regions...")
     currentPoints()
 
 
@@ -43,7 +43,7 @@ if len(response['LaunchTemplates']) >= 1:
     grandtotal += 1
     currentPoints()
 else:
-    print("You have  an incorrect number of Launch Templates: " + str(len(response['LaunchTemplates'])) + "perhaps check if you have created the Launch Templates...")
+    print("You have  an incorrect number of Launch Templates: " + str(len(response['LaunchTemplates'])) + ", perhaps check if you have created the Launch Templates...")
     currentPoints()
 
 autoscaling = boto3.client('autoscaling')
@@ -59,12 +59,12 @@ asgname=(response['AutoScalingGroups'][0]['AutoScalingGroupName'])
 
 print("The number of Auto Scaling Groups are: " + str(len(response['AutoScalingGroups'])))
 
-if len(response['AutoScalingGroups']) > 5:
+if len(response['AutoScalingGroups']) >=1 :
     print("Correct answer you have:" + str(len(response['AutoScalingGroups'])) + " Auto Scaling Groups...")
     grandtotal += 1
     currentPoints()
 else:
-    print("You have  an incorrect number of Auto Scaling Groups: " + str(len(response['AutoScalingGroups'])) + "perhaps check if you have created Auto Scaling Groups...")
+    print("You have  an incorrect number of Auto Scaling Groups: " + str(len(response['AutoScalingGroups'])) + ", perhaps check if you have created Auto Scaling Groups...")
     currentPoints()
 
 # Describe Load Balancer
@@ -76,6 +76,15 @@ response = autoscaling.describe_load_balancers(
 )
 print(response)
 
+print("The number of Load Balancers are: " + str(len(response['LoadBalancers'])))
+
+if len(response['LoadBalancers']) >= 1:
+    print("Correct answer you have:" + str(len(response['LoadBalancers'])) + " Load Balancers...")
+    grandtotal += 1
+    currentPoints()
+else:
+    print("You have  an incorrect number of Load Balancers: " + str(len(response['LoadBalancers'])) + ", perhaps check your code where you declared number of regions...")
+    currentPoints()
 
 # Describe EC2 instances
 # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2/client/describe_instances.html
