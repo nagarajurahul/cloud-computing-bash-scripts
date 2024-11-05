@@ -30,16 +30,28 @@ else:
 
 # Describe Launch Templates
 # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2/client/describe_launch_templates.html
-print("Checking Launch Templates")
+print('*' * 79)
+print("Checking Launch Templates...")
 response = ec2.describe_launch_templates()
 print(response)
-print(response['LaunchTemplates'])
+# print(response['LaunchTemplates'])
+
+print("The number of launch templates are: " + str(len(response['LaunchTemplates'])))
+
+if len(response['LaunchTemplates']) >= 1:
+    print("Correct answer you have:" + str(len(response['LaunchTemplates'])) + " Launch Templates...")
+    grandtotal += 1
+    currentPoints()
+else:
+    print("You have  an incorrect number of Launch Templates: " + str(len(response['LaunchTemplates'])) + "perhaps check if you have created the Launch Templates...")
+    currentPoints()
 
 autoscaling = boto3.client('autoscaling')
 
 # Describe Auto Scaling Groups
 # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/autoscaling/client/describe_auto_scaling_groups.html
-print("Checking Auto Scaling Groups")
+print('*' * 79)
+print("Checking Auto Scaling Groups...")
 response = autoscaling.describe_auto_scaling_groups()
 print(response)
 asgname=(response['AutoScalingGroups'][0]['AutoScalingGroupName'])
@@ -47,7 +59,8 @@ print(asgname)
 
 # Describe Load Balancer
 # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/autoscaling/client/describe_load_balancers.html
-print("Checking Load Balancers")
+print('*' * 79)
+print("Checking Load Balancers...")
 response = autoscaling.describe_load_balancers(
     AutoScalingGroupName=asgname,
 )
@@ -56,7 +69,8 @@ print(response)
 
 # Describe EC2 instances
 # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2/client/describe_instances.html
-print("Checking EC2 instances now")
+print('*' * 79)
+print("Checking EC2 instances now...")
 response = ec2.describe_instances(
     Filters=[
         {
