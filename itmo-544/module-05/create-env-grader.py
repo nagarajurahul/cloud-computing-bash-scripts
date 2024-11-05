@@ -55,7 +55,7 @@ print("Checking Auto Scaling Groups...")
 response = autoscaling.describe_auto_scaling_groups()
 print(response)
 asgname=(response['AutoScalingGroups'][0]['AutoScalingGroupName'])
-# print(asgname)
+print(asgname)
 
 print("The number of Auto Scaling Groups are: " + str(len(response['AutoScalingGroups'])))
 
@@ -83,7 +83,7 @@ if len(response['LoadBalancers']) >= 1:
     grandtotal += 1
     currentPoints()
 else:
-    print("You have  an incorrect number of Load Balancers: " + str(len(response['LoadBalancers'])) + ", perhaps check your code where you declared number of regions...")
+    print("You have  an incorrect number of Load Balancers: " + str(len(response['LoadBalancers'])) + ", perhaps check ycheck if you have created Load Balancers...")
     currentPoints()
 
 # Describe EC2 instances
