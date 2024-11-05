@@ -118,6 +118,10 @@ echo "Load balancers deleted!"
 echo "*********************************************************************************************"
 echo "Deleting $ASGNAME auto scaling group now"
 
+
+aws autoscaling suspend-processes \
+    --auto-scaling-group-name $ASGNAME
+
 aws autoscaling delete-auto-scaling-group \
     --auto-scaling-group-name $ASGNAME
 echo "$ASGNAME autoscaling group was deleted!"
