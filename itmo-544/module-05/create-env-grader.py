@@ -57,7 +57,7 @@ print(response)
 asgname=(response['AutoScalingGroups'][0]['AutoScalingGroupName'])
 # print(asgname)
 
-print("The number of Auto Scaling Groups are: " + str(len(response['AutoScalingGroup'])))
+print("The number of Auto Scaling Groups are: " + str(len(response['AutoScalingGroups'])))
 
 if len(response['AutoScalingGroups']) > 5:
     print("Correct answer you have:" + str(len(response['AutoScalingGroups'])) + " Auto Scaling Groups...")
