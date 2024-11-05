@@ -80,6 +80,7 @@ else:
 print('*' * 79)
 print("Checking Load Balancers...")
 response = elbv2.describe_load_balancers()
+responseELB=response
 print(response)
 
 print("The number of Load Balancers are: " + str(len(response['LoadBalancers'])))
