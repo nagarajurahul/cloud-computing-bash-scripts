@@ -91,14 +91,14 @@ else:
 print('*' * 79)
 print("Checking EC2 instances now...")
 response = ec2.describe_instances(
-    Filters=[
-        {
-            'Name': 'tag:name',
-            'Values': [
-                'module-05',
-            ],
-        },
-    ],
+    # Filters=[
+    #     {
+    #         'Name': 'tag:name',
+    #         'Values': [
+    #             'module-05',
+    #         ],
+    #     },
+    # ],
 )
 print(response)
 # print(response['Reservations'][0]['Instances'])
