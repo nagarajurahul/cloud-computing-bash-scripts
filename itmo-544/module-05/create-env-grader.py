@@ -1,6 +1,7 @@
 import boto3
 from tqdm import tqdm
 import requests
+import time
 
 ec2 = boto3.client('ec2')
 
