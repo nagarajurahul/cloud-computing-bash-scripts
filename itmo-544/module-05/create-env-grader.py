@@ -78,7 +78,7 @@ else:
 print('*' * 79)
 print("Checking Load Balancers...")
 response = autoscaling.describe_load_balancers(
-    AutoScalingGroupName=asgname,
+    AutoScalingGroupName='rn-auto-scaling-ec2',
 )
 print(response)
 
@@ -89,7 +89,7 @@ if len(response['LoadBalancers']) >= 1:
     grandtotal += 1
     currentPoints()
 else:
-    print("You have  an incorrect number of Load Balancers: " + str(len(response['LoadBalancers'])) + ", perhaps check ycheck if you have created Load Balancers...")
+    print("You have  an incorrect number of Load Balancers: " + str(len(response['LoadBalancers'])) + ", perhaps check if you have created Load Balancers...")
     currentPoints()
 
 
