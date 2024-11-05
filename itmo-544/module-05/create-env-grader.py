@@ -55,7 +55,17 @@ print("Checking Auto Scaling Groups...")
 response = autoscaling.describe_auto_scaling_groups()
 print(response)
 asgname=(response['AutoScalingGroups'][0]['AutoScalingGroupName'])
-print(asgname)
+# print(asgname)
+
+print("The number of Auto Scaling Groups are: " + str(len(response['AutoScalingGroup'])))
+
+if len(response['AutoScalingGroup']) > 5:
+    print("Correct answer you have:" + str(len(response['AutoScalingGroup'])) + " Auto Scaling Groups...")
+    grandtotal += 1
+    currentPoints()
+else:
+    print("You have  an incorrect number of Auto Scaling Groups: " + str(len(response['AutoScalingGroup'])) + "perhaps check if you have created Auto Scaling Groups...")
+    currentPoints()
 
 # Describe Load Balancer
 # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/autoscaling/client/describe_load_balancers.html
