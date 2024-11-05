@@ -78,7 +78,7 @@ else:
 print('*' * 79)
 print("Checking Load Balancers...")
 response = autoscaling.describe_load_balancers(
-    AutoScalingGroupName='rn-auto-scaling-ec2',
+    AutoScalingGroupName=asgname,
 )
 print(response)
 
