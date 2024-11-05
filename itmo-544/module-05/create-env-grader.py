@@ -59,6 +59,7 @@ response = autoscaling.describe_auto_scaling_groups()
 print(response)
 asgname=(response['AutoScalingGroups'][0]['AutoScalingGroupName'])
 print(asgname)
+print(type(asgname))
 
 print("The number of Auto Scaling Groups are: " + str(len(response['AutoScalingGroups'])))
 
