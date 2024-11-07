@@ -14,6 +14,8 @@
 # By default, MySQL listens on port 3306
 # Feel free to add tags if required
 
+echo "Creating db instances now..."
+
 aws rds create-db-instance \
     --db-instance-identifier ${19} \
     --db-instance-class db.t3.micro \
@@ -24,6 +26,14 @@ aws rds create-db-instance \
     --db-subnet-group mydbsubnetgroup \
     --master-username controller \
     --manage-master-user-password
+
+echo "Waiting for db instances to be available"
+
+aws rds wait \
+    --db-instance-available \
+    --db-instance-identifier ${19} 
+
+echo "DB Instance is now running..."
 
     # --port 3306 \
     # --backup-retention-period 7 \
