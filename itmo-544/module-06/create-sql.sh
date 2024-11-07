@@ -19,12 +19,15 @@ aws rds create-db-instance \
     --db-instance-class db.t3.micro \
     --engine mysql \
     --allocated-storage 20 \
-    --port 3306 \
     --tags Key=class,Value=class-code \
-    --no-multi-az \
-    --availability-zone us-east-2a \
-    --vpc-security-group-ids sg-0d0101b597cd9ec5e
+    --vpc-security-group-ids sg-0d0101b597cd9ec5e \
+    --db-subnet-group mydbsubnetgroup \
+    --master-username controller \
+    --manage-master-user-password
 
+    # --port 3306 \
     # --backup-retention-period 7 \
+    # --no-multi-az \
+    # --availability-zone us-east-2a \
     # --master-username admin \
     # --master-user-password admin \
