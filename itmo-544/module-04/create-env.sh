@@ -90,7 +90,7 @@ aws ec2 run-instances \
     --security-group-ids ${4} \
     --count ${5} \
     --user-data file://${6} \
-    --tag-specifications 'ResourceType=instance,Tags=[{Key=course,Value=itmo-544}, {Key=name,Value=cli-instance-launch1}]' \
+    --tag-specifications 'ResourceType=instance,Tags=[{Key=course,Value=itmo-544}, {Key=name,Value=module-04}]' \
     --placement "AvailabilityZone=${7}"
     
     # --output table
