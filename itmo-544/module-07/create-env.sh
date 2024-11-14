@@ -8,3 +8,10 @@ aws ec2 run-instances \
     --count 1 \
     --tag-specifications 'ResourceType=instance,Tags=[{Key=course,Value=itmo-544}, {Key=name,Value=module-07}]' \
     --placement "AvailabilityZone=${7}"
+
+    
+
+# aws ec2 create-image \
+#     --instance-id i-0ce973a5a2201b833 \
+#     --name "My EC2 Server" \
+#     --description "An AMI for my server"
