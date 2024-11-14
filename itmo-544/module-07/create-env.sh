@@ -6,10 +6,11 @@ aws ec2 run-instances \
     --key-name ${3} \
     --security-group-ids ${4} \
     --count 1 \
+    --user-data file://${6} \
     --tag-specifications 'ResourceType=instance,Tags=[{Key=course,Value=itmo-544}, {Key=name,Value=module-07}]' \
     --placement "AvailabilityZone=${7}"
 
-    
+
 
 # aws ec2 create-image \
 #     --instance-id i-0ce973a5a2201b833 \
