@@ -35,6 +35,8 @@ aws rds wait \
 
 echo "DB Instance is now running..."
 
+(aws rds describe-db-instances --query='DBInstances[*].DBInstanceIdentifier')
+
     # --port 3306 \
     # --backup-retention-period 7 \
     # --no-multi-az \
