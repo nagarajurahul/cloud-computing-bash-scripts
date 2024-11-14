@@ -57,8 +57,6 @@
 # https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-images.html   
 
 
-echo "Finding and storing our Custom AMI..."
-
 AMI=$(aws ec2 describe-images \
     --filters "Name=tag:name,Values=module-07" \
     --query 'Images[*].[ImageId]' \
