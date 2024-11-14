@@ -2,6 +2,13 @@
 
 # Use this script to first create instance
 
+# https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/run-instances.html
+
+# Creating instances and running them
+
+# echo "*********************************************************************************************"
+# echo "Creating EC2 instances now with old AMI..."
+
 # aws ec2 run-instances \
 #     --image-id ${1} \
 #     --instance-type ${2} \
@@ -18,11 +25,46 @@
 # Run to touch once ssh git@github.com
 # Then create image
 
+
+
+# https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html
+
+EC2IDS=$(aws ec2 describe-instances \
+    --output=text \
+    --query='Reservations[*].Instances[*].InstanceId' --filter Name=instance-state-name,Values=pending,running)
+
+echo "Finding and storing the Instance IDs"
+echo "*********************************************************************************************"
+echo $EC2IDS
+echo "*********************************************************************************************"
+
+
+# https://docs.aws.amazon.com/cli/latest/reference/ec2/create-image.html
+
+echo "Creating our custom AMI now..."
+
 aws ec2 create-image \
-    --instance-id i-0ce973a5a2201b833 \
+    --instance-id $EC2IDS \
     --name "My EC2 Server" \
     --description "An AMI for my server"
 
+# Replace the ami in the arguments with this new AMI
+
+
+# https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-images.html   
+
+
+echo "Finding and storing our Custom AMI..."
+
+aws ec2 describe-images \
+    --filters "Name=tag:Type,Values=Custom" \
+    --query 'Images[*].[ImageId]' \
+    --output text
+
+
+
+echo "*********************************************************************************************"
+echo "Creating EC2 instances now with our custom AMI..."
 
 aws ec2 run-instances \
     --image-id ${1} \
