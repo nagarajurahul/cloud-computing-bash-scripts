@@ -15,7 +15,8 @@
 # Now SSH using the ssh -i <key> ubuntu@<IPv4>
 # Create key-pair
 # Put public key as a deploy key to the GitHub repo in the Settings->Deploy Keys
-
+# Run to touch once ssh git@github.com
+# Then create image
 
 aws ec2 create-image \
     --instance-id i-0ce973a5a2201b833 \
