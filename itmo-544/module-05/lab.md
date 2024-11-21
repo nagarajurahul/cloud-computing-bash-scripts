@@ -46,17 +46,18 @@ Modify your `destroy-env.sh` to detach and destroy all resources launched during
 
 ## Part 3
 
-Using the [Python Boto3 AWS SDK](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html "Python Boto3 AWS SDK") you will write an autograder script for this project. One for the `create-env.sh` named: `create-env-grader.sh`, and one for the `destroy-env.py` named: `destroy-env-grader.py`. Print out information per item below to the screen and keep a grandtotal to print out your score out of 5.
+Using the [Python Boto3 AWS SDK](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html "Python Boto3 AWS SDK") you will write an autograder script for this project. One for the `create-env.sh` named: `create-env-grader.py`, and one for the `destroy-env.py` named: `destroy-env-grader.py`. Print out information per item below to the screen and keep a grandtotal to print out your score out of 5.
 
-For the `create-env.sh`:
+For the `create-env-grader.py`:
 
 * Check for the existence of one Launch Template
 * Check for the existence of one Autoscaling Group
 * Check for the existence of one ELB
-* Check for the existence of three EC2 instances
-* Check for the existence of the EC2 instances being tagged: **module-05**
+* Check for the existence of three EC2 instances tagged: **module-05**
+* ~~Check for the existence of the EC2 instances being tagged: **module-05**~~
+* Check for the ELB to return an HTTP 200 upon request
 
-For the `destroy-env.sh`:
+For the `destroy-env-grader.py`:
 
 * Check for the existence of zero Launch Templates
 * Check for the existence of zero Autoscaling Groups
