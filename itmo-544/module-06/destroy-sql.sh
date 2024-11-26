@@ -41,7 +41,7 @@ aws rds delete-db-instance \
     --db-instance-identifier $DB_INSTANCE_ID \
     --skip-final-snapshot
 
-
+echo "*********************************************************************************************"
 echo "Waiting for db-instances to be deleted..."
 
 aws rds wait db-instance-deleted \
@@ -62,4 +62,6 @@ for SUBNET_GROUP in $DB_SUBNET_GROUP; do
     echo "DB subnet group '$SUBNET_GROUP' has been deleted!"
 done
 
+echo "*********************************************************************************************"
 echo "All DB subnet groups have been deleted!"
+echo "*********************************************************************************************"
