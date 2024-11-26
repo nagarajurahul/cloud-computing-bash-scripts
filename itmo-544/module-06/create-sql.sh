@@ -67,9 +67,12 @@ echo "**************************************************************************
 
 echo "Waiting for db instances to be available"
 
-aws rds wait \
-    --db-instance-available \
-    --db-instance-identifier ${19} 
+aws rds wait db-instance-available \
+    --db-instance-identifier ${19}
+ 
+# aws rds wait db-instance-available \
+#     --db-instance-identifier rndbinstance
+
 
 echo "DB Instance is now running..."
 echo "*********************************************************************************************"
