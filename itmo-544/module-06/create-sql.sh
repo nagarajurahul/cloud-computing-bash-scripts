@@ -21,7 +21,7 @@ aws rds create-db-instance \
     --db-instance-class db.t3.micro \
     --engine mysql \
     --allocated-storage 20 \
-    --tags Key=class,Value=class-code \
+    --tags Key=Name,Value=module-06 \
     --vpc-security-group-ids sg-0d0101b597cd9ec5e \
     --db-subnet-group mydbsubnetgroup \
     --master-username controller \
