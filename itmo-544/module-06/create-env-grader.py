@@ -135,6 +135,9 @@ if db_instances:
             tags_response = rds.list_tags_for_resource(ResourceName=db_arn)
             tags = tags_response['TagList']
             
+            print("Tags")
+            print(tags)
+
             # Check if 'module-06' tag exists
             for tag in tags:
                 if tag['Name'] == 'module-06':
