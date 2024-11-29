@@ -58,7 +58,7 @@ aws rds create-db-instance \
     --engine mysql \
     --allocated-storage 10 \
     --tags Key=Name,Value=module-06 \
-    --vpc-security-group-ids sg-0d0101b597cd9ec5e \
+    --vpc-security-group-ids $RDS_SG \
     --db-subnet-group "${19}-subnet-group" \
     --master-username controller \
     --manage-master-user-password
