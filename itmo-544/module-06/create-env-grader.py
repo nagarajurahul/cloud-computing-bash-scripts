@@ -124,8 +124,8 @@ except Exception as e:
 print('*' * 79)
 print("Checking module-06 tag in RDS instances...")
 
-try:
-    if db_instances:
+
+if db_instances:
         found_tag = False
         for db_instance in db_instances:
             # Get the ARN of the DB instance
@@ -149,8 +149,34 @@ try:
         else:
             print("Incorrect answer: No database instances have the 'module-06' tag.")
             currentPoints()
-except Exception as e:
-    print(f"An error occurred: {e}")
+
+# try:
+#     if db_instances:
+#         found_tag = False
+#         for db_instance in db_instances:
+#             # Get the ARN of the DB instance
+#             db_arn = db_instance['DBInstanceArn']
+            
+#             # Fetch tags for the DB instance
+#             tags_response = rds.list_tags_for_resource(ResourceName=db_arn)
+#             tags = tags_response['TagList']
+            
+#             # Check if 'module-06' tag exists
+#             for tag in tags:
+#                 if tag['Name'] == 'module-06':
+#                     print(f"DB Instance '{db_instance['DBInstanceIdentifier']}' has the 'module-06' tag.")
+#                     found_tag = True
+#                     break
+        
+#         if found_tag:
+#             print("Correct answer: At least one database instance has the 'module-06' tag.")
+#             grandtotal += 1
+#             currentPoints()
+#         else:
+#             print("Incorrect answer: No database instances have the 'module-06' tag.")
+#             currentPoints()
+# except Exception as e:
+#     print(f"An error occurred: {e}")
 
 
 print('*' * 79)
