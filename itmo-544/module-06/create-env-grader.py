@@ -165,8 +165,10 @@ try:
     if secrets:
         print(f"Correct answer: You have {len(secrets)} secret(s) in Secrets Manager.")
         grandtotal += 1
+        currentPoints()
     else:
         print("Incorrect answer: No secrets found in Secrets Manager.")
+        currentPoints()
 except Exception as e:
     print(f"An error occurred: {e}")
 
