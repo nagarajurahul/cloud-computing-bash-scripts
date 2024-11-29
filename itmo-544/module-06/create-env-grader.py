@@ -100,11 +100,10 @@ def currentPoints():
 # Commenting till here
 
 
-
+print('*' * 79)
 print("Checking RDS instances...")
 
 rds = boto3.client('rds')
-
 
 # Check for RDS instances
 try:
@@ -122,7 +121,7 @@ except Exception as e:
     print(f"An error occurred: {e}")
 
 
-
+print('*' * 79)
 print("Checking module-06 tag in RDS instances...")
 
 try:
@@ -154,7 +153,7 @@ except Exception as e:
     print(f"An error occurred: {e}")
 
 
-
+print('*' * 79)
 print("Checking Secrets...")
 
 secrets_manager = boto3.client('secretsmanager')
