@@ -140,7 +140,7 @@ if db_instances:
 
             # Check if 'module-06' tag exists
             for tag in tags:
-                if tag['Name'] == 'module-06':
+                if tag['Key'] == 'Name' and tag['Value'] =='module-06':
                     print(f"DB Instance '{db_instance['DBInstanceIdentifier']}' has the 'module-06' tag.")
                     found_tag = True
                     break
