@@ -120,28 +120,48 @@ else:
     currentPoints()
 
 
+print('*' * 79)
+print("Checking RDS instances now...")
+
+rds = boto3.client('rds')
+
+try:
+    response = rds.describe_db_instances()
+    db_instances = response['DBInstances']
+    
+    if not db_instances:
+        print("Correct answer: There are zero RDS instances.")
+        grandtotal += 1
+        currentPoints()
+    else:
+        print(f"Incorrect answer: You have {len(db_instances)} RDS instance(s).")
+        currentPoints()
+except Exception as e:  
+    print(f"An error occurred: {e}")
+
+
 # Commenting from here
 
-# Describe Target Groups
-# https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/elbv2/client/describe_target_groups.html#ElasticLoadBalancingv2.Client.describe_target_groups
-print('*' * 79)
-print("Checking Target Groups now...")
+# # Describe Target Groups
+# # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/elbv2/client/describe_target_groups.html#ElasticLoadBalancingv2.Client.describe_target_groups
+# print('*' * 79)
+# print("Checking Target Groups now...")
 
-response = elbv2.describe_target_groups()
-print(response)
+# response = elbv2.describe_target_groups()
+# print(response)
 
-print("The number of Target Groups are: " + str(len(response['TargetGroups'])))
+# print("The number of Target Groups are: " + str(len(response['TargetGroups'])))
 
-if len(response['TargetGroups']) == 0:
-    print("Correct answer you have:" + str(len(response['TargetGroups'])) + " Target Groups...")
-    grandtotal += 1
-    currentPoints()
-else:
-    print("You have  an incorrect number of Target Groups: " + str(len(response['TargetGroups'])) + ", perhaps check if you have correctly deleted your Target Groups...")
-    currentPoints()
+# if len(response['TargetGroups']) == 0:
+#     print("Correct answer you have:" + str(len(response['TargetGroups'])) + " Target Groups...")
+#     grandtotal += 1
+#     currentPoints()
+# else:
+#     print("You have  an incorrect number of Target Groups: " + str(len(response['TargetGroups'])) + ", perhaps check if you have correctly deleted your Target Groups...")
+#     currentPoints()
 
-print('*' * 79)
-print("\r")
+# print('*' * 79)
+# print("\r")
 
 # Commenting till here
 
