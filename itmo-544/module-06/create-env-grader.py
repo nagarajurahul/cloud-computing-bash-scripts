@@ -139,7 +139,7 @@ try:
             
             print("Tags")
             print(tags)
-            
+
             # Check if 'module-06' tag exists
             for tag in tags:
                 if tag['Key'] == 'Name' and tag['Value'] =='module-06':
@@ -154,6 +154,9 @@ try:
         else:
             print("Incorrect answer: No database instances have the 'module-06' tag.")
             currentPoints()
+    else:
+        print("There are no instances of RDS to check tags.")
+        currentPoints()
 except Exception as e:
     print(f"An error occurred: {e}")
 
