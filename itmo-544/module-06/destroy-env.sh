@@ -5,6 +5,7 @@
 # Find auto scaling group
 # https://docs.aws.amazon.com/cli/latest/reference/autoscaling/describe-auto-scaling-groups.html
 
+echo "*********************************************************************************************"
 echo "Finding autoscaling group name..."
 
 ASGNAME=$(aws autoscaling describe-auto-scaling-groups --output=text --query='AutoScalingGroups[*].AutoScalingGroupName')
@@ -131,6 +132,7 @@ echo "$ASGNAME autoscaling group was deleted!"
 # Find the launch configuration template
 # https://docs.aws.amazon.com/cli/latest/reference/autoscaling/describe-launch-configurations.html
 
+echo "*********************************************************************************************"
 echo "Retrieving launch configuration name..."
 
 LTNAME=$(aws ec2 describe-launch-templates --output=text --query='LaunchTemplates[*].LaunchTemplateName')
@@ -208,12 +210,15 @@ echo "Deleting DB subnet groups now..."
 
 # Loop through and delete each DB subnet group
 for SUBNET_GROUP in $DB_SUBNET_GROUP; do
-    echo "Deleting DB subnet group: $SUBNET_GROUP..."
+    # echo "Deleting DB subnet group: $SUBNET_GROUP..."
     aws rds delete-db-subnet-group \
         --db-subnet-group-name $SUBNET_GROUP
     echo "DB subnet group '$SUBNET_GROUP' has been deleted!"
 done
 
 echo "*********************************************************************************************"
-echo "All DB subnet groups have been deleted!"
-echo "*********************************************************************************************"
+
+
+# echo "*********************************************************************************************"
+# echo "All DB subnet groups have been deleted!"
+# echo "*********************************************************************************************"

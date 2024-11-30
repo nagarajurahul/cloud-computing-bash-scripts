@@ -56,12 +56,15 @@ echo "Deleting DB subnet groups now..."
 
 # Loop through and delete each DB subnet group
 for SUBNET_GROUP in $DB_SUBNET_GROUP; do
-    echo "Deleting DB subnet group: $SUBNET_GROUP..."
+    # echo "Deleting DB subnet group: $SUBNET_GROUP..."
     aws rds delete-db-subnet-group \
         --db-subnet-group-name $SUBNET_GROUP
     echo "DB subnet group '$SUBNET_GROUP' has been deleted!"
 done
 
 echo "*********************************************************************************************"
-echo "All DB subnet groups have been deleted!"
-echo "*********************************************************************************************"
+
+
+# echo "*********************************************************************************************"
+# echo "All DB subnet groups have been deleted!"
+# echo "*********************************************************************************************"
