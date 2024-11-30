@@ -41,16 +41,16 @@ sudo npm install pm2 -g
 # So we can serve the provided index.html not the default "welcome to Nginx"
 
 # Change URL to your private repo
-sudo -u ubuntu git clone git@github.com:illinoistech-itm/hajek.git
+sudo -u ubuntu git clone git@github.com:illinoistech-itm/rnagaraju.git
 
-sudo cp hajek/itmo-444-544/weekly-assignments/module-08/default /etc/nginx/sites-available/default
+sudo cp rnagaraju/itmo-544/module-08/install-env.sh /etc/nginx/sites-available/default
 sudo systemctl daemon-reload
 sudo systemctl restart nginx
 
 # cd command to the directory containing app.js
 # WARNING!!! This is the path in my GitHub Repo - yours could be different
 # Please adjust accordingly - There be Dragons!
-cd hajek/itmo-444-544/weekly-assignments/module-08/
+cd rnagaraju/itmo-544/module-08/
 
 # Used to auto start the app.js nodejs application at deploy time
 sudo pm2 start app.js
