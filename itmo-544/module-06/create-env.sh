@@ -248,8 +248,6 @@ echo "DB Instance is now running..."
 echo "*********************************************************************************************"
 
 
-aws rds describe-db-instances --query='DBInstances[*].DBInstanceIdentifier'
-
     # --port 3306 \
     # --backup-retention-period 7 \
     # --no-multi-az \
