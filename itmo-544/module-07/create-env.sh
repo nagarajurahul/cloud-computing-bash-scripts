@@ -6,17 +6,17 @@
 
 # Creating instances and running them
 
-# echo "*********************************************************************************************"
-# echo "Creating EC2 instances now with old AMI..."
+echo "*********************************************************************************************"
+echo "Creating EC2 instances now with old AMI..."
 
-# aws ec2 run-instances \
-#     --image-id ${1} \
-#     --instance-type ${2} \
-#     --key-name ${3} \
-#     --security-group-ids ${4} \
-#     --count 1 \
-#     --tag-specifications 'ResourceType=instance,Tags=[{Key=course,Value=itmo-544}, {Key=name,Value=module-07}]' \
-#     --placement "AvailabilityZone=${7}"
+aws ec2 run-instances \
+    --image-id ${1} \
+    --instance-type ${2} \
+    --key-name ${3} \
+    --security-group-ids ${4} \
+    --count 1 \
+    --tag-specifications 'ResourceType=instance,Tags=[{Key=name,Value=module-07}]' \
+    --placement "AvailabilityZone=${7}"
 
 
 # Now SSH using the ssh -i <key> ubuntu@<IPv4>
@@ -57,16 +57,16 @@
 # https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-images.html   
 
 
-AMI=$(aws ec2 describe-images \
-    --filters "Name=tag:name,Values=module-07" \
-    --query 'Images[*].[ImageId]' \
-    --output text)
+# AMI=$(aws ec2 describe-images \
+#     --filters "Name=tag:name,Values=module-07" \
+#     --query 'Images[*].[ImageId]' \
+#     --output text)
 
 
-echo "Finding and storing our custom AMI"
-echo "*********************************************************************************************"
-echo $AMI
-echo "*********************************************************************************************"
+# echo "Finding and storing our custom AMI"
+# echo "*********************************************************************************************"
+# echo $AMI
+# echo "*********************************************************************************************"
 
 
 # echo "*********************************************************************************************"
