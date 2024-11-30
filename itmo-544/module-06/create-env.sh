@@ -88,6 +88,7 @@ aws elbv2 create-target-group \
 # Describe the target groups and get target ARNs
 # https://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-target-groups.html
 
+echo "*********************************************************************************************"
 echo "Finding and storing target group ARN"
 
 TGARN=$(aws elbv2 describe-target-groups --output=text --query='TargetGroups[*].TargetGroupArn' --names ${9})
@@ -109,6 +110,7 @@ aws elbv2 create-listener \
     --port 80 \
     --default-actions Type=forward,TargetGroupArn=$TGARN
 
+echo "*********************************************************************************************"
 echo "Listeners are up!"
 
 
@@ -133,6 +135,7 @@ EC2IDS=$(aws ec2 describe-instances \
     --output=text \
     --query='Reservations[*].Instances[*].InstanceId' --filter Name=instance-state-name,Values=pending,running)
 
+echo "*********************************************************************************************"
 echo "Finding and storing the Instance IDs"
 echo "*********************************************************************************************"
 echo $EC2IDS
@@ -205,8 +208,6 @@ aws rds create-db-subnet-group \
     --subnet-ids $SUBNET2A $SUBNET2B $SUBNET2C
 
 echo "*********************************************************************************************"
-
-
 echo "Pulling db security groups now..."
 
 RDS_SG=$(aws ec2 describe-security-groups \
@@ -218,6 +219,7 @@ echo "**************************************************************************
 echo "RDS_SG: $RDS_SG"
 echo "*********************************************************************************************"
 
+echo "*********************************************************************************************"
 echo "Creating db instances now..."
 
 aws rds create-db-instance \
@@ -231,8 +233,8 @@ aws rds create-db-instance \
     --master-username controller \
     --manage-master-user-password
 
-echo "*********************************************************************************************"
 
+echo "*********************************************************************************************"
 echo "Waiting for db instances to be available"
 
 aws rds wait db-instance-available \
