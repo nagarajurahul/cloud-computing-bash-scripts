@@ -39,25 +39,26 @@ else:
     currentPoints()
 
 
+# Commenting from here
 
-# Describe Auto Scaling Groups
-# https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/autoscaling/client/describe_auto_scaling_groups.html
-print('*' * 79)
-print("Checking Auto Scaling Groups...")
-response = autoscaling.describe_auto_scaling_groups()
-print(response)
+# # Describe Auto Scaling Groups
+# # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/autoscaling/client/describe_auto_scaling_groups.html
+# print('*' * 79)
+# print("Checking Auto Scaling Groups...")
+# response = autoscaling.describe_auto_scaling_groups()
+# print(response)
 
-print("The number of Auto Scaling Groups are: " + str(len(response['AutoScalingGroups'])))
+# print("The number of Auto Scaling Groups are: " + str(len(response['AutoScalingGroups'])))
 
-if len(response['AutoScalingGroups']) == 0:
-    print("Correct answer you have:" + str(len(response['AutoScalingGroups'])) + " Auto Scaling Groups...")
-    grandtotal += 1
-    currentPoints()
-else:
-    print("You have  an incorrect number of Auto Scaling Groups: " + str(len(response['AutoScalingGroups'])) + ", perhaps check if you have deleted your Auto Scaling Groups...")
-    currentPoints()
+# if len(response['AutoScalingGroups']) == 0:
+#     print("Correct answer you have:" + str(len(response['AutoScalingGroups'])) + " Auto Scaling Groups...")
+#     grandtotal += 1
+#     currentPoints()
+# else:
+#     print("You have  an incorrect number of Auto Scaling Groups: " + str(len(response['AutoScalingGroups'])) + ", perhaps check if you have deleted your Auto Scaling Groups...")
+#     currentPoints()
 
-
+# Commenting till here
 
 # Describe Load Balancer
 # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/autoscaling/client/describe_load_balancers.html
