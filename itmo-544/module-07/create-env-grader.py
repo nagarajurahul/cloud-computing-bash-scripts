@@ -180,50 +180,52 @@ try:
 except Exception as e:
     print(f"An error occurred: {e}")
 
-# Describe EC2 instances
-# https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2/client/describe_instances.html
-print('*' * 79)
-print("Checking EC2 instances now...")
-response = ec2.describe_instances(
-    Filters=[
-        {
-            'Name': 'tag:Name',
-            'Values': [
-                'module-06',
-            ],
-        },
-        {
-            'Name': 'instance-state-name',
-            'Values': [
-               'running'
-            ]
-        }
-    ],
-)
-print(response)
+# Commenting from here
 
-# print(response['Reservations'][0]['Instances'])
-reservations=response['Reservations']
-ec2_instances = []
+# # Describe EC2 instances
+# # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2/client/describe_instances.html
+# print('*' * 79)
+# print("Checking EC2 instances now...")
+# response = ec2.describe_instances(
+#     Filters=[
+#         {
+#             'Name': 'tag:Name',
+#             'Values': [
+#                 'module-06',
+#             ],
+#         },
+#         {
+#             'Name': 'instance-state-name',
+#             'Values': [
+#                'running'
+#             ]
+#         }
+#     ],
+# )
+# print(response)
 
-for reservation in reservations:
-    for instance in reservation['Instances']:
-        ec2_instances.append(instance)
+# # print(response['Reservations'][0]['Instances'])
+# reservations=response['Reservations']
+# ec2_instances = []
 
-print(ec2_instances)
+# for reservation in reservations:
+#     for instance in reservation['Instances']:
+#         ec2_instances.append(instance)
 
-
-print("The number of Instances are: " + str(len(ec2_instances)))
-
-if len(ec2_instances) >= 3:
-    print("Correct answer you have:" + str(len(ec2_instances)) + " Instances...")
-    grandtotal += 1
-    currentPoints()
-else:
-    print("You have  an incorrect number of Instances: " + str(len(ec2_instances)) + ", perhaps check if you have correctly configured your Instances...")
-    currentPoints()
+# print(ec2_instances)
 
 
+# print("The number of Instances are: " + str(len(ec2_instances)))
+
+# if len(ec2_instances) >= 3:
+#     print("Correct answer you have:" + str(len(ec2_instances)) + " Instances...")
+#     grandtotal += 1
+#     currentPoints()
+# else:
+#     print("You have  an incorrect number of Instances: " + str(len(ec2_instances)) + ", perhaps check if you have correctly configured your Instances...")
+#     currentPoints()
+
+# Commenting till here
 
 ##############################################################################
 # Test 5: Check PublicDNS and HTTP return status to check if webserver was 
