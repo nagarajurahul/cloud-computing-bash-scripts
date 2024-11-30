@@ -180,6 +180,26 @@ try:
 except Exception as e:
     print(f"An error occurred: {e}")
 
+
+
+
+s3 = boto3.client('s3')
+
+response = s3.list_buckets()
+
+
+print(response)
+
+print("The number of buckets are: " + str(len(response['Buckets'])))
+
+if len(response['Buckets']) >= 2:
+    print("Correct answer you have:" + str(len(response['Buckets'])) + " Buckets...")
+    grandtotal += 1
+    currentPoints()
+else:
+    print("You have  an incorrect number of Buckets: " + str(len(response['Buckets'])) + ", perhaps check your code if you have created the S3 buckets...")
+    currentPoints()
+
 # Commenting from here
 
 # # Describe EC2 instances
