@@ -76,28 +76,31 @@ def currentPoints():
 #     print("You have  an incorrect number of Auto Scaling Groups: " + str(len(response['AutoScalingGroups'])) + ", perhaps check if you have created Auto Scaling Groups...")
 #     currentPoints()
 
-
-
-# # Describe Load Balancer
-# # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/autoscaling/client/describe_load_balancers.html
-# print('*' * 79)
-# print("Checking Load Balancers...")
-# response = elbv2.describe_load_balancers()
-# responseELB=response
-# print(response)
-
-# print("The number of Load Balancers are: " + str(len(response['LoadBalancers'])))
-
-# if len(response['LoadBalancers']) >= 1:
-#     print("Correct answer you have:" + str(len(response['LoadBalancers'])) + " Load Balancers...")
-#     grandtotal += 1
-#     currentPoints()
-# else:
-#     print("You have  an incorrect number of Load Balancers: " + str(len(response['LoadBalancers'])) + ", perhaps check if you have created Load Balancers...")
-#     currentPoints()
-
-
 # Commenting till here
+
+
+# Load balancer code required for HTTP response check
+
+# Describe Load Balancer
+# https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/autoscaling/client/describe_load_balancers.html
+print('*' * 79)
+print("Checking Load Balancers...")
+response = elbv2.describe_load_balancers()
+responseELB=response
+print(response)
+
+print("The number of Load Balancers are: " + str(len(response['LoadBalancers'])))
+
+if len(response['LoadBalancers']) >= 1:
+    print("Correct answer you have:" + str(len(response['LoadBalancers'])) + " Load Balancers...")
+    # grandtotal += 1
+    # currentPoints()
+else:
+    print("You have  an incorrect number of Load Balancers: " + str(len(response['LoadBalancers'])) + ", perhaps check if you have created Load Balancers...")
+    # currentPoints()
+
+
+
 
 
 print('*' * 79)
