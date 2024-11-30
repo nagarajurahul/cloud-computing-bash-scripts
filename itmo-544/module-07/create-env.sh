@@ -19,6 +19,24 @@ aws ec2 run-instances \
     --placement "AvailabilityZone=${7}"
 
 
+EC2IDS=$(aws ec2 describe-instances \
+    --output=text \
+    --query='Reservations[*].Instances[*].InstanceId' --filter Name=instance-state-name,Values=pending,running)
+
+echo "*********************************************************************************************"
+echo "Finding and storing the Instance IDs"
+echo "*********************************************************************************************"
+echo $EC2IDS
+echo "*********************************************************************************************"
+
+#https://docs.aws.amazon.com/cli/latest/reference/ec2/wait/
+#https://docs.aws.amazon.com/cli/latest/reference/ec2/wait/instance-running.html
+
+echo "*********************************************************************************************"
+echo "Waiting for instances..."
+aws ec2 wait instance-running --instance-ids $EC2IDS
+echo "Instances are up!"
+
 # Now SSH using the ssh -i <key> ubuntu@<IPv4>
 # Create key-pair
 # Put public key as a deploy key to the GitHub repo in the Settings->Deploy Keys
