@@ -29,6 +29,18 @@ echo "**************************************************************************
 echo $EC2IDS
 echo "*********************************************************************************************"
 
+
+# Fetch the public IP address of the first instance
+FIRST_INSTANCE_PUBLIC_IP=$(aws ec2 describe-instances \
+    --instance-ids $(echo $EC2IDS | awk '{print $1}') \
+    --query 'Reservations[0].Instances[0].PublicIpAddress' \
+    --output text)
+
+echo "*********************************************************************************************"
+echo "The public IP address of the first instance is: $FIRST_INSTANCE_PUBLIC_IP"
+echo "*********************************************************************************************"
+
+
 #https://docs.aws.amazon.com/cli/latest/reference/ec2/wait/
 #https://docs.aws.amazon.com/cli/latest/reference/ec2/wait/instance-running.html
 
