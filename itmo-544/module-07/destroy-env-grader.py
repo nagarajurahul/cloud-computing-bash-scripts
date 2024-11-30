@@ -38,6 +38,23 @@ else:
     print("You have  an incorrect number of Launch Templates: " + str(len(response['LaunchTemplates'])) + ", perhaps check if you have deleted the Launch Templates...")
     currentPoints()
 
+s3 = boto3.client('s3')
+
+print('*' * 79)
+print("Checking S3 buckets...")
+response = s3.list_buckets()
+print(response)
+
+print("The number of Buckets are: " + str(len(response['Buckets'])))
+
+if len(response['Buckets']) == 0:
+    print("Correct answer you have:" + str(len(response['Buckets'])) + " S3 buckets...")
+    grandtotal += 1
+    currentPoints()
+else:
+    print("You have  an incorrect number of S3 buckets: " + str(len(response['Buckets'])) + ", perhaps check if you have deleted your S3 Buckets...")
+    currentPoints()
+
 
 # Commenting from here
 
