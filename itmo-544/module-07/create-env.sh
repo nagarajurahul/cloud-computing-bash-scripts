@@ -29,6 +29,14 @@ echo "**************************************************************************
 echo $EC2IDS
 echo "*********************************************************************************************"
 
+#https://docs.aws.amazon.com/cli/latest/reference/ec2/wait/
+#https://docs.aws.amazon.com/cli/latest/reference/ec2/wait/instance-running.html
+
+echo "*********************************************************************************************"
+echo "Waiting for instances..."
+aws ec2 wait instance-running --instance-ids $EC2IDS
+echo "Instances are up!"
+
 
 # Fetch the public IP address of the first instance
 FIRST_INSTANCE_PUBLIC_IP=$(aws ec2 describe-instances \
@@ -41,13 +49,6 @@ echo "The public IP address of the first instance is: $FIRST_INSTANCE_PUBLIC_IP"
 echo "*********************************************************************************************"
 
 
-#https://docs.aws.amazon.com/cli/latest/reference/ec2/wait/
-#https://docs.aws.amazon.com/cli/latest/reference/ec2/wait/instance-running.html
-
-echo "*********************************************************************************************"
-echo "Waiting for instances..."
-aws ec2 wait instance-running --instance-ids $EC2IDS
-echo "Instances are up!"
 
 # Now SSH using the ssh -i <key> ubuntu@<IPv4>
 # Create key-pair
