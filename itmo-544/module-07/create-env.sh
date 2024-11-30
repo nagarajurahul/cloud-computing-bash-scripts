@@ -51,7 +51,7 @@ echo "**************************************************************************
 
 
 # Now SSH using the ssh -i <key> ubuntu@<IPv4>
-# Create key-pair
+# Create key-pair - ssh-keygen -t ed25519 -C "your_email@example.com"
 # Put public key as a deploy key to the GitHub repo in the Settings->Deploy Keys
 # Run to touch once ssh git@github.com
 # Then create image
