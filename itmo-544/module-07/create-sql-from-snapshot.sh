@@ -80,19 +80,25 @@ DB_INSTANCE_ID="${19}"
 echo "*********************************************************************************************"
 echo "Creating a new DB instance from the snapshot now..."
 
-aws rds create-db-instance \
+# aws rds create-db-instance \
+#     --db-instance-identifier $DB_INSTANCE_ID \
+#     --db-instance-class db.t3.micro \
+#     --engine mysql \
+#     --db-snapshot-identifier $SNAPSHOT_ID \
+#     --allocated-storage 10 \
+#     --tags Key=Name,Value=module-07 \
+#     --vpc-security-group-ids $RDS_SG \
+#     --db-subnet-group "${19}-subnet-group" \
+#     --master-username controller \
+#     --manage-master-user-password
+
+aws rds restore-db-instance-from-db-snapshot \
     --db-instance-identifier $DB_INSTANCE_ID \
-    --db-instance-class db.t3.micro \
-    --engine mysql \
     --db-snapshot-identifier $SNAPSHOT_ID \
-    --allocated-storage 10 \
+    --db-instance-class db.t3.micro \
     --tags Key=Name,Value=module-07 \
     --vpc-security-group-ids $RDS_SG \
-    --db-subnet-group "${19}-subnet-group" \
-    --master-username controller \
-    --manage-master-user-password
-
-
+    --db-subnet-group "${19}-subnet-group"
 
 echo "*********************************************************************************************"
 echo "Waiting for the DB instance to be available..."
