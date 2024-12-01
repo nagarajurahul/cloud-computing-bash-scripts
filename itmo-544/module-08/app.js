@@ -17,25 +17,25 @@ const {
   GetSecretValueCommand,
 } = require("@aws-sdk/client-secrets-manager"); // CommonJS import
 
-const {
-  SNSClient,
-  ListTopicsCommand,
-  GetTopicAttributesCommand,
-  SubscribeCommand,
-  PublishCommand,
-} = require("@aws-sdk/client-sns");
+// const {
+//   SNSClient,
+//   ListTopicsCommand,
+//   GetTopicAttributesCommand,
+//   SubscribeCommand,
+//   PublishCommand,
+// } = require("@aws-sdk/client-sns");
 
 const {
   RDSClient,
   DescribeDBInstancesCommand,
 } = require("@aws-sdk/client-rds");
 
-const {
-  SQSClient,
-  GetQueueUrlCommand,
-  SendMessageCommand,
-  ListQueuesCommand,
-} = require("@aws-sdk/client-sqs")
+// const {
+//   SQSClient,
+//   GetQueueUrlCommand,
+//   SendMessageCommand,
+//   ListQueuesCommand,
+// } = require("@aws-sdk/client-sqs")
 
 const { v4: uuidv4 } = require("uuid");
 //////////////////////////////////////////////////////////////////////////////
@@ -48,7 +48,7 @@ const s3 = new S3Client({ region: REGION });
 // Using the AWS JavaScript SDK
 ///////////////////////////////////////////////////////////////////////////
 // Dynamically change to your bucket name
-var bucketName = 'jrh-raw-bucket';
+var bucketName = 'rnagaraju-raw-bucket';
 //listBuckets().then(result =>{bucketName = result;}).catch(err=>{console.error("listBuckets function call failed.")});
 	var upload = multer({
         storage: multerS3({
@@ -342,7 +342,7 @@ const getDBIdentifier = async () => {
 // ListSecretsCommand
 
 const listSecrets = async () => {
-
+  // Change this
   secretID = "";
   const client = new SecretsManagerClient({ region: REGION});
   const command = new ListSecretsCommand();
@@ -472,7 +472,9 @@ const subscribeEmailToSNSTopic = async (req,res) => {
   let topicArn = await getListOfSnsTopics();
   let email = req.body['email']
   const params = {
+      //Change this
       Endpoint: email,
+      // Endpoint: "rnagaraju@hawk.iit.edu",
       Protocol: "email",
     TopicArn: topicArn.Topics[0].TopicArn,
   };
