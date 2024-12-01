@@ -200,6 +200,64 @@ echo "**************************************************************************
 # echo "*********************************************************************************************"
 
 
+# echo "Creating db subnet groups now..."
+
+# aws rds create-db-subnet-group \
+#     --db-subnet-group-name "${19}-subnet-group" \
+#     --db-subnet-group-description "My DB Subnet Group" \
+#     --subnet-ids $SUBNET2A $SUBNET2B $SUBNET2C
+
+# echo "*********************************************************************************************"
+# echo "Pulling db security groups now..."
+
+# RDS_SG=$(aws ec2 describe-security-groups \
+#     --filters "Name=group-name,Values=sql-security-group" \
+#     --query "SecurityGroups[0].GroupId" \
+#     --output text)
+
+# echo "*********************************************************************************************"
+# echo "RDS_SG: $RDS_SG"
+# echo "*********************************************************************************************"
+
+# echo "*********************************************************************************************"
+# echo "Creating db instances now..."
+
+# aws rds create-db-instance \
+#     --db-instance-identifier ${19} \
+#     --db-instance-class db.t3.micro \
+#     --engine mysql \
+#     --allocated-storage 10 \
+#     --tags Key=Name,Value=module-06 \
+#     --vpc-security-group-ids $RDS_SG \
+#     --db-subnet-group "${19}-subnet-group" \
+#     --master-username controller \
+#     --manage-master-user-password
+
+
+# echo "*********************************************************************************************"
+# echo "Waiting for db instances to be available"
+
+# aws rds wait db-instance-available \
+#     --db-instance-identifier ${19}
+ 
+# # aws rds wait db-instance-available \
+# #     --db-instance-identifier rndbinstance
+
+
+# echo "DB Instance is now running..."
+# echo "*********************************************************************************************"
+
+
+#     # --port 3306 \
+#     # --backup-retention-period 7 \
+#     # --no-multi-az \
+#     # --availability-zone us-east-2a \
+#     # --master-username admin \
+#     # --master-user-password admin \
+
+
+
+
 echo "Creating db subnet groups now..."
 
 aws rds create-db-subnet-group \
@@ -208,6 +266,8 @@ aws rds create-db-subnet-group \
     --subnet-ids $SUBNET2A $SUBNET2B $SUBNET2C
 
 echo "*********************************************************************************************"
+
+
 echo "Pulling db security groups now..."
 
 RDS_SG=$(aws ec2 describe-security-groups \
@@ -219,38 +279,69 @@ echo "**************************************************************************
 echo "RDS_SG: $RDS_SG"
 echo "*********************************************************************************************"
 
-echo "*********************************************************************************************"
-echo "Creating db instances now..."
 
-aws rds create-db-instance \
-    --db-instance-identifier ${19} \
+
+echo "*********************************************************************************************"
+echo "Pulling snapshots now..."
+
+# Get the DB Snapshot identifier dynamically from AWS CLI
+SNAPSHOT_ID=$(aws rds describe-db-snapshots \
+    --query "DBSnapshots[?Status=='available'] | [-1].DBSnapshotIdentifier" \
+    --output text)
+
+echo "*********************************************************************************************"
+echo "Using Snapshot: $SNAPSHOT_ID"
+echo "*********************************************************************************************"
+
+# Ensure we are getting a valid snapshot
+if [ "$SNAPSHOT_ID" == "None" ]; then
+    echo "No available snapshot found!"
+    exit 1
+fi
+
+
+
+
+# Set the new DB instance identifier
+DB_INSTANCE_ID="${19}"
+
+# Create the new DB instance from the snapshot (Free Tier eligible settings)
+echo "*********************************************************************************************"
+echo "Creating a new DB instance from the snapshot now..."
+
+# aws rds create-db-instance \
+#     --db-instance-identifier $DB_INSTANCE_ID \
+#     --db-instance-class db.t3.micro \
+#     --engine mysql \
+#     --db-snapshot-identifier $SNAPSHOT_ID \
+#     --allocated-storage 10 \
+#     --tags Key=Name,Value=module-07 \
+#     --vpc-security-group-ids $RDS_SG \
+#     --db-subnet-group "${19}-subnet-group" \
+#     --master-username controller \
+#     --manage-master-user-password
+
+aws rds restore-db-instance-from-db-snapshot \
+    --db-instance-identifier $DB_INSTANCE_ID \
+    --db-snapshot-identifier $SNAPSHOT_ID \
     --db-instance-class db.t3.micro \
-    --engine mysql \
-    --allocated-storage 10 \
-    --tags Key=Name,Value=module-06 \
+    --tags Key=Name,Value=module-07 \
     --vpc-security-group-ids $RDS_SG \
-    --db-subnet-group "${19}-subnet-group" \
-    --master-username controller \
+    --db-subnet-group "${19}-subnet-group"
+
+echo "*********************************************************************************************"
+echo "Waiting for the DB instance to be available..."
+
+# Wait for the DB instance to be available
+aws rds wait db-instance-available \
+    --db-instance-identifier $DB_INSTANCE_ID
+
+echo "*********************************************************************************************"
+aws rds modify-db-instance \
+    --db-instance-identifier $DB_INSTANCE_ID \
     --manage-master-user-password
 
 
 echo "*********************************************************************************************"
-echo "Waiting for db instances to be available"
-
-aws rds wait db-instance-available \
-    --db-instance-identifier ${19}
- 
-# aws rds wait db-instance-available \
-#     --db-instance-identifier rndbinstance
-
-
-echo "DB Instance is now running..."
+echo "DB Instance is now running and created from snapshot!"
 echo "*********************************************************************************************"
-
-
-    # --port 3306 \
-    # --backup-retention-period 7 \
-    # --no-multi-az \
-    # --availability-zone us-east-2a \
-    # --master-username admin \
-    # --master-user-password admin \
