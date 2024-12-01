@@ -11,8 +11,14 @@ sudo apt install -y nginx
 cd /home/ubuntu
 pwd
 
+echo "Before clone"
+
 # Change URL to your private repo
 sudo -u ubuntu git clone git@github.com:illinoistech-itm/rnagaraju.git
+
+echo "After clone"
+
+pwd
 
 # Adjust repo name and path accordingly :-)
 sudo cp rnagaraju/itmo-544/module-07/index.html /var/www/html/
