@@ -11,7 +11,10 @@ create_bucket_if_not_exists() {
     else
         echo "Bucket $BUCKET_NAME does not exist."
         echo "Creating bucket $BUCKET_NAME in region $REGION..."
-        aws s3api create-bucket --bucket "$BUCKET_NAME"
+        
+        aws s3api create-bucket --bucket "$BUCKET_NAME" --region "$REGION" \
+                --create-bucket-configuration LocationConstraint="$REGION"
+
         echo "*********************************************************************************************"
         if [ $? -eq 0 ]; then      
             echo "Bucket $BUCKET_NAME created successfully."
