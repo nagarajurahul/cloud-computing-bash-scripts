@@ -59,6 +59,17 @@ echo "**************************************************************************
 
 
 
+
+# After creating image
+
+
+# sudo apt update
+# sudo apt install -y mysql-client
+
+# mysql -h <sql-end-point> \
+#     -u controller -p < create.sql
+
+
 # echo "*********************************************************************************************"
 # echo "Creating EC2 instances now with our custom AMI..."
 
