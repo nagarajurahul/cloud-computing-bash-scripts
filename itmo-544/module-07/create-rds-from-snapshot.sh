@@ -108,5 +108,11 @@ aws rds wait db-instance-available \
     --db-instance-identifier $DB_INSTANCE_ID
 
 echo "*********************************************************************************************"
+aws rds modify-db-instance \
+    --db-instance-identifier $DB_INSTANCE_ID \
+    --manage-master-user-password
+
+
+echo "*********************************************************************************************"
 echo "DB Instance is now running and created from snapshot!"
 echo "*********************************************************************************************"
