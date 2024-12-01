@@ -1,52 +1,42 @@
 #!/bin/bash
 
-echo "Fetching the RDS snapshots..."
+# Function to check if an S3 bucket exists and create it if it does not
+create_bucket_if_not_exists() {
+    local BUCKET_NAME=$1
+    local REGION=$2
 
-RDS_SNAPSHOT=$(aws rds describe-db-snapshots \
-    --query "DBSnapshots[?Status=='available'] | [-1].DBSnapshotIdentifier" \
-    --output text)
-
-if [ "$RDS_SNAPSHOT" == "None" ]; then
-    echo "No available RDS snapshots found. Exiting..."
-    exit 1
-fi
-
-echo "Found RDS Snapshot: $RDS_SNAPSHOT"
-
-
-echo "Creating a new RDS instance from snapshot: $RDS_SNAPSHOT"
-
-aws rds restore-db-instance-from-db-snapshot \
-    --db-instance-identifier ${19} \
-    --db-snapshot-identifier $RDS_SNAPSHOT \
-    --db-instance-class db.t3.micro \
-    --availability-zone us-east-1a
-
-echo "Waiting for the new RDS instance to be available..."
-aws rds wait db-instance-available \
-    --db-instance-identifier ${19}
-
-echo "RDS instance ${19} created successfully from snapshot $RDS_SNAPSHOT."
-
-
-REGION=$("us-east-1")
-
-if aws s3api head-bucket --bucket "${21}"; then
-    echo "Bucket ${21} exists."
-else
-    echo "Bucket ${21} does not exist."
-    echo "Creating Bucket ${21} in Region $REGION"
-    aws s3api create-bucket --bucket "${21}" --region "$REGION" \
+    echo "Checking if bucket $BUCKET_NAME exists..."
+    if aws s3api head-bucket --bucket "$BUCKET_NAME" 2>/dev/null; then
+        echo "Bucket $BUCKET_NAME exists."
+    else
+        echo "Bucket $BUCKET_NAME does not exist."
+        echo "Creating bucket $BUCKET_NAME in region $REGION..."
+        aws s3api create-bucket --bucket "$BUCKET_NAME" --region "$REGION" \
             --create-bucket-configuration LocationConstraint="$REGION"
-        if [ $? -eq 0 ]; then
-            echo "Bucket ${21} created successfully."
+            
+        echo "*********************************************************************************************"
+        if [ $? -eq 0 ]; then      
+            echo "Bucket $BUCKET_NAME created successfully."
         else
-            echo "Failed to create bucket ${21}."
+            echo "Failed to create bucket $BUCKET_NAME."
         fi
-fi
+    fi
+}
 
+# Specify region
+REGION="us-east-1"
 
+# Use arguments for bucket names
+FIRST_BUCKET_NAME=${19}
+SECOND_BUCKET_NAME=${20}
 
+echo "*********************************************************************************************"
+create_bucket_if_not_exists "$FIRST_BUCKET_NAME" "$REGION"
+
+echo "*********************************************************************************************"
+create_bucket_if_not_exists "$SECOND_BUCKET_NAME" "$REGION"
+
+echo "*********************************************************************************************"
 # Verify buckets were created
 echo "Listing all S3 buckets..."
 aws s3api list-buckets --query "Buckets[].Name"
