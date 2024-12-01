@@ -188,8 +188,8 @@ const getDBIdentifier = async () => {
           // create the connection to database
           const connection = await mysql.createConnection({
             host: dbIdentifier.DBInstances[0].Endpoint.Address,
-            user: uname.SecretString,
-            password: pword.SecretString,
+            user: uname,
+            password: pword,
             database: "company",
           });
       
@@ -239,8 +239,8 @@ const getDBIdentifier = async () => {
           // create the connection to database
           const connection = await mysql.createConnection({
             host: dbIdentifier.DBInstances[0].Endpoint.Address,
-            user: uname.SecretString,
-            password: pword.SecretString,
+            user: uname,
+            password: pword,
             database: "company",
           });
       
@@ -267,8 +267,8 @@ const getDBIdentifier = async () => {
           // create the connection to database
           const connection = await mysql.createConnection({
             host: dbIdentifier.DBInstances[0].Endpoint.Address,
-            user: uname.SecretString,
-            password: pword.SecretString,
+            user: uname,
+            password: pword,
             database: "company",
           });
       
@@ -297,8 +297,8 @@ const getDBIdentifier = async () => {
           // create the connection to database
           const connection = await mysql.createConnection({
             host: dbIdentifier.DBInstances[0].Endpoint.Address,
-            user: uname.SecretString,
-            password: pword.SecretString,
+            user: uname,
+            password: pword,
             database: "company",
           });
       
@@ -337,23 +337,61 @@ const getDBIdentifier = async () => {
       };
 
 //////////////////////////////////
+// https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/secrets-manager/command/ListSecretsCommand/
+// Command to list the dynamic secret ID created by the RDS --manage-master-user-password
+// ListSecretsCommand
+
+const listSecrets = async () => {
+
+  secretID = "";
+  const client = new SecretsManagerClient({ region: REGION});
+  const command = new ListSecretsCommand();
+  try {
+    const results = await client.send(command);
+    console.log(results);
+		
+    for ( element of results.SecretList ) {
+      if ( element.Name.includes("rds") ) {
+              console.log(element.Name)
+              secretID = element.Name
+      } }
+    
+		return secretID;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+//////////////////////////////////
 // https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/secrets-manager/command/GetSecretValueCommand/
 // Directly retrieve the secret value
 // GetSecretValueCommand
 //
-
 const getUname = async () => {
   
-  //console.log("Secret ARN: ",secretARN.SecretList[0].ARN);
+  let secretID = await listSecrets();
   const params = {
-    SecretId: "uname",
+    SecretId: secretID,
   };
   const client = new SecretsManagerClient({ region: REGION });
   const command = new GetSecretValueCommand(params);
   try {
     const results = await client.send(command);
-    //console.log(results);
-    return results;
+    console.log(results);
+    // Returned value looks like this... need to strip out the \ and \n and turn it 
+    //into Json so we can retrieve the Value
+    // "SecretString": "{\n  \"username\":\"david\",\n  \"password\":\"EXAMPLE-PASSWORD\"\n}\n",
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON
+    //valueToJsonify = results.SecretList[0].SecretString.replace(/\\n/g, '');
+    //jsonValue = valueToJsonify.replace(/\\/g,"");
+       
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
+    /*
+    const json = '{"result":true, "count":42}';
+    const obj = JSON.parse(json);
+    */
+    const obj = JSON.parse(results.SecretString);
+    return obj.username;
   } catch (err) {
     console.error(err);
   }
@@ -367,38 +405,45 @@ const getUname = async () => {
 
 const getPword = async () => {
   
-  //console.log("Secret ARN: ",secretARN.SecretList[0].ARN);
+  let secretID = await listSecrets();
   const params = {
-    SecretId: "pword",
+    SecretId: secretID,
   };
   const client = new SecretsManagerClient({ region: REGION });
   const command = new GetSecretValueCommand(params);
   try {
     const results = await client.send(command);
-    //console.log(results);
-    return results;
+    console.log(results);
+    // Returned value looks like this... need to strip out the \ and \n and turn it 
+    //into Json so we can retrieve the Value
+    // "SecretString": "{\n  \"username\":\"david\",\n  \"password\":\"EXAMPLE-PASSWORD\"\n}\n",
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON
+    //valueToJsonify = results.SecretList[0].SecretString.replace(/\\n/g, '');
+    //jsonValue = valueToJsonify.replace(/\\/g,"");
+       
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
+    /*
+    const json = '{"result":true, "count":42}';
+    const obj = JSON.parse(json);
+    */
+    const obj = JSON.parse(results.SecretString);
+    return obj.password;
   } catch (err) {
     console.error(err);
   }
 };
 
-/////////////////////////////////////////////////
-// add list SNS topics here
+///////////////////////////////////////////
+////List topics
 //
+const getListOfSnsTopics = async () =>{
+  const client = new SNSClient({region: REGION });
 
-const getListOfSnsTopics = async () => {
-  const client = new SNSClient({ region: REGION });
-  const command = new ListTopicsCommand({});
-  try {
-    const results = await client.send(command);
-    //console.error("Get SNS Topic Results: ", results.Topics.length);
-    //console.error("ARN: ", results.Topics[0].TopicArn);
-    //return results.Topics[0];
-    return results;
-  } catch (err) {
-    console.error(err);
-  }
-};
+  const command = new ListTopicsCommand();
+  const response = await client.send(command);
+
+  return response
+}
 
 ///////////////////////////////////////////
 // List of properties of Topic ARN
@@ -423,12 +468,12 @@ const getSnsTopicArn = async () => {
 ///////////////////////////////////////////////////
 // Register email with Topic
 //
-const subscribeEmailToSNSTopic = async () => {
+const subscribeEmailToSNSTopic = async (req,res) => {
   let topicArn = await getListOfSnsTopics();
+  let email = req.body['email']
   const params = {
-    // CHANGE ENDPOINT EMAIL TO YOUR OWN
-    Endpoint: "hajek@iit.edu",
-    Protocol: "email",
+      Endpoint: email,
+      Protocol: "email",
     TopicArn: topicArn.Topics[0].TopicArn,
   };
   const client = new SNSClient({ region: REGION });
@@ -531,12 +576,12 @@ app.get("/", function (req, res) {
       
       app.post("/upload", upload.array("uploadFile", 1), function (req, res, next) {
         (async () => { await getPostedData(req, res);})();
-        (async () => { await getListOfSnsTopics(); })();
-        (async () => { await getSnsTopicArn() })();
-        (async () => { await subscribeEmailToSNSTopic() } ) ();
+        //(async () => { await getListOfSnsTopics(); })();
+        //(async () => { await getSnsTopicArn() })();
+        //(async () => { await subscribeEmailToSNSTopic(req,res) } ) ();
         //(async () => { await sendMessageViaEmail(req,res) } ) ();
         (async () => { await insertRecord(req, res);})();
-        (async () => { await sendMessageToQueue(req,res); }) ();
+        //(async () => { await sendMessageToQueue(req,res); }) ();
         // add SQS message here, includes DB record UUID,
       });
       
