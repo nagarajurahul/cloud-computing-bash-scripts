@@ -9,7 +9,8 @@ delete_bucket() {
     echo "Checking if bucket $BUCKET_NAME exists..."
     if aws s3api head-bucket --bucket "$BUCKET_NAME" 2>/dev/null; then
         echo "Bucket $BUCKET_NAME exists. Deleting all objects..."
-        
+        echo "*********************************************************************************************"
+
         # Delete all objects in the bucket
         aws s3 rm "s3://$BUCKET_NAME" --recursive
         if [ $? -eq 0 ]; then
@@ -19,6 +20,8 @@ delete_bucket() {
             return 1
         fi
         
+        echo "*********************************************************************************************"
+
         # Delete the bucket
         echo "Deleting bucket $BUCKET_NAME..."
         aws s3api delete-bucket --bucket "$BUCKET_NAME"
@@ -27,6 +30,9 @@ delete_bucket() {
         else
             echo "Failed to delete bucket $BUCKET_NAME."
         fi
+
+        echo "*********************************************************************************************"
+
     else
         echo "Bucket $BUCKET_NAME does not exist or cannot be accessed."
     fi
