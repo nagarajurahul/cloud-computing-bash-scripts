@@ -42,10 +42,8 @@ delete_bucket() {
 # FIRST_BUCKET_NAME=${21}
 # SECOND_BUCKET_NAME=${22}
 
-# echo "*********************************************************************************************"
 # delete_bucket "$FIRST_BUCKET_NAME"
 
-# echo "*********************************************************************************************"
 # delete_bucket "$SECOND_BUCKET_NAME"
 
 echo "*********************************************************************************************"
@@ -55,7 +53,6 @@ BUCKETS=$(aws s3api list-buckets --query "Buckets[].Name" --output text)
 
 # Iterate over the list of bucket names and delete each one
 for BUCKET_NAME in $BUCKETS; do
-    echo "*********************************************************************************************"
     delete_bucket "$BUCKET_NAME"
 done
 
