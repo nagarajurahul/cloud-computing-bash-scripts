@@ -105,7 +105,7 @@ response = ec2.describe_instances(
         {
             'Name': 'tag:Name',
             'Values': [
-                'module-06',
+                'module-07',
             ],
         },
         {
