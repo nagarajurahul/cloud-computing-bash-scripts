@@ -163,7 +163,7 @@ DB_SUBNET_GROUP=$(aws rds describe-db-subnet-groups \
 
 if [ -z "$DB_SUBNET_GROUP" ]; then
     echo "No DB subnet groups found. Exiting."
-    exit 1
+    # exit 1
 fi
 
 echo "Found DB subnet group(s): $DB_SUBNET_GROUP"
@@ -181,7 +181,7 @@ DB_INSTANCE_ID=$(aws rds describe-db-instances \
 
 if [ "$DB_INSTANCE_ID" == "None" ]; then
     echo "No DB instances found. Exiting."
-    exit 1
+    # exit 1
 fi
 
 echo "Found DB instance: $DB_INSTANCE_ID"
