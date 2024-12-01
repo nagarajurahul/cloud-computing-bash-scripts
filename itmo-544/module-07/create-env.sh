@@ -256,7 +256,7 @@ echo "**************************************************************************
 #     # --master-user-password admin \
 
 
-
+# Added new script for creating RDS from snapshot
 
 echo "Creating db subnet groups now..."
 
@@ -345,3 +345,6 @@ aws rds modify-db-instance \
 echo "*********************************************************************************************"
 echo "DB Instance is now running and created from snapshot!"
 echo "*********************************************************************************************"
+
+
+
