@@ -227,6 +227,52 @@ else:
     print("You have  an incorrect number of Buckets: " + str(len(response['Buckets'])) + ", perhaps check your code if you have created the S3 buckets...")
     currentPoints()
 
+
+print('*' * 79)
+print("Checking for the existence of vegeta.jpg and knuth.jpg in S3 buckets...")
+
+vegeta_found = False
+knuth_found = False
+
+# Iterate through buckets
+for bucket in response['Buckets']:
+    bucket_name = bucket['Name']
+    print(f"Checking bucket: {bucket_name}")
+
+    try:
+        # List objects in the bucket
+        objects = s3.list_objects_v2(Bucket=bucket_name)
+
+        if 'Contents' in objects:
+            for obj in objects['Contents']:
+                if obj['Key'] == 'vegeta.jpg':
+                    vegeta_found = True
+                    print(f"Found vegeta.jpg in bucket: {bucket_name}")
+                if obj['Key'] == 'knuth.jpg':
+                    knuth_found = True
+                    print(f"Found knuth.jpg in bucket: {bucket_name}")
+
+        else:
+            print(f"No objects found in bucket: {bucket_name}")
+
+    except Exception as e:
+            print(f"Error accessing bucket {bucket_name}: {e}")
+
+    if vegeta_found and knuth_found:
+        print("Both vegeta.jpg and knuth.jpg are present in our S3 buckets.")
+        grandtotal += 1
+    elif vegeta_found:
+        print("vegeta.jpg is present, but knuth.jpg is missing.")
+    elif knuth_found:
+        print("knuth.jpg is present, but vegeta.jpg is missing.")
+    else:
+        print("Both vegeta.jpg and knuth.jpg are missing from your S3 buckets.")
+
+    currentPoints()
+
+
+
+
 # Commenting from here
 
 # # Describe EC2 instances
