@@ -105,6 +105,9 @@ print("Checking RDS instances...")
 
 rds = boto3.client('rds')
 
+found_rds_db=False
+found_rds_snapshot=False
+
 # Check for RDS instances
 try:
     response = rds.describe_db_instances()
@@ -112,11 +115,9 @@ try:
     
     if db_instances:
         print(f"Correct answer: You have {len(db_instances)} RDS instance(s).")
-        grandtotal += 1
-        currentPoints()
+        found_rds_db=True
     else:
         print("Incorrect answer: No RDS instances found.")
-        currentPoints()
 except Exception as e:
     print(f"An error occurred: {e}")
 
@@ -132,12 +133,18 @@ try:
         print(f"You have {len(snapshots)} RDS snapshot(s).")
         if len(snapshots) >= 1:
             print(f"Correct answer: You have {len(snapshots)} RDS snapshot(s).")
+            found_rds_snapshot=True
     else:
         print("No RDS snapshots found.")
 except Exception as e:
             print(f"An error occurred: {e}")
 
 
+if found_rds_db and found_rds_snapshot:
+    grandtotal+=1
+    currentPoints()
+else:
+    currentPoints()
 
 
 print('*' * 79)
