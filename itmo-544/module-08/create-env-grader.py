@@ -122,7 +122,26 @@ except Exception as e:
 
 
 print('*' * 79)
-print("Checking module-07 tag in RDS instances...")
+print("Checking RDS snapshots...")
+
+
+try:
+    response = rds.describe_db_snapshots()
+    snapshots = response['DBSnapshots']
+    if snapshots:
+        print(f"You have {len(snapshots)} RDS snapshot(s).")
+        if len(snapshots) >= 1:
+            print(f"Correct answer: You have {len(snapshots)} RDS snapshot(s).")
+    else:
+        print("No RDS snapshots found.")
+except Exception as e:
+            print(f"An error occurred: {e}")
+
+
+
+
+print('*' * 79)
+print("Checking module-08 tag in RDS instances...")
 
 
 
@@ -140,19 +159,19 @@ try:
             print("Tags")
             print(tags)
 
-            # Check if 'module-07' tag exists
+            # Check if 'module-08' tag exists
             for tag in tags:
-                if tag['Key'] == 'Name' and tag['Value'] =='module-07':
-                    print(f"DB Instance '{db_instance['DBInstanceIdentifier']}' has the 'module-07' tag.")
+                if tag['Key'] == 'Name' and tag['Value'] =='module-08':
+                    print(f"DB Instance '{db_instance['DBInstanceIdentifier']}' has the 'module-08' tag.")
                     found_tag = True
                     break
         
         if found_tag:
-            print("Correct answer: At least one database instance has the 'module-07' tag.")
+            print("Correct answer: At least one database instance has the 'module-08' tag.")
             grandtotal += 1
             currentPoints()
         else:
-            print("Incorrect answer: No database instances have the 'module-07' tag.")
+            print("Incorrect answer: No database instances have the 'module-08' tag.")
             currentPoints()
     else:
         print("There are no instances of RDS to check tags.")
@@ -161,24 +180,24 @@ except Exception as e:
     print(f"An error occurred: {e}")
 
 
-print('*' * 79)
-print("Checking Secrets...")
+# print('*' * 79)
+# print("Checking Secrets...")
 
-secrets_manager = boto3.client('secretsmanager')
+# secrets_manager = boto3.client('secretsmanager')
 
-try:
-    response = secrets_manager.list_secrets()
-    secrets = response['SecretList']
+# try:
+#     response = secrets_manager.list_secrets()
+#     secrets = response['SecretList']
 
-    if secrets:
-        print(f"Correct answer: You have {len(secrets)} secret(s) in Secrets Manager.")
-        grandtotal += 1
-        currentPoints()
-    else:
-        print("Incorrect answer: No secrets found in Secrets Manager.")
-        currentPoints()
-except Exception as e:
-    print(f"An error occurred: {e}")
+#     if secrets:
+#         print(f"Correct answer: You have {len(secrets)} secret(s) in Secrets Manager.")
+#         grandtotal += 1
+#         currentPoints()
+#     else:
+#         print("Incorrect answer: No secrets found in Secrets Manager.")
+#         currentPoints()
+# except Exception as e:
+#     print(f"An error occurred: {e}")
 
 
 
