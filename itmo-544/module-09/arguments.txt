@@ -20,6 +20,7 @@ rndbinstance
 fall2025-itmo544-profile
 rnagaraju-raw-bucket
 rnagaraju-finished-bucket
+rn-ec2-application-sns-topic
 # ${1} ami-085f9c64a9b75eed5
 # ${2} t2.micro
 # ${3} itmo-544-2024
@@ -42,3 +43,4 @@ rnagaraju-finished-bucket
 # ${20} IAM Instance Profile Name
 # ${21} S3 Bucket Raw
 # ${22} S3 Bucket Finished
+# ${23} SNS Topic
