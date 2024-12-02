@@ -47,7 +47,11 @@ sns = boto3.client('sns')
 try:
     # List SNS topics
     response = sns.list_topics()
+    print(response)
+    print('*' * 79)
+
     topics = response['Topics']
+    print("The number of Topics are: " + str(len(topics)))
 
     if len(topics)==0:
         print(f"Correct answer: You have {len(topics)} SNS topic(s).")
@@ -62,12 +66,13 @@ except Exception as e:
 
 
 
-s3 = boto3.client('s3')
-
 print('*' * 79)
 print("Checking S3 buckets...")
+
+s3 = boto3.client('s3')
 response = s3.list_buckets()
 print(response)
+print('*' * 79)
 
 print("The number of Buckets are: " + str(len(response['Buckets'])))
 
@@ -107,6 +112,7 @@ print('*' * 79)
 print("Checking Load Balancers...")
 response = elbv2.describe_load_balancers()
 print(response)
+print('*' * 79)
 
 print("The number of Load Balancers are: " + str(len(response['LoadBalancers'])))
 
@@ -141,6 +147,8 @@ response = ec2.describe_instances(
     ],
 )
 print(response)
+print('*' * 79)
+
 reservations=response['Reservations']
 ec2_instances = []
 
@@ -150,7 +158,7 @@ for reservation in reservations:
 
 print(ec2_instances)
 
-
+print('*' * 79)
 print("The number of Instances are: " + str(len(ec2_instances)))
 
 if len(ec2_instances) == 0:
@@ -169,6 +177,9 @@ rds = boto3.client('rds')
 
 try:
     response = rds.describe_db_instances()
+    print(response)
+    print('*' * 79)
+    
     db_instances = response['DBInstances']
     
     if not db_instances:
