@@ -42,7 +42,7 @@ cd /home/ubuntu
 echo "After cd..."
 
 # Install necessary libraries for our application
-sudo -u ubuntu npm install  @aws-sdk/client-s3 @aws-sdk/client-secrets-manager express multer multer-s3 uuid ip mysql2
+sudo -u ubuntu npm install @aws-sdk/client-sns @aws-sdk/client-sqs @aws-sdk/client-rds @aws-sdk/client-s3 @aws-sdk/client-secrets-manager express multer multer-s3 uuid ip mysql2 
 
 sudo npm install pm2 -g
 
