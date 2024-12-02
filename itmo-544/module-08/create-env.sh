@@ -325,7 +325,7 @@ aws rds restore-db-instance-from-db-snapshot \
     --db-instance-identifier $DB_INSTANCE_ID \
     --db-snapshot-identifier $SNAPSHOT_ID \
     --db-instance-class db.t3.micro \
-    --tags Key=Name,Value=module-07 \
+    --tags Key=Name,Value=module-08 \
     --vpc-security-group-ids $RDS_SG \
     --db-subnet-group "${19}-subnet-group"
 
