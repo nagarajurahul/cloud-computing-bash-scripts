@@ -148,7 +148,7 @@ else:
 
 
 print('*' * 79)
-print("Checking module-08 tag in RDS instances...")
+print("Checking module-09 tag in RDS instances...")
 
 
 
@@ -166,19 +166,19 @@ try:
             print("Tags")
             print(tags)
 
-            # Check if 'module-08' tag exists
+            # Check if 'module-09' tag exists
             for tag in tags:
-                if tag['Key'] == 'Name' and tag['Value'] =='module-08':
-                    print(f"DB Instance '{db_instance['DBInstanceIdentifier']}' has the 'module-08' tag.")
+                if tag['Key'] == 'Name' and tag['Value'] =='module-09':
+                    print(f"DB Instance '{db_instance['DBInstanceIdentifier']}' has the 'module-09' tag.")
                     found_tag = True
                     break
         
         if found_tag:
-            print("Correct answer: At least one database instance has the 'module-08' tag.")
+            print("Correct answer: At least one database instance has the 'module-09' tag.")
             grandtotal += 1
             currentPoints()
         else:
-            print("Incorrect answer: No database instances have the 'module-08' tag.")
+            print("Incorrect answer: No database instances have the 'module-09' tag.")
             currentPoints()
     else:
         print("There are no instances of RDS to check tags.")
