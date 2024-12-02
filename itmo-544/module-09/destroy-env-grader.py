@@ -51,10 +51,10 @@ try:
     print('*' * 79)
 
     topics = response['Topics']
-    print("The number of Topics are: " + str(len(topics)))
+    print("The number of SNS Topics are: " + str(len(topics)))
 
     if len(topics)==0:
-        print(f"Correct answer: You have {len(topics)} SNS topic(s).")
+        print(f"Correct answer you have: {len(topics)} SNS topic(s).")
         grandtotal += 1
         currentPoints()
     else:
@@ -74,7 +74,7 @@ response = s3.list_buckets()
 print(response)
 print('*' * 79)
 
-print("The number of Buckets are: " + str(len(response['Buckets'])))
+print("The number of S3 Buckets are: " + str(len(response['Buckets'])))
 
 if len(response['Buckets']) == 0:
     print("Correct answer you have:" + str(len(response['Buckets'])) + " S3 buckets...")
