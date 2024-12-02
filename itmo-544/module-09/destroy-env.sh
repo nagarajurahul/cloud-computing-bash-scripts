@@ -30,6 +30,7 @@ echo "$ASGNAME autoscaling group was updated!"
 
 
 # Using a for loop as a timer
+echo "*********************************************************************************************"
 echo "Waiting for 10 seconds..."
 for i in {10..1}; do
     echo "Waiting... $i seconds remaining"
@@ -55,6 +56,7 @@ echo "**************************************************************************
 
 
 # Using a for loop as a timer
+echo "*********************************************************************************************"
 echo "Waiting for 10 seconds..."
 for i in {10..1}; do
     echo "Waiting... $i seconds remaining"
@@ -105,6 +107,7 @@ echo "**************************************************************************
 
 
 # Using a for loop as a timer
+echo "*********************************************************************************************"
 echo "Waiting for 10 seconds..."
 for i in {10..1}; do
     echo "Waiting... $i seconds remaining"
@@ -142,6 +145,7 @@ echo "Load balancers deleted!"
 
 
 # Using a for loop as a timer
+echo "*********************************************************************************************"
 echo "Waiting for 10 seconds..."
 for i in {10..1}; do
     echo "Waiting... $i seconds remaining"
@@ -157,6 +161,7 @@ aws autoscaling suspend-processes \
     --auto-scaling-group-name $ASGNAME
 
 # Using a for loop as a timer
+echo "*********************************************************************************************"
 echo "Waiting for 10 seconds..."
 for i in {10..1}; do
     echo "Waiting... $i seconds remaining"
