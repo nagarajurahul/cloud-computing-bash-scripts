@@ -408,5 +408,10 @@ aws s3api put-public-access-block --bucket ${21} \
 aws s3api put-bucket-policy --bucket ${21} \
     --policy file://raw-bucket-policy.json
 
+
+echo "*********************************************************************************************"
+echo "Creating SNS topic now..."
 aws sns create-topic \
     --name ${23}
+
+echo "*********************************************************************************************"

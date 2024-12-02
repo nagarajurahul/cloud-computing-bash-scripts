@@ -342,3 +342,30 @@ aws s3api list-buckets --query "Buckets[].Name"
 
 
 echo "*********************************************************************************************"
+echo "Retrieving all SNS topics..."
+
+# List all SNS topics
+TOPICS=$(aws sns list-topics --query "Topics[].TopicArn" --output text)
+
+echo "*********************************************************************************************"
+echo "Found the following SNS topics:"
+echo "*********************************************************************************************"
+echo "$TOPICS"
+echo "*********************************************************************************************"
+
+echo "*********************************************************************************************"
+echo "Deleting SNS topic now..."
+
+# Iterate over each topic and delete it
+for TOPIC in $TOPICS; do
+    echo "Deleting SNS topic: $TOPIC"
+    aws sns delete-topic --topic-arn "$TOPIC"
+
+    if [ $? -eq 0 ]; then
+        echo "Successfully deleted SNS topic: $TOPIC"
+    else
+        echo "Failed to delete SNS topic: $TOPIC"
+    fi
+done
+
+echo "*********************************************************************************************"
