@@ -140,11 +140,11 @@ except Exception as e:
             print(f"An error occurred: {e}")
 
 
-if found_rds_db and found_rds_snapshot:
-    grandtotal+=1
-    currentPoints()
-else:
-    currentPoints()
+# if found_rds_db and found_rds_snapshot:
+#     grandtotal+=1
+#     currentPoints()
+# else:
+#     currentPoints()
 
 
 print('*' * 79)
@@ -185,6 +185,31 @@ try:
         currentPoints()
 except Exception as e:
     print(f"An error occurred: {e}")
+
+
+
+
+print('*' * 79)
+print("Checking for SNS Topics...")
+
+sns = boto3.client('sns')
+
+try:
+    # List SNS topics
+    response = sns.list_topics()
+    topics = response['Topics']
+
+    if len(topics)>=1:
+        print(f"Correct answer: You have {len(topics)} SNS topic(s).")
+        grandtotal += 1
+        currentPoints()
+    else:
+        print("Incorrect answer: No SNS topics found.")
+        currentPoints()
+
+except Exception as e:
+    print(f"An error occurred while listing SNS topics: {e}")
+
 
 
 # print('*' * 79)
