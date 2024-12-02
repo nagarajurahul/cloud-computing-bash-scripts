@@ -36,6 +36,7 @@ for i in {10..1}; do
     echo "Waiting... $i seconds remaining"
     sleep 1
 done
+echo "*********************************************************************************************"
 
 
 # Retrieve instance IDs of EC2
@@ -55,16 +56,8 @@ echo "Instances are terminated!"
 echo "*********************************************************************************************"
 
 
-# Using a for loop as a timer
-echo "*********************************************************************************************"
-echo "Waiting for 10 seconds..."
-for i in {10..1}; do
-    echo "Waiting... $i seconds remaining"
-    sleep 1
-done
 
-
-# Finding taget group ARN
+# Finding target group ARN
 # https://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-target-groups.html
 
 echo "Finding and storing the target group ARN for default region"
@@ -113,6 +106,7 @@ for i in {10..1}; do
     echo "Waiting... $i seconds remaining"
     sleep 1
 done
+echo "*********************************************************************************************"
 
 # Deleting target group, and wait for it to deregister
 
@@ -151,6 +145,8 @@ for i in {10..1}; do
     echo "Waiting... $i seconds remaining"
     sleep 1
 done
+echo "*********************************************************************************************"
+
 
 
 echo "*********************************************************************************************"
@@ -160,6 +156,8 @@ echo "Deleting $ASGNAME auto scaling group now"
 aws autoscaling suspend-processes \
     --auto-scaling-group-name $ASGNAME
 
+echo "Suspend processes in progress..."
+
 # Using a for loop as a timer
 echo "*********************************************************************************************"
 echo "Waiting for 10 seconds..."
@@ -167,10 +165,13 @@ for i in {10..1}; do
     echo "Waiting... $i seconds remaining"
     sleep 1
 done
+echo "*********************************************************************************************"
+
 
 aws autoscaling delete-auto-scaling-group \
     --auto-scaling-group-name $ASGNAME
 echo "$ASGNAME autoscaling group was deleted!"
+
 
 
 # Find the launch configuration template
