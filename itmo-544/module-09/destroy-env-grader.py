@@ -20,23 +20,47 @@ def currentPoints():
 
 
 
-# Describe Launch Templates
-# https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2/client/describe_launch_templates.html
+# # Describe Launch Templates
+# # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2/client/describe_launch_templates.html
+# print('*' * 79)
+# print("Checking Launch Templates...")
+# response = ec2.describe_launch_templates()
+# print(response)
+# # print(response['LaunchTemplates'])
+
+# print("The number of launch templates are: " + str(len(response['LaunchTemplates'])))
+
+# if len(response['LaunchTemplates']) == 0:
+#     print("Correct answer you have:" + str(len(response['LaunchTemplates'])) + " Launch Templates...")
+#     grandtotal += 1
+#     currentPoints()
+# else:
+#     print("You have  an incorrect number of Launch Templates: " + str(len(response['LaunchTemplates'])) + ", perhaps check if you have deleted the Launch Templates...")
+#     currentPoints()
+
+
 print('*' * 79)
-print("Checking Launch Templates...")
-response = ec2.describe_launch_templates()
-print(response)
-# print(response['LaunchTemplates'])
+print("Checking for SNS Topics...")
 
-print("The number of launch templates are: " + str(len(response['LaunchTemplates'])))
+sns = boto3.client('sns')
 
-if len(response['LaunchTemplates']) == 0:
-    print("Correct answer you have:" + str(len(response['LaunchTemplates'])) + " Launch Templates...")
-    grandtotal += 1
-    currentPoints()
-else:
-    print("You have  an incorrect number of Launch Templates: " + str(len(response['LaunchTemplates'])) + ", perhaps check if you have deleted the Launch Templates...")
-    currentPoints()
+try:
+    # List SNS topics
+    response = sns.list_topics()
+    topics = response['Topics']
+
+    if len(topics)==0:
+        print(f"Correct answer: You have {len(topics)} SNS topic(s).")
+        grandtotal += 1
+        currentPoints()
+    else:
+        print("You have  an incorrect number of SNS Topics: " + str(len(topics)) + ", perhaps check if you have deleted your SNS Topic...")
+        currentPoints()
+
+except Exception as e:
+    print(f"An error occurred while listing SNS topics: {e}")
+
+
 
 s3 = boto3.client('s3')
 
