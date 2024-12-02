@@ -57,7 +57,7 @@ sudo -u ubuntu git clone git@github.com:illinoistech-itm/rnagaraju.git
 
 echo "After git clone..."
 
-sudo cp rnagaraju/itmo-544/module-08/install-env.sh /etc/nginx/sites-available/default
+sudo cp rnagaraju/itmo-544/module-08/default /etc/nginx/sites-available/default
 sudo systemctl daemon-reload
 sudo systemctl restart nginx
 
