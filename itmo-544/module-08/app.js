@@ -17,25 +17,25 @@ const {
   GetSecretValueCommand,
 } = require("@aws-sdk/client-secrets-manager"); // CommonJS import
 
-const {
-  SNSClient,
-  ListTopicsCommand,
-  GetTopicAttributesCommand,
-  SubscribeCommand,
-  PublishCommand,
-} = require("@aws-sdk/client-sns");
+// const {
+//   SNSClient,
+//   ListTopicsCommand,
+//   GetTopicAttributesCommand,
+//   SubscribeCommand,
+//   PublishCommand,
+// } = require("@aws-sdk/client-sns");
 
 const {
   RDSClient,
   DescribeDBInstancesCommand,
 } = require("@aws-sdk/client-rds");
 
-const {
-  SQSClient,
-  GetQueueUrlCommand,
-  SendMessageCommand,
-  ListQueuesCommand,
-} = require("@aws-sdk/client-sqs")
+// const {
+//   SQSClient,
+//   GetQueueUrlCommand,
+//   SendMessageCommand,
+//   ListQueuesCommand,
+// } = require("@aws-sdk/client-sqs")
 
 const { v4: uuidv4 } = require("uuid");
 //////////////////////////////////////////////////////////////////////////////
@@ -578,25 +578,15 @@ app.get("/", function (req, res) {
       
       app.post("/upload", upload.array("uploadFile", 1), function (req, res, next) {
         (async () => { await getPostedData(req, res);})();
-        (async () => { await getListOfSnsTopics(); })();
-        (async () => { await getSnsTopicArn() })();
-        (async () => { await subscribeEmailToSNSTopic(req,res) } ) ();
-        (async () => { await sendMessageViaEmail(req,res) } ) ();
+        // (async () => { await getListOfSnsTopics(); })();
+        // (async () => { await getSnsTopicArn() })();
+        // (async () => { await subscribeEmailToSNSTopic(req,res) } ) ();
+        // (async () => { await sendMessageViaEmail(req,res) } ) ();
         (async () => { await insertRecord(req, res);})();
-        (async () => { await sendMessageToQueue(req,res); }) ();
+        // (async () => { await sendMessageToQueue(req,res); }) ();
         // add SQS message here, includes DB record UUID,
       });
 
-      // Example route for subscribing email to SNS
-      app.post("/subscribe", async (req, res) => {
-        try {
-          await subscribeEmailToSNSTopic(req, res); // Subscribe email to SNS topic
-          res.send("Email subscribed successfully!");
-        } catch (error) {
-          console.error("Error subscribing email:", error);
-          res.status(500).send("Failed to subscribe email");
-        }
-      });
       
       app.get("/ip", function (req, res) {
         res.write(req.ip);
