@@ -282,7 +282,7 @@ delete_bucket() {
     local BUCKET_NAME=$1
 
     echo "*********************************************************************************************"
-    echo "Checking if bucket $BUCKET_NAME exists..."
+    echo "Checking if bucket $BUCKET_NAME STILL exists..."
     if aws s3api head-bucket --bucket "$BUCKET_NAME" 2>/dev/null; then
         echo "Bucket $BUCKET_NAME exists. Deleting all objects..."
         echo "*********************************************************************************************"
@@ -323,12 +323,14 @@ delete_bucket() {
 # delete_bucket "$SECOND_BUCKET_NAME"
 
 echo "*********************************************************************************************"
+echo "Fecthing buckets...."
 
 # Retrieve a list of all bucket names
 BUCKETS=$(aws s3api list-buckets --query "Buckets[].Name" --output text)
 
 # Iterate over the list of bucket names and delete each one
 for BUCKET_NAME in $BUCKETS; do
+    echo "Found Bucket - $BUCKET_NAME"
     delete_bucket "$BUCKET_NAME"
 done
 
@@ -337,3 +339,6 @@ echo "**************************************************************************
 # Verify buckets were deleted
 echo "Listing remaining S3 buckets..."
 aws s3api list-buckets --query "Buckets[].Name"
+
+
+echo "*********************************************************************************************"
