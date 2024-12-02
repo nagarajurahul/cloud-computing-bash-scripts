@@ -14,7 +14,7 @@ echo "Modifying launch template version to default now..."
 
 aws ec2 modify-launch-template \
     --launch-template-name ${15} \
-    --default-version 4
+    --default-version 2
 
 echo "*********************************************************************************************"
 echo "Pulling launch-template now..."
