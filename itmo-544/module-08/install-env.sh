@@ -16,6 +16,10 @@ sudo -E bash nodesource_setup.sh
 # Install Node JS
 sudo apt-get install -y nodejs
 
+# Debugging purposes
+
+echo "After node install..."
+
 # Print out output
 node -v
 
@@ -32,6 +36,11 @@ node -v
 cd /home/ubuntu
 # sudo -u ubuntu npm install @aws-sdk/client-dynamodb @aws-sdk/client-sqs @aws-sdk/client-s3 @aws-sdk/client-sns express multer multer-s3 uuid ip
 
+
+# Debugging purposes
+
+echo "After cd..."
+
 # Install necessary libraries for our application
 sudo -u ubuntu npm install  @aws-sdk/client-s3 @aws-sdk/client-secrets-manager express multer multer-s3 uuid ip mysql2
 
@@ -43,6 +52,11 @@ sudo npm install pm2 -g
 # Change URL to your private repo
 sudo -u ubuntu git clone git@github.com:illinoistech-itm/rnagaraju.git
 
+
+# Debugging purposes
+
+echo "After git clone..."
+
 sudo cp rnagaraju/itmo-544/module-08/install-env.sh /etc/nginx/sites-available/default
 sudo systemctl daemon-reload
 sudo systemctl restart nginx
@@ -51,6 +65,10 @@ sudo systemctl restart nginx
 # WARNING!!! This is the path in my GitHub Repo - yours could be different
 # Please adjust accordingly - There be Dragons!
 cd rnagaraju/itmo-544/module-08/
+
+# Debugging purposes
+
+echo "After cd to project app directory..."
 
 # Used to auto start the app.js nodejs application at deploy time
 sudo pm2 start app.js
