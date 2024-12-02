@@ -182,8 +182,8 @@ try:
     
     db_instances = response['DBInstances']
     
-    if not db_instances:
-        print("Correct answer: There are zero RDS instances.")
+    if len(db_instances) ==0:
+        print("Correct answer you have: {len(db_instances)} RDS instances.")
         grandtotal += 1
         currentPoints()
     else:
