@@ -402,8 +402,8 @@ aws s3api list-buckets --query "Buckets[].Name"
 
 
 
-aws s3api put-public-access-block --bucket ${20} \
+aws s3api put-public-access-block --bucket ${21} \
     --public-access-block-configuration "BlockPublicPolicy=false"
     
-aws s3api put-bucket-policy --bucket ${20} \
+aws s3api put-bucket-policy --bucket ${21} \
     --policy file://raw-bucket-policy.json
