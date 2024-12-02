@@ -84,7 +84,6 @@ print('*' * 79)
 print("Checking Load Balancers...")
 response = elbv2.describe_load_balancers()
 responseELB=response
-print(response)
 
 print("The number of Load Balancers are: " + str(len(response['LoadBalancers'])))
 
@@ -112,7 +111,8 @@ found_rds_snapshot=False
 try:
     response = rds.describe_db_instances()
     db_instances = response['DBInstances']
-    
+    print("The number of RDS Instances are: " + str(len(db_instances)))
+
     if db_instances:
         print(f"Correct answer: You have {len(db_instances)} RDS instance(s).")
         found_rds_db=True
@@ -135,7 +135,7 @@ try:
             print(f"Correct answer: You have {len(snapshots)} RDS snapshot(s).")
             found_rds_snapshot=True
     else:
-        print("No RDS snapshots found.")
+        print("Incorrect answer: No RDS snapshots found.")
 except Exception as e:
             print(f"An error occurred: {e}")
 
@@ -240,7 +240,6 @@ print("Checking S3 Buckets...")
 s3 = boto3.client('s3')
 
 response = s3.list_buckets()
-print(response)
 
 print("The number of buckets are: " + str(len(response['Buckets'])))
 
@@ -258,6 +257,9 @@ print("Checking for the existence of vegeta.jpg and knuth.jpg in S3 buckets...")
 
 vegeta_found = False
 knuth_found = False
+
+if(len(response['Buckets'])==0):
+    print("There are no buckets to find the images")
 
 # Iterate through buckets
 for bucket in response['Buckets']:
