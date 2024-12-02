@@ -357,7 +357,7 @@ print("Testing for the correct HTTP status (200) response from the webserver via
 if(len(responseELB['LoadBalancers'])==0):
     print("Can't check as there are no Load Balancers")
     currentPoints()
-    exit
+    exit()
 
 # https://pypi.org/project/tqdm/
 for i in tqdm(range(30)):
