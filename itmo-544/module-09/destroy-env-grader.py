@@ -181,7 +181,9 @@ try:
     print('*' * 79)
     
     db_instances = response['DBInstances']
-    
+    print(f"The number of RDS Instances are: " + str(len(db_instances)))
+
+
     if len(db_instances) ==0:
         print("Correct answer you have: {len(db_instances)} RDS instances.")
         grandtotal += 1
