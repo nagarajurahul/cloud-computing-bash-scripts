@@ -28,6 +28,15 @@ aws autoscaling update-auto-scaling-group \
 sleep 5
 echo "$ASGNAME autoscaling group was updated!"
 
+
+# Using a for loop as a timer
+echo "Waiting for 10 seconds..."
+for i in {10..1}; do
+    echo "Waiting... $i seconds remaining"
+    sleep 1
+done
+
+
 # Retrieve instance IDs of EC2
 # Describe EC2 instances
 # https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html
@@ -44,6 +53,13 @@ echo "Instances are terminated!"
 
 echo "*********************************************************************************************"
 
+
+# Using a for loop as a timer
+echo "Waiting for 10 seconds..."
+for i in {10..1}; do
+    echo "Waiting... $i seconds remaining"
+    sleep 1
+done
 
 
 # Finding taget group ARN
@@ -88,6 +104,13 @@ echo "Listeners deleted!"
 echo "*********************************************************************************************"
 
 
+# Using a for loop as a timer
+echo "Waiting for 10 seconds..."
+for i in {10..1}; do
+    echo "Waiting... $i seconds remaining"
+    sleep 1
+done
+
 # Deleting target group, and wait for it to deregister
 
 # https://awscli.amazonaws.com/v2/documentation/api/latest/reference/elbv2/delete-target-group.html
@@ -117,12 +140,28 @@ echo "Waiting for load-balancer to be deleted..."
 aws elbv2 wait load-balancers-deleted --load-balancer-arns $ELBARN
 echo "Load balancers deleted!"
 
+
+# Using a for loop as a timer
+echo "Waiting for 10 seconds..."
+for i in {10..1}; do
+    echo "Waiting... $i seconds remaining"
+    sleep 1
+done
+
+
 echo "*********************************************************************************************"
 echo "Deleting $ASGNAME auto scaling group now"
 
 
 aws autoscaling suspend-processes \
     --auto-scaling-group-name $ASGNAME
+
+# Using a for loop as a timer
+echo "Waiting for 10 seconds..."
+for i in {10..1}; do
+    echo "Waiting... $i seconds remaining"
+    sleep 1
+done
 
 aws autoscaling delete-auto-scaling-group \
     --auto-scaling-group-name $ASGNAME
@@ -151,6 +190,8 @@ aws ec2 delete-launch-template \
     --launch-template-name $LTNAME
 
 echo "$LTNAME launch configuration was deleted!"
+
+
 
 
 echo "*********************************************************************************************"
