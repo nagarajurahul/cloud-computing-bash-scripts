@@ -530,6 +530,7 @@ const listSqsQueueURL = async(req,res) => {
   const command = new ListQueuesCommand(input);
   try {
   const response = await client.send(command);
+  // Error in line 533 36
   console.log(response['QueueUrls'][0]);
   return response['QueueUrls'][0];
   } catch (err) {
@@ -551,6 +552,7 @@ const input = { // SendMessageRequest
 };
 const command = new SendMessageCommand(input);
 try {
+   // Error in line 554 18
 const response = await client.send(command);
 return response;
 } catch (err) {
