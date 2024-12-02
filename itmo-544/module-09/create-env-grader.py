@@ -353,12 +353,19 @@ for bucket in response['Buckets']:
 ##############################################################################
 print('*' * 79)
 print("Testing for the correct HTTP status (200) response from the webserver via the ELB URL...")
+
+if(len(responseELB['LoadBalancers'])==0):
+    print("Can't check as there are no Load Balancers")
+    currentPoints()
+    exit
+
 # https://pypi.org/project/tqdm/
 for i in tqdm(range(30)):
   time.sleep(1)
 
 
 checkHttpReturnStatusMismatch = False
+
 print("http://" + responseELB['LoadBalancers'][0]['DNSName'])
 try:
   res=requests.get("http://" + responseELB['LoadBalancers'][0]['DNSName'])
