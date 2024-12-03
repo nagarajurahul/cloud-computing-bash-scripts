@@ -59,7 +59,18 @@ JSON="{
     \"UserData\": \"$BASECONVERT\",
     \"Placement\": {
         \"AvailabilityZone\": \"${10}\"
-    }
+    },
+    \"TagSpecifications\": [
+        {
+            \"ResourceType\": \"instance\",
+            \"Tags\": [
+                {
+                    \"Key\": \"Name\",
+                    \"Value\": \"${13}\"
+                }
+            ]
+        }
+    ]
 }"
 
 #,\"TagSpecifications\":[{\"ResourceType\":\"instance\",\"Tags\":[{\"Key\":\"module\",\"Value\": \"${7}\" }]}]
