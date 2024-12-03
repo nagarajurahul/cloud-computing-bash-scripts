@@ -270,6 +270,8 @@ echo "**************************************************************************
 
 echo "Creating db subnet groups now..."
 
+# https://docs.aws.amazon.com/cli/latest/reference/rds/create-db-subnet-group.html
+
 aws rds create-db-subnet-group \
     --db-subnet-group-name "${19}-subnet-group" \
     --db-subnet-group-description "My DB Subnet Group" \
@@ -279,6 +281,9 @@ echo "**************************************************************************
 
 
 echo "Pulling db security groups now..."
+
+
+# https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-security-groups.html
 
 RDS_SG=$(aws ec2 describe-security-groups \
     --filters "Name=group-name,Values=sql-security-group" \
@@ -294,7 +299,9 @@ echo "**************************************************************************
 echo "*********************************************************************************************"
 echo "Pulling snapshots now..."
 
-# Get the DB Snapshot identifier dynamically from AWS CLI
+# Get the DB Snapshot identifier
+# https://docs.aws.amazon.com/cli/latest/reference/rds/describe-db-snapshots.html
+
 SNAPSHOT_ID=$(aws rds describe-db-snapshots \
     --query "DBSnapshots[?Status=='available'] | [-1].DBSnapshotIdentifier" \
     --output text)
@@ -303,7 +310,6 @@ echo "**************************************************************************
 echo "Using Snapshot: $SNAPSHOT_ID"
 echo "*********************************************************************************************"
 
-# Ensure we are getting a valid snapshot
 if [ "$SNAPSHOT_ID" == "None" ]; then
     echo "No available snapshot found!"
     exit 1
@@ -312,7 +318,6 @@ fi
 
 
 
-# Set the new DB instance identifier
 DB_INSTANCE_ID="${19}"
 
 # Create the new DB instance from the snapshot (Free Tier eligible settings)
@@ -331,6 +336,9 @@ echo "Creating a new DB instance from the snapshot now..."
 #     --master-username controller \
 #     --manage-master-user-password
 
+
+# https://docs.aws.amazon.com/cli/latest/reference/rds/restore-db-instance-from-db-snapshot.html
+
 aws rds restore-db-instance-from-db-snapshot \
     --db-instance-identifier $DB_INSTANCE_ID \
     --db-snapshot-identifier $SNAPSHOT_ID \
@@ -343,8 +351,13 @@ echo "**************************************************************************
 echo "Waiting for the DB instance to be available..."
 
 # Wait for the DB instance to be available
+# https://docs.aws.amazon.com/cli/latest/reference/rds/wait/db-instance-available.html
+
 aws rds wait db-instance-available \
     --db-instance-identifier $DB_INSTANCE_ID
+
+
+# https://docs.aws.amazon.com/cli/latest/reference/rds/modify-db-instance.html
 
 echo "*********************************************************************************************"
 aws rds modify-db-instance \
@@ -361,6 +374,7 @@ echo "**************************************************************************
 # S3 Script
 
 # https://docs.aws.amazon.com/cli/latest/reference/s3api/create-bucket.html
+
 # https://docs.aws.amazon.com/cli/latest/reference/s3api/head-bucket.html
 
 # Function to check if an S3 bucket exists and create it if it does not
@@ -418,6 +432,7 @@ aws s3api list-buckets --query "Buckets[].Name"
 
 
 # https://docs.aws.amazon.com/cli/latest/reference/s3api/put-bucket-policy.html
+
 # https://docs.aws.amazon.com/cli/latest/reference/s3api/put-public-access-block.html
 
 aws s3api put-public-access-block --bucket ${21} \
