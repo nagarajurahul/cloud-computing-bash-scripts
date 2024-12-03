@@ -34,6 +34,8 @@ const {
   SQSClient,
   GetQueueUrlCommand,
   SendMessageCommand,
+  ReceiveMessageCommand,
+  DeleteMessageCommand,
   ListQueuesCommand,
 } = require("@aws-sdk/client-sqs")
 
@@ -561,6 +563,52 @@ return response;
 
 };
 
+
+const receiveMessageFromQueue = async (req, res) => {
+console.log("Recieve Message...");
+let sqsQueueURL = await listSqsQueueURL(req, res);
+const client = new SQSClient( {region: REGION });
+const params = { // Receive Message
+  QueueUrl: sqsQueueURL, // required
+   MaxNumberOfMessages: 10,
+    WaitTimeSeconds: 5, 
+};
+const command = new ReceiveMessageCommand(params);
+try {
+const response = await client.send(command);
+if (response.Messages) {
+  console.log("Received Messages:", response.Messages);
+  // return response.Messages;
+} else {
+  console.log("No messages received");
+  return [];
+}
+return response;
+} catch (err) {
+  console.error(err)
+}
+
+};
+
+const deleteMessage = async (req,res,receiptHandle) => {
+  console.log("Recieve Message...");
+  let sqsQueueURL = await listSqsQueueURL(req, res);
+  const client = new SQSClient( {region: REGION });
+  const params = {
+    QueueUrl: sqsQueueURL,
+    ReceiptHandle: receiptHandle,
+  };
+
+  try {
+    const command = new DeleteMessageCommand(params);
+    await sqs.send(command);
+    console.log("Message deleted successfully");
+  } catch (err) {
+    console.error("Error deleting message:", err);
+  }
+};
+
+
 ////////////////////////////////////////////////////////////////////////////////
 // Request to index.html or / express will match this route and render this page
 //
@@ -589,17 +637,40 @@ app.get("/", function (req, res) {
         // add SQS message here, includes DB record UUID,
       });
 
-      // Example route for subscribing email to SNS
-      app.post("/subscribe", async (req, res) => {
+      // // Example route for subscribing email to SNS
+      // app.post("/subscribe", async (req, res) => {
+      //   try {
+      //     await subscribeEmailToSNSTopic(req, res); // Subscribe email to SNS topic
+      //     res.send("Email subscribed successfully!");
+      //   } catch (error) {
+      //     console.error("Error subscribing email:", error);
+      //     res.status(500).send("Failed to subscribe email");
+      //   }
+      // });
+      
+
+      app.get("/receive-messages", async (req, res) => {
+
         try {
-          await subscribeEmailToSNSTopic(req, res); // Subscribe email to SNS topic
-          res.send("Email subscribed successfully!");
-        } catch (error) {
-          console.error("Error subscribing email:", error);
-          res.status(500).send("Failed to subscribe email");
+          const response = await receiveMessageFromQueue(req,res);
+          const messages=response.Messages;
+          
+          if (messages.length > 0) {
+            // Example: Process the first message
+            const message = messages[0];
+            console.log("Processing message:", message.Body);
+
+            // Delete after processing
+            await deleteMessage(queueUrl, message.ReceiptHandle);
+          }
+
+          res.json({ messages });
+        } catch (err) {
+          res.status(500).send("Error receiving messages");
         }
       });
-      
+
+
       app.get("/ip", function (req, res) {
         res.write(req.ip);
       });

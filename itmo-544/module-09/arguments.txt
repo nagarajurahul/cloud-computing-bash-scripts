@@ -21,6 +21,7 @@ fall2025-itmo544-profile
 rnagaraju-raw-bucket
 rnagaraju-finished-bucket
 rn-ec2-application-sns-topic
+rn-ec2-application-sqs-queue
 # ${1} ami-085f9c64a9b75eed5
 # ${2} t2.micro
 # ${3} itmo-544-2024
@@ -44,3 +45,4 @@ rn-ec2-application-sns-topic
 # ${21} S3 Bucket Raw
 # ${22} S3 Bucket Finished
 # ${23} SNS Topic
+# ${23} SQS Queue
