@@ -350,6 +350,9 @@ echo "**************************************************************************
 
 # S3 Script
 
+# https://docs.aws.amazon.com/cli/latest/reference/s3api/create-bucket.html
+# https://docs.aws.amazon.com/cli/latest/reference/s3api/head-bucket.html
+
 # Function to check if an S3 bucket exists and create it if it does not
 create_bucket_if_not_exists() {
     local BUCKET_NAME=$1
@@ -395,12 +398,17 @@ create_bucket_if_not_exists "$FIRST_BUCKET_NAME" "$REGION"
 echo "*********************************************************************************************"
 create_bucket_if_not_exists "$SECOND_BUCKET_NAME" "$REGION"
 
+
+# https://docs.aws.amazon.com/cli/latest/reference/s3api/list-buckets.html
+
 echo "*********************************************************************************************"
 # Verify buckets were created
 echo "Listing all S3 buckets..."
 aws s3api list-buckets --query "Buckets[].Name"
 
 
+# https://docs.aws.amazon.com/cli/latest/reference/s3api/put-bucket-policy.html
+# https://docs.aws.amazon.com/cli/latest/reference/s3api/put-public-access-block.html
 
 aws s3api put-public-access-block --bucket ${21} \
     --public-access-block-configuration "BlockPublicPolicy=false"
@@ -408,6 +416,8 @@ aws s3api put-public-access-block --bucket ${21} \
 aws s3api put-bucket-policy --bucket ${21} \
     --policy file://raw-bucket-policy.json
 
+
+# https://docs.aws.amazon.com/cli/latest/reference/sns/create-topic.html
 
 echo "*********************************************************************************************"
 echo "Creating SNS topic now..."
