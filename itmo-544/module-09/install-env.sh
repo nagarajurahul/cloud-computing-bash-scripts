@@ -75,90 +75,90 @@ sudo pm2 start app.js
 
 
 
-##############################################################################
-# Install and Configure CloudWatch Agent
-##############################################################################
+# ##############################################################################
+# # Install and Configure CloudWatch Agent
+# ##############################################################################
 
-# Install the CloudWatch Agent
-sudo apt-get install -y amazon-cloudwatch-agent
+# # Install the CloudWatch Agent
+# sudo apt-get install -y amazon-cloudwatch-agent
 
-# Create CloudWatch Agent configuration
-cat <<EOF | sudo tee /opt/aws/amazon-cloudwatch-agent/etc/config.json
-{
-  "metrics": {
-    "append_dimensions": {
-      "AutoScalingGroupName": "${aws:AutoScalingGroupName}",
-      "InstanceId": "${aws:InstanceId}"
-    },
-    "aggregation_dimensions": [["AutoScalingGroupName"]],
-    "metrics_collected": {
-      "nginx": {
-        "collection_interval": 60,
-        "metrics_collection": {
-          "connections_active": true,
-          "connections_accepted": true,
-          "connections_handled": true,
-          "requests": true
-        }
-      },
-      "statsd": {
-        "service_address": ":8125"
-      }
-    }
-  },
-  "logs": {
-    "logs_collected": {
-      "files": {
-        "collect_list": [
-          {
-            "file_path": "/var/log/messages",
-            "log_group_name": "system-logs",
-            "log_stream_name": "{instance_id}"
-          },
-          {
-            "file_path": "/var/log/nginx/access.log",
-            "log_group_name": "nginx-access-logs",
-            "log_stream_name": "{instance_id}"
-          },
-          {
-            "file_path": "/var/log/nginx/error.log",
-            "log_group_name": "nginx-error-logs",
-            "log_stream_name": "{instance_id}"
-          },
-          {
-            "file_path": "/root/.pm2/logs/*.log",
-            "log_group_name": "pm2-logs",
-            "log_stream_name": "{instance_id}/pm2-out-stream"
-          },
-          {
-            "file_path": "/root/.pm2/logs/*-error.log",
-            "log_group_name": "pm2-logs",
-            "log_stream_name": "{instance_id}/pm2-error-stream"
-          }
-        ]
-      }
-    }
-  }
-}
+# # Create CloudWatch Agent configuration
+# cat <<EOF | sudo tee /opt/aws/amazon-cloudwatch-agent/etc/config.json
+# {
+#   "metrics": {
+#     "append_dimensions": {
+#       "AutoScalingGroupName": "${aws:AutoScalingGroupName}",
+#       "InstanceId": "${aws:InstanceId}"
+#     },
+#     "aggregation_dimensions": [["AutoScalingGroupName"]],
+#     "metrics_collected": {
+#       "nginx": {
+#         "collection_interval": 60,
+#         "metrics_collection": {
+#           "connections_active": true,
+#           "connections_accepted": true,
+#           "connections_handled": true,
+#           "requests": true
+#         }
+#       },
+#       "statsd": {
+#         "service_address": ":8125"
+#       }
+#     }
+#   },
+#   "logs": {
+#     "logs_collected": {
+#       "files": {
+#         "collect_list": [
+#           {
+#             "file_path": "/var/log/messages",
+#             "log_group_name": "system-logs",
+#             "log_stream_name": "{instance_id}"
+#           },
+#           {
+#             "file_path": "/var/log/nginx/access.log",
+#             "log_group_name": "nginx-access-logs",
+#             "log_stream_name": "{instance_id}"
+#           },
+#           {
+#             "file_path": "/var/log/nginx/error.log",
+#             "log_group_name": "nginx-error-logs",
+#             "log_stream_name": "{instance_id}"
+#           },
+#           {
+#             "file_path": "/root/.pm2/logs/*.log",
+#             "log_group_name": "pm2-logs",
+#             "log_stream_name": "{instance_id}/pm2-out-stream"
+#           },
+#           {
+#             "file_path": "/root/.pm2/logs/*-error.log",
+#             "log_group_name": "pm2-logs",
+#             "log_stream_name": "{instance_id}/pm2-error-stream"
+#           }
+#         ]
+#       }
+#     }
+#   }
+# }
 
-EOF
+# EOF
 
-# Start the CloudWatch Agent
-sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
-    -a fetch-config \
-    -m ec2 \
-    -c file:/opt/aws/amazon-cloudwatch-agent/etc/config.json \
-    -s
+# # Start the CloudWatch Agent
+# sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
+#     -a fetch-config \
+#     -m ec2 \
+#     -c file:/opt/aws/amazon-cloudwatch-agent/etc/config.json \
+#     -s
 
-# Debugging purposes
-echo "CloudWatch Agent installation and configuration completed."
+# # Debugging purposes
+# echo "CloudWatch Agent installation and configuration completed."
 
-# Finish
-echo "Setup completed."
+# # Finish
+# echo "Setup completed."
 
 
-        #  {
-        #     "file_path": "/path/to/your/javascript/app.log",
-        #     "log_group_name": "javascript-app-logs",
-        #     "log_stream_name": "{instance_id}"
-        #   }
+#         #  {
+#         #     "file_path": "/path/to/your/javascript/app.log",
+#         #     "log_group_name": "javascript-app-logs",
+#         #     "log_stream_name": "{instance_id}"
+#         #   }
