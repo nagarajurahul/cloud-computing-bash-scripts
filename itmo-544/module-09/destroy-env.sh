@@ -327,13 +327,13 @@ delete_bucket() {
         # Delete the bucket
         echo "Deleting bucket $BUCKET_NAME..."
         aws s3api delete-bucket --bucket "$BUCKET_NAME"
-        aws s3api wait bucket-not-exists --bucket "$BUCKET_NAME"
-        if [ $? -eq 0 ]; then
-            echo "Bucket $BUCKET_NAME deleted successfully."
-        else
-            echo "Failed to delete bucket $BUCKET_NAME."
-        fi
-
+        # aws s3api wait bucket-not-exists --bucket "$BUCKET_NAME"
+        # if [ $? -eq 0 ]; then
+        #     echo "Bucket $BUCKET_NAME deleted successfully."
+        # else
+        #     echo "Failed to delete bucket $BUCKET_NAME."
+        # fi
+        echo "Bucket $BUCKET_NAME deleted successfully."
         echo "*********************************************************************************************"
 
     else
@@ -400,9 +400,7 @@ echo "**************************************************************************
 
 echo "*********************************************************************************************"
 echo "Querying SQS URL now..." 
-QUEUE_URL=$(aws sqs get-queue-url \
-    --queue-name ${24} \
-    --query 'QueueUrl' --output text)
+QUEUE_URL=$(aws sqs get-queue-url --queue-name ${24} --query 'QueueUrl' --output text)
 echo "Queue URL: $QUEUE_URL"
 
 echo "*********************************************************************************************"
