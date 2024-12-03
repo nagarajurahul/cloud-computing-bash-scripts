@@ -303,20 +303,32 @@ delete_bucket() {
         echo "Bucket $BUCKET_NAME exists. Deleting all objects..."
         echo "*********************************************************************************************"
 
-        # Delete all objects in the bucket
-        aws s3 rm "s3://$BUCKET_NAME" --recursive
-        if [ $? -eq 0 ]; then
-            echo "All objects in $BUCKET_NAME deleted successfully."
-        else
-            echo "Failed to delete objects in $BUCKET_NAME."
-            return 1
-        fi
+        # # Delete all objects in the bucket
+        # aws s3 rm "s3://$BUCKET_NAME" --recursive
+        # if [ $? -eq 0 ]; then
+        #     echo "All objects in $BUCKET_NAME deleted successfully."
+        # else
+        #     echo "Failed to delete objects in $BUCKET_NAME."
+        #     return 1
+        # fi
         
+        MYKEYS=$(aws s3api list-objects --bucket $BUCKET_NAME --query 'Contents[*].Key')
+        MYKEYS_ARRAY=($MYKEYS)
+        for k in "${MYKEYS_ARRAY[@]}"
+        do
+        aws s3api delete-object --bucket $BUCKET_NAME --key $k --no-cli-pager
+        aws s3api wait object-not-exists --bucket $BUCKET_NAME --key $k --no-cli-pager
+        done
+        done
+        echo "S3 Bucket Keys deleted"
+
+
         echo "*********************************************************************************************"
 
         # Delete the bucket
         echo "Deleting bucket $BUCKET_NAME..."
         aws s3api delete-bucket --bucket "$BUCKET_NAME"
+        aws s3api wait bucket-not-exists --bucket "$BUCKET_NAME"
         if [ $? -eq 0 ]; then
             echo "Bucket $BUCKET_NAME deleted successfully."
         else
@@ -329,14 +341,6 @@ delete_bucket() {
         echo "Bucket $BUCKET_NAME does not exist or cannot be accessed."
     fi
 }
-
-# # Bucket names from arguments
-# FIRST_BUCKET_NAME=${21}
-# SECOND_BUCKET_NAME=${22}
-
-# delete_bucket "$FIRST_BUCKET_NAME"
-
-# delete_bucket "$SECOND_BUCKET_NAME"
 
 echo "*********************************************************************************************"
 echo "Fecthing buckets...."
