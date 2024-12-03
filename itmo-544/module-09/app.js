@@ -100,9 +100,13 @@ const listObjects = async (req,res) => {
 		const results = await client.send(command);
 		console.log("List Objects Results: ", results);
         var url=[];
-        for (let i = 0; i < results.Contents.length; i++) {
-                url.push("https://" + results.Name + ".s3.amazonaws.com/" + results.Contents[i].Key);
-        }        
+        if (results.Contents && results.Contents.length > 0) {
+          for (let i = 0; i < results.Contents.length; i++) {
+                  url.push("https://" + results.Name + ".s3.amazonaws.com/" + results.Contents[i].Key);
+          }      
+        } else {
+            console.log("No objects found in the bucket.");
+        }  
 		console.log("URL: " , url);
 		return url;
 	} catch (err) {
@@ -654,7 +658,7 @@ app.get("/", function (req, res) {
         try {
           const response = await receiveMessageFromQueue(req,res);
           const messages=response.Messages;
-          
+
           if (messages.length > 0) {
             // Example: Process the first message
             const message = messages[0];
