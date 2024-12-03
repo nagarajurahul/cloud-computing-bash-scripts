@@ -120,7 +120,7 @@ echo "Deleting Target Group now..."
 
 aws elbv2 delete-target-group --target-group-arn $TGARN
 # Error here because it's already deleted!
-aws elbv2 wait target-deregistered --target-group-arn $TGARN
+# aws elbv2 wait target-deregistered --target-group-arn $TGARN
 
 echo "Target groups deleted!"
 echo "*********************************************************************************************"
