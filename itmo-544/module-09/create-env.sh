@@ -434,12 +434,4 @@ echo "Creating SQS queue now..."
 aws sqs create-queue \
     --queue-name ${24}
 
-# https://docs.aws.amazon.com/cli/latest/reference/sqs/get-queue-url.html
-
-echo "*********************************************************************************************"
-QUEUE_URL=$(aws sqs get-queue-url \
-    --queue-name ${24} \
-    --query 'QueueUrl' --output text)
-echo "Queue URL: $QUEUE_URL"
-
 echo "*********************************************************************************************"
