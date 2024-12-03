@@ -295,7 +295,7 @@ for bucket in response['Buckets']:
     else:
         print("Both vegeta.jpg and knuth.jpg are missing from your S3 buckets.")
 
-    currentPoints()
+currentPoints()
 
 
 
