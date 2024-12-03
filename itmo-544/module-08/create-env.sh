@@ -131,6 +131,16 @@ aws autoscaling create-auto-scaling-group \
 
 sleep 5
 
+# Using a for loop as a timer
+echo "*********************************************************************************************"
+echo "Waiting for 10 seconds..."
+for i in {10..1}; do
+    echo "Waiting... $i seconds remaining"
+    sleep 1
+done
+echo "*********************************************************************************************"
+
+
 EC2IDS=$(aws ec2 describe-instances \
     --output=text \
     --query='Reservations[*].Instances[*].InstanceId' --filter Name=instance-state-name,Values=pending,running)
