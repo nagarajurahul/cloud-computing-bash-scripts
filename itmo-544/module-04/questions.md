@@ -16,7 +16,7 @@ For example: Backend servers, Frontend servers and Database servers
 `Client-Server Model`: Here clients send requests to a server, which processes them and sends back a response. The server is the provider of resources or services.
 Example: A web browser (client) sends requests to a web server, which serves the content (web pages).
 
-`Peer-to-Peer (P2P) Model`:Every participant (node) can act as both a client and a server. This decentralized approach allows for more flexibility and often better scalability.
+`Peer-to-Peer (P2P) Model`:Every participant (node) can act as both a client and a server. This decentralized approach allows for more flexibility and better scalability.
 Example: File-sharing systems like BitTorrent.
 
 `Publish-Subscribe Model`: A message broker receives messages from publishers and forwards them to subscribers who have expressed interest in receiving such messages.
