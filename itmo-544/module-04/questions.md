@@ -112,6 +112,8 @@ There are many ways, but we can generally estimate through
 
 9. In Section 1.7 three design ideas are presented for how to process email deletion requests. Estimate how long the request will take for deleting an email message for each of the three?  Use the updated numbers from the book located at: [Numbers Every Developer Needs to know](https://colin-scott.github.io/personal_website/research/interactive_latency.html "Link to numbers every developer needs to know") - update of Figure 1.10 in the book. SHOW WORK!
 
+---
+
 ### Three Design Ideas for Email Deletion
 
 #### 1. Direct Deletion
