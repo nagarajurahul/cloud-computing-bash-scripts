@@ -10,7 +10,7 @@ rn-tg
 us-east-2a
 us-east-2b
 us-east-2c
-module-06
+module-09
 rn-auto-scaling-ec2
 rn-launch-template-for-ec2
 2
