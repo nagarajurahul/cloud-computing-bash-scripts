@@ -152,6 +152,7 @@ echo "**************************************************************************
 echo "*********************************************************************************************"
 echo "Deleting $ASGNAME auto scaling group now"
 
+# https://docs.aws.amazon.com/cli/latest/reference/autoscaling/suspend-processes.html
 
 aws autoscaling suspend-processes \
     --auto-scaling-group-name $ASGNAME
@@ -167,6 +168,7 @@ for i in {10..1}; do
 done
 echo "*********************************************************************************************"
 
+# https://docs.aws.amazon.com/cli/latest/reference/autoscaling/delete-auto-scaling-group.html
 
 aws autoscaling delete-auto-scaling-group \
     --auto-scaling-group-name $ASGNAME
@@ -176,9 +178,10 @@ echo "$ASGNAME autoscaling group was deleted!"
 
 # Find the launch configuration template
 # https://docs.aws.amazon.com/cli/latest/reference/autoscaling/describe-launch-configurations.html
+# https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-launch-templates.html
 
 echo "*********************************************************************************************"
-echo "Retrieving launch configuration name..."
+echo "Retrieving launch template name..."
 
 LTNAME=$(aws ec2 describe-launch-templates --output=text --query='LaunchTemplates[*].LaunchTemplateName')
 
@@ -189,6 +192,7 @@ echo "**************************************************************************
 # Delete the launch configuration template file
 
 # https://docs.aws.amazon.com/cli/latest/reference/autoscaling/delete-launch-configuration.html
+# https://docs.aws.amazon.com/cli/latest/reference/ec2/delete-launch-template.html
 
 echo "Deleting $LTNAME launch template..."
 
@@ -203,7 +207,8 @@ echo "$LTNAME launch configuration was deleted!"
 echo "*********************************************************************************************"
 echo "Fetching DB subnet groups..."
 
-# Fetch associated DB Subnet Group dynamically
+# https://docs.aws.amazon.com/cli/latest/reference/rds/describe-db-subnet-groups.html
+
 DB_SUBNET_GROUP=$(aws rds describe-db-subnet-groups \
     --query "DBSubnetGroups[?DBSubnetGroupName!=''].DBSubnetGroupName" \
     --output text)
@@ -221,7 +226,8 @@ echo "Found DB subnet group(s): $DB_SUBNET_GROUP"
 echo "*********************************************************************************************"
 echo "Fetching DB instance identifier..."
 
-# Fetch the DB instance identifier dynamically
+# https://docs.aws.amazon.com/cli/latest/reference/rds/describe-db-instances.html
+
 DB_INSTANCE_ID=$(aws rds describe-db-instances \
     --query "DBInstances[0].DBInstanceIdentifier" \
     --output text)
@@ -238,12 +244,16 @@ echo "Found DB instance: $DB_INSTANCE_ID"
 echo "*********************************************************************************************"
 echo "Deleting db-instances now..."
 
+# https://docs.aws.amazon.com/cli/latest/reference/rds/delete-db-instance.html
+
 aws rds delete-db-instance \
     --db-instance-identifier $DB_INSTANCE_ID \
     --skip-final-snapshot
 
 echo "*********************************************************************************************"
 echo "Waiting for db-instances to be deleted..."
+
+# https://docs.aws.amazon.com/cli/latest/reference/rds/wait/db-instance-deleted.html
 
 aws rds wait db-instance-deleted \
     --db-instance-identifier $DB_INSTANCE_ID
@@ -254,6 +264,9 @@ echo "DB-Instances are deleted!!"
 
 echo "*********************************************************************************************"
 echo "Deleting DB subnet groups now..."
+
+# https://docs.aws.amazon.com/cli/latest/reference/rds/delete-db-subnet-group.html
+
 
 # Loop through and delete each DB subnet group
 for SUBNET_GROUP in $DB_SUBNET_GROUP; do
@@ -277,6 +290,9 @@ echo "**************************************************************************
 # Destroy S3 added here
 
 # Function to delete an S3 bucket and all its contents
+# https://docs.aws.amazon.com/cli/latest/reference/s3api/head-bucket.html
+# https://docs.aws.amazon.com/cli/latest/reference/s3api/delete-bucket.html
+
 delete_bucket() {
     
     local BUCKET_NAME=$1
@@ -325,6 +341,8 @@ delete_bucket() {
 echo "*********************************************************************************************"
 echo "Fecthing buckets...."
 
+# https://docs.aws.amazon.com/cli/latest/reference/s3api/list-buckets.html
+
 # Retrieve a list of all bucket names
 BUCKETS=$(aws s3api list-buckets --query "Buckets[].Name" --output text)
 
@@ -344,6 +362,8 @@ aws s3api list-buckets --query "Buckets[].Name"
 echo "*********************************************************************************************"
 echo "Retrieving all SNS topics..."
 
+# https://docs.aws.amazon.com/cli/latest/reference/sns/list-topics.html
+
 # List all SNS topics
 TOPICS=$(aws sns list-topics --query "Topics[].TopicArn" --output text)
 
@@ -355,6 +375,8 @@ echo "**************************************************************************
 
 echo "*********************************************************************************************"
 echo "Deleting SNS topic now..."
+
+# https://docs.aws.amazon.com/cli/latest/reference/sns/delete-topic.html
 
 # Iterate over each topic and delete it
 for TOPIC in $TOPICS; do
@@ -369,3 +391,6 @@ for TOPIC in $TOPICS; do
 done
 
 echo "*********************************************************************************************"
+
+
+# https://docs.aws.amazon.com/cli/latest/reference/sqs/delete-queue.html
